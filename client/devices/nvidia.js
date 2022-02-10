@@ -70,14 +70,17 @@ function parseUnit(val){
 
 function standardGpuData(gpu){
 	var out = {}
-	out.usage = parseFloat(gpu?.utilization?.gpu_util)
+	
+	out.core = {}
+	out.core.usage = parseFloat(gpu?.utilization?.gpu_util)
 	
 	out.name = gpu?.product_name
 	
 	out.memory = {}
-	out.memory.usage = parseFloat(gpu?.utilization?.memory_util)
+	//out.memory.usage = parseFloat(gpu?.utilization?.memory_util)
 	out.memory.bytes = parseUnit(gpu?.fb_memory_usage?.used)
 	out.memory.bytes_total = parseUnit(gpu?.fb_memory_usage?.total)
+	out.memory.usage = out.memory.bytes / out.memory.bytes_total * 100
 	
 	out.power = {}
 	out.power.watts = parseFloat(gpu?.power_readings?.power_draw)

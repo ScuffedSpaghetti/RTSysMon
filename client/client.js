@@ -19,13 +19,17 @@ function recursiveRecordTotal(totalObj, obj){
 			totalObj[x].numbers.push(val)
 		}
 		if(typeof val == "object"){
-			totalObj[x] = totalObj[x] || {type:"object", object:{}}
+			if(val instanceof Array){
+				totalObj[x] = totalObj[x] || {type:"array", object:[]}
+			}else{
+				totalObj[x] = totalObj[x] || {type:"object", object:{}}
+			}
 			recursiveRecordTotal(totalObj[x].object, val)
 		}
 	}
 }
 
-function recursiveFinalTotal(totalRecordObj, total){
+function recursiveFinalTotal(totalRecordObj, total, settings){
 	for(var x in totalRecordObj){
 		var val = totalRecordObj[x]
 		if(val.type == "string"){
@@ -47,23 +51,32 @@ function recursiveFinalTotal(totalRecordObj, total){
 			}else{
 				total[x] = val.numbers[0]
 			}
+			if(settings.maxPrecision > -1){
+				var mult = Math.pow(10,settings.maxPrecision)
+				total[x] = Math.round(total[x] * mult) / mult
+			}
 		}
 		if(val.type == "object"){
 			total[x] = {}
-			recursiveFinalTotal(val.object,total[x])
+			recursiveFinalTotal(val.object,total[x], settings)
+		}
+		if(val.type == "array"){
+			total[x] = []
+			recursiveFinalTotal(val.object,total[x], settings)
 		}
 	}
 }
 
-
-function averageObjects(arr){
+function averageObjects(arr,settings){
+	settings = settings || {}
+	
 	var totalRecordObj = {}
 	for(var x in arr){
 		recursiveRecordTotal(totalRecordObj, arr[x])
 	}
 	var total = {}
 	//console.log(totalRecordObj)
-	recursiveFinalTotal(totalRecordObj, total)
+	recursiveFinalTotal(totalRecordObj, total, settings)
 	return total
 }
 

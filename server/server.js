@@ -50,7 +50,7 @@ wsServer.on("connection",(socket,req)=>{
 			}
 		}
 		
-		//console.log(obj)
+		console.log(obj)
 	})
 	function close(){
 		if(endpoint){

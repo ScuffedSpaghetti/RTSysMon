@@ -16,7 +16,11 @@ function recursiveRecordTotal(totalObj, obj){
 			totalObj[x].numbers.push(val)
 		}
 		if(typeof val == "object"){
-			totalObj[x] = totalObj[x] || {type:"object", object:{}}
+			if(val instanceof Array){
+				totalObj[x] = totalObj[x] || {type:"array", object:[]}
+			}else{
+				totalObj[x] = totalObj[x] || {type:"object", object:{}}
+			}
 			recursiveRecordTotal(totalObj[x].object, val)
 		}
 	}
@@ -51,6 +55,10 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 		}
 		if(val.type == "object"){
 			total[x] = {}
+			recursiveFinalTotal(val.object,total[x], settings)
+		}
+		if(val.type == "array"){
+			total[x] = []
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
 	}

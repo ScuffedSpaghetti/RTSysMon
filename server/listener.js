@@ -5,7 +5,9 @@ module.exports = class Listener{
 	
 	constructor(socket,initMsg){
 		this.socket = socket
-		this.interval = setInterval(this.sendInfo, 1000)
+		this.interval = setInterval(()=>{
+			this.sendInfo()
+		}, 1000)
 	}
 	
 	sendInfo(){
@@ -16,7 +18,14 @@ module.exports = class Listener{
 	
 	sendJSON(obj){
 		if(this.socket.readyState == this.socket.OPEN){
-			this.socket.send(JSON.stringify(obj))
+			this.socket.send(JSON.stringify(obj,function(key, value) {
+				if (typeof value === 'number') {
+					var multiple = 1000
+					return Math.round(value * multiple) / multiple
+				}else{
+					return value
+				}
+			}))
 		}
 	}
 	

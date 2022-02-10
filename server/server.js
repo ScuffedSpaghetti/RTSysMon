@@ -3,7 +3,8 @@
 var WebSocket = require("ws")
 var http = require("http")
 var System = require("./system")
-const Listener = require("./listener")
+var Listener = require("./listener")
+var lightHttp = require("./lighthttp")
 
 
 var httpServer = http.createServer()
@@ -11,6 +12,9 @@ var httpServer = http.createServer()
 var wsServer = new WebSocket.Server({
 	server:httpServer
 })
+
+var webServer = lightHttp()
+webServer.add_server(httpServer)
 
 httpServer.listen(3498)
 
@@ -46,7 +50,7 @@ wsServer.on("connection",(socket,req)=>{
 			}
 		}
 		
-		console.log(obj)
+		//console.log(obj)
 	})
 	function close(){
 		if(endpoint){

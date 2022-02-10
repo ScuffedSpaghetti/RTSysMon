@@ -1,0 +1,16 @@
+scuffed UI goes here<br>
+Here is a test of the server
+<pre id="out"></pre>
+<script>
+	var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
+	websocket.onmessage = function(event){
+		var obj = JSON.parse(event.data)
+		document.getElementById("out").innerHTML = JSON.stringify(obj,null,2)
+	}
+	var initMessage = {
+		type: "init_client"
+	}
+	websocket.onopen = function(){
+		websocket.send(JSON.stringify(initMessage))
+	}
+</script>

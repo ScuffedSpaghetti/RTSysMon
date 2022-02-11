@@ -1,4 +1,6 @@
 const System = require("./system")
+const msgPack = require("@msgpack/msgpack")
+const compressJson = require("compressed-json")
 
 module.exports = class Listener{
 	
@@ -25,6 +27,13 @@ module.exports = class Listener{
 				}else{
 					return value
 				}
+			}))
+			//this.socket.send(msgPack.encode(obj))
+			var type = obj.type
+			var obj = compressJson.compress(obj)
+			obj.type = type
+			this.socket.send(msgPack.encode(obj, {
+				forceFloat32: true
 			}))
 		}
 	}

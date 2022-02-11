@@ -17,6 +17,8 @@ export default {
 	},
 	mounted(){
 		var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
+		websocket.binaryType = "arraybuffer";
+		
 		// the new function syntax resevers this and should be used in vue elements for anonymous functions
 		websocket.onmessage = (event) => {
 			if(typeof event.data == "string"){
@@ -25,13 +27,15 @@ export default {
 				this.totalDataString += event.data.length
 				
 			}else{
-				this.totalDataBuffer += event.data.length
+				console.log(event.data)
+				this.totalDataBuffer += event.data.byteLength
 			}
 			
 		}
 		var initMessage = {
 			type: "init_client"
 		}
+		
 		// with the old function syntax this is overitten and can not be accessed
 		websocket.onopen = function(){
 			websocket.send(JSON.stringify(initMessage))

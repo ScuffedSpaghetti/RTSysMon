@@ -8,7 +8,7 @@ module.exports = {
 	},
 	pages: {
 		index: {
-			name: "System Monitor",
+			title: "System Monitor",
 			entry: 'main.js',
 			template: 'public/index.html',
 		}

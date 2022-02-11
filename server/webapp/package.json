@@ -1,0 +1,30 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "vue-cli-service build",
+    "build-dev": "vue-cli-service build --mode development",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build-dev": {
+      "patterns": [
+        "./"
+      ],
+      "ignore": [
+        "dist"
+      ],
+      "quiet": false,
+      "extensions": "js,vue"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/cli-service": "^4.5.15",
+    "npm-watch": "^0.11.0",
+    "vue": "^3.2.30"
+  }
+}

@@ -15,6 +15,7 @@ var wsServer = new WebSocket.Server({
 
 var webServer = lightHttp()
 webServer.add_server(httpServer)
+webServer.web_directory = "webapp/dist"
 
 httpServer.listen(3498)
 
@@ -50,7 +51,7 @@ wsServer.on("connection",(socket,req)=>{
 			}
 		}
 		
-		console.log(obj)
+		//console.log(obj)
 	})
 	function close(){
 		if(endpoint){

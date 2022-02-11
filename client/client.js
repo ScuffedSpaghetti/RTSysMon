@@ -112,6 +112,10 @@ async function queryDevices(devices,options){
 		if(options.individual !== false){
 			devInfo.individual = devInfoAll
 		}
+		if(x == "cpu"){
+			devInfo.individual=undefined
+			devInfo.individualUsage = devInfoAll.map((a) => a.usage)
+		} 
 		info[x] = devInfo
 	}
 	return info
@@ -170,7 +174,8 @@ void (async function(){
 						type:"info",
 						info:info
 					})
-				},1000)
+				//introduce some randomness to interval times so that nodes send at different times
+				},1000 - Math.random() * 100)
 				//@ts-ignore
 				websocket._socket.setKeepAlive(true, 10000)
 			}

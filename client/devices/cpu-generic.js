@@ -22,7 +22,8 @@ module.exports = class GenericCPU{
 				usage = 0
 			}
 			devices.push({
-				usage: usage
+				usage: usage,
+				model: newCpuData.model.trim()
 			})
 		}
 		this.oldCpusData = newCpusData

@@ -1,6 +1,7 @@
 const System = require("./system")
 const msgPack = require("@msgpack/msgpack")
 const compressJson = require("compressed-json")
+const zlib = require("zlib")
 
 module.exports = class Listener{
 	
@@ -32,9 +33,13 @@ module.exports = class Listener{
 			var type = obj.type
 			var obj = compressJson.compress(obj)
 			obj.type = type
-			this.socket.send(msgPack.encode(obj, {
+			var binary = msgPack.encode(obj, {
 				forceFloat32: true
-			}))
+			})
+			//may cause memory fragmentation if async
+			//more testing would be necessary to determine if gzip shows the same behavior as deflate
+			binary = zlib.gzipSync(binary)
+			this.socket.send(binary)
 		}
 	}
 	

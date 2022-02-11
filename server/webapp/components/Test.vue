@@ -9,6 +9,7 @@
 <script>
 import { decode as msgPackDecode } from "@msgpack/msgpack"
 import { decompress as decompressJson } from "compressed-json"
+import { ungzip } from "pako"
 
 
 export default {
@@ -33,11 +34,12 @@ export default {
 			if(typeof event.data == "string"){
 				this.totalDataString += event.data.length
 				var obj = JSON.parse(event.data)
-				messageHandler(obj)
+				//messageHandler(obj)
 			}else{
 				console.log(event.data)
 				this.totalDataBuffer += event.data.byteLength
-				var obj = msgPackDecode(event.data)
+				var binary = ungzip(event.data)
+				var obj = msgPackDecode(binary)
 				obj = decompressJson(obj)
 				messageHandler(obj)
 			}

@@ -7,6 +7,10 @@
 </template>
 
 <script>
+import { decode as msgPackDecode } from "@msgpack/msgpack"
+import { decompress as decompressJson } from "compressed-json"
+
+
 export default {
 	data(){ 
 		return{
@@ -19,19 +23,29 @@ export default {
 		var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
 		websocket.binaryType = "arraybuffer";
 		
+		var messageHandler = (obj) => {
+			this.text = JSON.stringify(obj,null,2)
+		}
+		
+		
 		// the new function syntax resevers this and should be used in vue elements for anonymous functions
 		websocket.onmessage = (event) => {
 			if(typeof event.data == "string"){
-				var obj = JSON.parse(event.data)
-				this.text = JSON.stringify(obj,null,2)
 				this.totalDataString += event.data.length
-				
+				var obj = JSON.parse(event.data)
+				messageHandler(obj)
 			}else{
 				console.log(event.data)
 				this.totalDataBuffer += event.data.byteLength
+				var obj = msgPackDecode(event.data)
+				obj = decompressJson(obj)
+				messageHandler(obj)
 			}
 			
 		}
+		
+		
+		
 		var initMessage = {
 			type: "init_client"
 		}

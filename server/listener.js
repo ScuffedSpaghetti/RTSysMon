@@ -28,7 +28,7 @@ module.exports = class Listener{
 					return value
 				}
 			}))
-			//this.socket.send(msgPack.encode(obj))
+			
 			var type = obj.type
 			var obj = compressJson.compress(obj)
 			obj.type = type

@@ -23,7 +23,7 @@ module.exports = class GenericCPU{
 			}
 			devices.push({
 				usage: usage,
-				model: newCpuData.model.trim()
+				model: newCpuData.model.replace(/[ \t]+/g," ").trim()
 			})
 		}
 		this.oldCpusData = newCpusData

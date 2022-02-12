@@ -4,7 +4,7 @@ var WebSocket = require("ws")
 
 var NvidiaGPU = require("./devices/nvidia")
 var GenericCPU = require("./devices/cpu-generic")
-var GenericRAM = require("./devices/Memory-generic")
+var GenericRAM = require("./devices/memory-generic")
 
 
 function recursiveRecordTotal(totalObj, obj){
@@ -47,7 +47,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 				for(var y in numbers){
 					total[x] += numbers[y]
 				}
-				total[x] /= numbers.length
+				if(!settings.addKeys || !settings.addKeys.includes(x)){
+					total[x] /= numbers.length
+				}
 			}else{
 				total[x] = val.numbers[0]
 			}
@@ -108,7 +110,9 @@ async function queryDevices(devices,options){
 	for(var x in devices){
 		var devInfoAll = await devices[x].getDeviceInfo()
 		var devInfo = {}
-		devInfo.average = averageObjects(devInfoAll)
+		devInfo.average = averageObjects(devInfoAll,{
+			addKeys:["bytes","bytes_total", "watts","watts_limit"]
+		})
 		if(options.individual !== false){
 			devInfo.individual = devInfoAll
 		}

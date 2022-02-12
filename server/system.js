@@ -44,7 +44,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 				for(var y in numbers){
 					total[x] += numbers[y]
 				}
-				total[x] /= numbers.length
+				if(!settings.addKeys || !settings.addKeys.includes(x)){
+					total[x] /= numbers.length
+				}
 			}else{
 				total[x] = val.numbers[0]
 			}
@@ -99,7 +101,15 @@ module.exports = class System{
 			for(var x in System.activeSystems){
 				individual.push(System.activeSystems[x].info)
 			}
-			var totalAverage = averageObjects(individual)
+			individual.sort((a, b) => {
+				if(a.hostname == b.hostname){
+					return 0
+				}
+				return (a.hostname < b.hostname)? 1 : -1
+			})
+			var totalAverage = averageObjects(individual,{
+				addKeys:["bytes","bytes_total", "watts","watts_limit"]
+			})
 			System.clusterInfoCache = {
 				average: totalAverage,
 				individual: individual
@@ -128,6 +138,8 @@ module.exports = class System{
 	async onMessage(obj){
 		if(obj.type == "info"){
 			this.info = obj.info
+			this.info.hostname = this.hostname
+			this.info.os = this.os
 			if(!this.initialized){
 				System.activeSystems.push(this)
 				this.initialized = true
@@ -140,7 +152,7 @@ module.exports = class System{
 			//console.log(typeof x)
 			if(System.activeSystems[x] == this){
 				//@ts-ignore
-				System.activeSystems.splice(x, x + 1)
+				System.activeSystems.splice(x, 1)
 				break
 			}
 		}

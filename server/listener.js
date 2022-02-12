@@ -42,6 +42,9 @@ module.exports = class Listener{
 			this.socket.send(binary)
 		}
 	}
+	async onMessage(obj){
+		
+	}
 	
 	remove(){
 		clearInterval(this.interval)

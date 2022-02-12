@@ -23,6 +23,7 @@ httpServer.listen(3498)
 
 wsServer.on("connection",(socket,req)=>{
 	req.socket.setKeepAlive(true, 10000)
+	/**@type {System | Listener} */
 	var endpoint = undefined
 	socket.on("message",function(msg,isBinary){
 		if(isBinary){

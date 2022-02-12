@@ -25,16 +25,18 @@ export default {
 		websocket.binaryType = "arraybuffer";
 		
 		var messageHandler = (obj) => {
-			this.text = JSON.stringify(obj,null,2)
+			if(obj.type == "info"){
+				this.text = JSON.stringify(obj,null,2)
+			}
 		}
 		
 		
-		// the new function syntax resevers this and should be used in vue elements for anonymous functions
+		// the new function syntax preserves 'this' and should be used in vue elements for anonymous functions
 		websocket.onmessage = (event) => {
 			if(typeof event.data == "string"){
 				this.totalDataString += event.data.length
 				var obj = JSON.parse(event.data)
-				//messageHandler(obj)
+				messageHandler(obj)
 			}else{
 				console.log(event.data)
 				this.totalDataBuffer += event.data.byteLength
@@ -52,7 +54,7 @@ export default {
 			type: "init_client"
 		}
 		
-		// with the old function syntax this is overitten and can not be accessed
+		// with the old function syntax 'this' is overwritten and can not be accessed
 		websocket.onopen = function(){
 			websocket.send(JSON.stringify(initMessage))
 		}

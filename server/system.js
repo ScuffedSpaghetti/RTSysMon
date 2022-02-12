@@ -84,7 +84,35 @@ function averageObjects(arr,settings){
 
 
 
-
+function alphanumSort(a, b) {
+	function chunkify(t) {
+	  var tz = new Array();
+	  var x = 0, y = -1, n = 0, i, j;
+  
+	  while (i = (j = t.charAt(x++)).charCodeAt(0)) {
+		var m = (i == 46 || (i >=48 && i <= 57));
+		if (m !== n) {
+		  tz[++y] = "";
+		  n = m;
+		}
+		tz[y] += j;
+	  }
+	  return tz;
+	}
+  
+	var aa = chunkify(a);
+	var bb = chunkify(b);
+  
+	for (x = 0; aa[x] && bb[x]; x++) {
+	  if (aa[x] !== bb[x]) {
+		var c = Number(aa[x]), d = Number(bb[x]);
+		if (c == aa[x] && d == bb[x]) {
+		  return c - d;
+		} else return (aa[x] > bb[x]) ? 1 : -1;
+	  }
+	}
+	return aa.length - bb.length;
+  }
 
 
 
@@ -102,10 +130,11 @@ module.exports = class System{
 				individual.push(System.activeSystems[x].info)
 			}
 			individual.sort((a, b) => {
-				if(a.hostname == b.hostname){
-					return 0
-				}
-				return (a.hostname < b.hostname)? 1 : -1
+				// if(a.hostname == b.hostname){
+				// 	return 0
+				// }
+				// return (a.hostname > b.hostname)? 1 : -1
+				return alphanumSort(a.hostname, b.hostname)
 			})
 			var totalAverage = averageObjects(individual,{
 				addKeys:["bytes","bytes_total", "watts","watts_limit"]

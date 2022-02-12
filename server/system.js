@@ -91,8 +91,10 @@ function alphanumSort(a, b) {
   
 	  while (i = (j = t.charAt(x++)).charCodeAt(0)) {
 		var m = (i == 46 || (i >=48 && i <= 57));
+		//@ts-ignore
 		if (m !== n) {
 		  tz[++y] = "";
+		  //@ts-ignore
 		  n = m;
 		}
 		tz[y] += j;
@@ -103,7 +105,7 @@ function alphanumSort(a, b) {
 	var aa = chunkify(a);
 	var bb = chunkify(b);
   
-	for (x = 0; aa[x] && bb[x]; x++) {
+	for (var x = 0; aa[x] && bb[x]; x++) {
 	  if (aa[x] !== bb[x]) {
 		var c = Number(aa[x]), d = Number(bb[x]);
 		if (c == aa[x] && d == bb[x]) {

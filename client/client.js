@@ -32,6 +32,9 @@ function recursiveRecordTotal(totalObj, obj){
 function recursiveFinalTotal(totalRecordObj, total, settings){
 	for(var x in totalRecordObj){
 		var val = totalRecordObj[x]
+		if(settings.ignoreKeys && settings.ignoreKeys.includes(x)){
+			continue
+		}
 		if(val.type == "string"){
 			total[x] = ""
 			var separator = ""
@@ -63,6 +66,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
 		if(val.type == "array"){
+			if(settings.ignoreSingleArrayKeys && settings.ignoreSingleArrayKeys.includes(x) && val.length <= 1){
+				continue
+			}
 			total[x] = []
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
@@ -111,9 +117,10 @@ async function queryDevices(devices,options){
 		var devInfoAll = await devices[x].getDeviceInfo()
 		var devInfo = {}
 		devInfo.average = averageObjects(devInfoAll,{
-			addKeys:["bytes","bytes_total", "watts","watts_limit"]
+			addKeys:["bytes","bytes_total", "watts","watts_limit"],
+			ignoreSingleArrayKeys:["individual"],
 		})
-		if(options.individual !== false){
+		if(options.individual !== false /*&& devInfoAll.length > 1*/){
 			devInfo.individual = devInfoAll
 		}
 		if(x == "cpu"){

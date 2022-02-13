@@ -4,6 +4,7 @@ var WebSocket = require("ws")
 
 var NvidiaGPU = require("./devices/nvidia")
 var GenericCPU = require("./devices/cpu-generic")
+var LinuxCPU = require("./devices/cpu-linux")
 var GenericRAM = require("./devices/memory-generic")
 
 
@@ -94,8 +95,15 @@ function averageObjects(arr,settings){
 
 async function getValidDevices(){
 	var devices = {}
-	
-	var cpu = new GenericCPU()
+	var cpu
+	switch(process.platform){
+		case "linux":
+			cpu = new LinuxCPU()
+		break
+		
+		default:
+			cpu = new GenericCPU()
+	}
 	devices.cpu = cpu
 	
 	var memory = new GenericRAM()

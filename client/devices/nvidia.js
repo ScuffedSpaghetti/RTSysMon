@@ -111,7 +111,10 @@ module.exports = class NvidiaGPU{
 			}
 			return devices
 		}catch(err){
-			console.error(err)
+			if(process.env.VERBOSE){
+				console.error(err)
+				console.error("Nvidia GPU not found. Check if nvidia-smi is in the path.")
+			}
 			return []
 		}
 	}

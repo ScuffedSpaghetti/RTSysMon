@@ -128,6 +128,10 @@ async function queryDevices(devices,options){
 			addKeys:["bytes","bytes_total", "watts","watts_limit"],
 			ignoreSingleArrayKeys:["individual"],
 		})
+		if(devInfo?.average?.power?.watts != undefined){
+			info.power = info.power || {watts:0}
+			info.power.watts += devInfo.average.power.watts
+		}
 		if(options.individual !== false /*&& devInfoAll.length > 1*/){
 			devInfo.individual = devInfoAll
 		}

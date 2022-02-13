@@ -62,7 +62,6 @@ function powerData(){
 					}
 				}
 				
-				console.log(data.packageWattage, data.coreWattage)
 				if(data.packageWattage != undefined || data.coreWattage != undefined){
 					data.power = data.packageWattage || data.coreWattage
 				}
@@ -71,9 +70,6 @@ function powerData(){
 			}catch(err){
 				reject(err)
 			}
-		
-			// console.log(data)
-			// console.log(standardGpuData(data.gpu[0]))
 		})
 	})
 }
@@ -91,7 +87,10 @@ module.exports = class LinuxCPU extends GenericCPU{
 		if(this.turboStatSuccess !== false){
 			try{
 				var rawData = await powerData()
-				extraData.watts = rawData.power / devices.length
+				if(rawData.power != undefined){
+					extraData.power = {}
+					extraData.power.watts = rawData.power / devices.length
+				}
 				
 				if(this.turboStatSuccess == undefined){
 					this.turboStatSuccess = rawData.power != undefined

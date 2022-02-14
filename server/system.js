@@ -29,6 +29,9 @@ function recursiveRecordTotal(totalObj, obj){
 function recursiveFinalTotal(totalRecordObj, total, settings){
 	for(var x in totalRecordObj){
 		var val = totalRecordObj[x]
+		if(settings.ignoreKeys && settings.ignoreKeys.includes(x)){
+			continue
+		}
 		if(val.type == "string"){
 			total[x] = ""
 			var separator = ""
@@ -60,6 +63,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
 		if(val.type == "array"){
+			if(settings.ignoreSingleArrayKeys && settings.ignoreSingleArrayKeys.includes(x) && val.length <= 1){
+				continue
+			}
 			total[x] = []
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
@@ -139,7 +145,8 @@ module.exports = class System{
 				return alphanumSort(a.hostname, b.hostname)
 			})
 			var totalAverage = averageObjects(individual,{
-				addKeys:["bytes","bytes_total", "watts","watts_limit"]
+				addKeys:["bytes","bytes_total", "watts","watts_limit"],
+				ignoreKeys:["individual"],
 			})
 			System.clusterInfoCache = {
 				average: totalAverage,

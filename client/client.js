@@ -4,6 +4,7 @@ var WebSocket = require("ws")
 
 var NvidiaGPU = require("./devices/nvidia")
 var GenericCPU = require("./devices/cpu-generic")
+var LinuxCPU = require("./devices/cpu-linux")
 var GenericRAM = require("./devices/memory-generic")
 
 
@@ -32,6 +33,9 @@ function recursiveRecordTotal(totalObj, obj){
 function recursiveFinalTotal(totalRecordObj, total, settings){
 	for(var x in totalRecordObj){
 		var val = totalRecordObj[x]
+		if(settings.ignoreKeys && settings.ignoreKeys.includes(x)){
+			continue
+		}
 		if(val.type == "string"){
 			total[x] = ""
 			var separator = ""
@@ -63,6 +67,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
 		if(val.type == "array"){
+			if(settings.ignoreSingleArrayKeys && settings.ignoreSingleArrayKeys.includes(x) && val.length <= 1){
+				continue
+			}
 			total[x] = []
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
@@ -88,8 +95,15 @@ function averageObjects(arr,settings){
 
 async function getValidDevices(){
 	var devices = {}
-	
-	var cpu = new GenericCPU()
+	var cpu
+	switch(process.platform){
+		case "linux":
+			cpu = new LinuxCPU()
+		break
+		
+		default:
+			cpu = new GenericCPU()
+	}
 	devices.cpu = cpu
 	
 	var memory = new GenericRAM()
@@ -111,9 +125,14 @@ async function queryDevices(devices,options){
 		var devInfoAll = await devices[x].getDeviceInfo()
 		var devInfo = {}
 		devInfo.average = averageObjects(devInfoAll,{
-			addKeys:["bytes","bytes_total", "watts","watts_limit"]
+			addKeys:["bytes","bytes_total", "watts","watts_limit"],
+			ignoreSingleArrayKeys:["individual"],
 		})
-		if(options.individual !== false){
+		if(devInfo?.average?.power?.watts != undefined){
+			info.power = info.power || {watts:0}
+			info.power.watts += devInfo.average.power.watts
+		}
+		if(options.individual !== false /*&& devInfoAll.length > 1*/){
 			devInfo.individual = devInfoAll
 		}
 		if(x == "cpu"){

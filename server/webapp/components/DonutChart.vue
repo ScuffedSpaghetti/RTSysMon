@@ -1,10 +1,10 @@
 <template>
-  <vc-donut :sections="sections">Basic donut</vc-donut>
+  <Donut :sections="sections">Basic donut</Donut>
 </template>
 
 <script>
-  import Donut from 'vue-css-donut-chart';
-  import 'vue-css-donut-chart/dist/vcdonut.css';
+  import Donut from './Donut.vue';
+  //import 'vue-css-donut-chart/dist/vcdonut.css';
 
   export default {
     data() {

@@ -1,7 +1,7 @@
 <template>
-  <ejs-accumulationchart ref="pie">
+  <ejs-accumulationchart ref="pie" :enableBorderOnMouseMove="false">
     <e-accumulation-series-collection>
-      <e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y'> </e-accumulation-series>
+      <e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="40%"> </e-accumulation-series>
     </e-accumulation-series-collection>
   </ejs-accumulationchart>
 </template>
@@ -22,13 +22,9 @@ export default {
   },
   methods: {
     updateChart(usage) {
-      // this.seriesData = [
-      //   {y: usage},
-      //   {y: 100 - usage}
-      // ]
       this.$refs.pie.ej2Instances.series[0].dataSource = [
-        {y: usage},
-        {y: 100 - usage}
+        {X: 'Used', y: usage, text: 'Used'},
+        {x: 'Free', y: 100 - usage, text: 'Free'}
       ]
       this.$refs.pie.ej2Instances.animate();
     }

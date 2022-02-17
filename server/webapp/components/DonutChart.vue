@@ -1,23 +1,22 @@
 <template>
-  <ejs-accumulationchart ref="pie" :enableBorderOnMouseMove="false">
+  <div style="display:inline-block; position:relative; width:25em; height:28em">
+    <ejs-accumulationchart ref="pie" :enableBorderOnMouseMove="false">
     <e-accumulation-series-collection>
-      <e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="40%"> </e-accumulation-series>
+      <e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="40%"></e-accumulation-series>
     </e-accumulation-series-collection>
   </ejs-accumulationchart>
+  <label class="label">{{usage.toFixed(0)}}%</label>
+  </div>
 </template>
-<script>
 
+<script>
 export default {
+  props:{
+    usage: Number
+  },
   data() {
     return {
-      seriesData: [
-            // { x: 'United States', y: 45, text: 'USA', fill: '#00226C' },
-            // { x: 'Australia', y: 53, text: 'AUS: 14%', fill: '#0450C2' },
-            // { x: 'China', y: 56, text: 'CHN', fill: '#0073DC' },
-            // { x: 'India', y: 61, text: 'IND', fill: '#0D98FF' },
-            // { x: 'Japan', y: 13, text: 'JPN', fill: '#9CD9FF' },
-            // { x: 'United Kingdom', y: 71, text: 'UK', fill: '#0450C2' }
-        ],
+      seriesData: [],
     };
   },
   methods: {
@@ -29,10 +28,25 @@ export default {
       this.$refs.pie.ej2Instances.animate();
     }
   },
-  mounted() {
-    setInterval(()=>{
-      this.updateChart(Math.random()*100)
-    }, 1000)
+  watch: {
+    usage: {
+      immediate: true,
+      handler(usage){
+        this.updateChart(usage)
+      }
+    }
   },
 };
 </script>
+
+<style scoped>
+
+.label {
+  font-size: 2em;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+</style>

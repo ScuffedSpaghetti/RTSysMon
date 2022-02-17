@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<div><DonutChart :usage="usage"/></div>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
 		<div>Total buffer data received: {{totalDataBuffer.toLocaleString()}} bytes</div>
@@ -10,12 +11,14 @@
 import { decode as msgPackDecode } from "@msgpack/msgpack"
 import { decompress as decompressJson } from "compressed-json"
 import { ungzip } from "pako"
+import DonutChart from "./DonutChart.vue"
 
 
 export default {
 	data(){ 
 		return{
 			text:"",
+			usage:0,
 			totalDataString:0,
 			totalDataBuffer:0,
 		}
@@ -24,14 +27,17 @@ export default {
 		var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
 		websocket.binaryType = "arraybuffer";
 		
+		// sets text to the JSON sting if obj is a string
 		var messageHandler = (obj) => {
 			if(obj.type == "info"){
 				this.text = JSON.stringify(obj,null,2)
+				this.usage = obj.average.cpu.average.usage
 			}
 		}
 		
 		
 		// the new function syntax preserves 'this' and should be used in vue elements for anonymous functions
+		// deals with decompressing the JSON if it is compressed
 		websocket.onmessage = (event) => {
 			if(typeof event.data == "string"){
 				this.totalDataString += event.data.length
@@ -58,6 +64,9 @@ export default {
 		websocket.onopen = function(){
 			websocket.send(JSON.stringify(initMessage))
 		}
+	},
+	components:{
+		DonutChart
 	}
 }
 </script>

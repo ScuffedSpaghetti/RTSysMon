@@ -24,7 +24,7 @@ export default {
 		DonutChart
 	},
 	provide:{
-		accumulationchart: [PieSeries]
+		// accumulationchart: [PieSeries]
 	}
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div><DonutChart :usage="usage"/></div>
+		<div><DonutChart :usage="usage" :size="50"/></div>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
 		<div>Total buffer data received: {{totalDataBuffer.toLocaleString()}} bytes</div>
@@ -31,7 +31,7 @@ export default {
 		var messageHandler = (obj) => {
 			if(obj.type == "info"){
 				this.text = JSON.stringify(obj,null,2)
-				this.usage = obj.average.cpu.average.usage
+				this.usage = obj.average.cpu.average.usage * 4
 			}
 		}
 		
@@ -44,7 +44,7 @@ export default {
 				var obj = JSON.parse(event.data)
 				messageHandler(obj)
 			}else{
-				console.log(event.data)
+				//console.log(event.data)
 				this.totalDataBuffer += event.data.byteLength
 				var binary = ungzip(event.data)
 				var obj = msgPackDecode(binary)

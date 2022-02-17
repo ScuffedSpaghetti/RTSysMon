@@ -21,14 +21,14 @@ module.exports = class Listener{
 	
 	sendJSON(obj){
 		if(this.socket.readyState == this.socket.OPEN){
-			this.socket.send(JSON.stringify(obj,function(key, value) {
-				if (typeof value === 'number') {
-					var multiple = 1000
-					return Math.round(value * multiple) / multiple
-				}else{
-					return value
-				}
-			}))
+			// this.socket.send(JSON.stringify(obj,function(key, value) {
+			// 	if (typeof value === 'number') {
+			// 		var multiple = 1000
+			// 		return Math.round(value * multiple) / multiple
+			// 	}else{
+			// 		return value
+			// 	}
+			// }))
 			
 			var type = obj.type
 			var obj = compressJson.compress(obj)

@@ -32,7 +32,7 @@ export default {
 		var messageHandler = (obj) => {
 			if(obj.type == "info"){
 				this.text = JSON.stringify(obj,null,2)
-				this.usage = obj.average.cpu.average.usage * 4
+				this.usage = obj.average.cpu.average.usage
 			}
 		}
 		

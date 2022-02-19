@@ -33,6 +33,10 @@ export default {
 </script>
 
 <style>
+.vsc-initialized {
+	margin: 0em;
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;

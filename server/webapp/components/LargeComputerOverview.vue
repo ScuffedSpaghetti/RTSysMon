@@ -41,7 +41,7 @@ export default {
 				var item = data[x]
 				out[x] = item.average
 			}
-			console.log(out)
+			//console.log(out)
 			return out
 		},
 	}

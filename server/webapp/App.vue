@@ -22,6 +22,11 @@ Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
 
 export default {
+	data(){
+		return {
+			animation: true
+		}
+	},
 	components:{
 		Test,
 		DonutChart

@@ -45,7 +45,12 @@ export default {
 				}
 				// this.$refs.pie.ej2Instances.series[0].dataSource = seriesData
 				// this.$refs.pie.ej2Instances.series[0].dataSource = seriesData
-				this.$refs.pie.ej2Instances.animate();
+				if(this.$root.animation !== false){
+					this.$refs.pie.ej2Instances.animate(700);
+				}else{
+					this.$refs.pie.ej2Instances.animate(2);
+				}
+				
 			}
 		},
 		getPxSize(){

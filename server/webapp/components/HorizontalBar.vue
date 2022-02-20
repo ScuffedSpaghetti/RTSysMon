@@ -1,9 +1,9 @@
 <template>
 <div class="outer" :style="outerStyle">
-	<div class="inner" :style="innerStyle">
+	<div class="inner" :class="{animate: this.$root.animation !== false}" :style="innerStyle">
 		
 	</div>
-	<div class="inner inner2" :style="inner2Style">
+	<div class="inner inner2" :class="{animate: this.$root.animation !== false}" :style="inner2Style">
 		
 	</div>
 	<label class="label" :style="{fontSize:(size || height)/5+'em'}">{{usage.toFixed(1)}}%</label>
@@ -55,7 +55,6 @@ export default {
 			immediate: true,
 			handler(usage){
 				this.updateChart(usage)
-				this.updateChart(usage)
 			}
 		},
 		height: {
@@ -102,6 +101,9 @@ export default {
 	border-radius: 5%;
 	overflow: hidden;
 }
+.animate{
+	transition: width 0.7s linear, height 0.7s linear;
+}
 .inner{
 	display:inline-block;
 	height: 100%;
@@ -110,7 +112,6 @@ export default {
 	top:0%;
 	left: 0%;
 	background-color: #33ff99;
-	transition: width 0.7s linear, height 0.7s linear;
 }
 .inner2{
 	background-color: #ff5555;
@@ -121,5 +122,6 @@ export default {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	text-shadow: 0em 0em 0.1em #ffffff;
+	color: black;
 }
 </style>

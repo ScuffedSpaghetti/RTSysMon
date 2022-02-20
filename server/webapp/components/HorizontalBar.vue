@@ -6,7 +6,7 @@
 	<div class="inner inner2" :style="inner2Style">
 		
 	</div>
-	<label class="label" >{{usage.toFixed(1)}}%</label>
+	<label class="label" :style="{fontSize:(size || height)/5+'em'}">{{usage.toFixed(1)}}%</label>
 </div>
 </template>
 
@@ -78,18 +78,18 @@ export default {
 				}
 			}
 		},
-		size: {
-			immediate: true,
-			handler(val){
-				if(val){
-					this.outerStyle.width = val + "em"
-					this.outerStyle.height = val + "em"
-				}else{
-					this.outerStyle.width = undefined
-					this.outerStyle.height = undefined
-				}
-			}
-		},
+		// size: {
+		// 	immediate: true,
+		// 	handler(val){
+		// 		if(val){
+		// 			this.outerStyle.width = val + "em"
+		// 			this.outerStyle.height = val + "em"
+		// 		}else{
+		// 			this.outerStyle.width = undefined
+		// 			this.outerStyle.height = undefined
+		// 		}
+		// 	}
+		// },
 	},
 }
 </script>
@@ -121,6 +121,5 @@ export default {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	text-shadow: 0em 0em 0.1em #ffffff;
-	font-size: 1.5em;
 }
 </style>

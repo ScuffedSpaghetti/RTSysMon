@@ -1,12 +1,12 @@
 <template>
 <div class="container">
-	<div class="item">
+	<div class="item" v-if="averageData.cpu">
 		<div class="title">CPU</div>
 		<donut-chart :size="10" :usage="averageData.cpu.usage"/>
 	</div>
-	<div class="item">
+	<div class="item" v-if="averageData.memory">
 		<div class="title">Memory</div>
-		<horizontal-bar style="width:75%; min-width:10em; height:10em;" :usage="averageData.memory.usage"/>
+		<horizontal-bar :height="7" :width="15" :usage="averageData.memory.usage"/>
 		<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 	</div>
 	<div class="item" v-if="averageData.power">
@@ -59,6 +59,7 @@ export default {
 }
 .item{
 	text-align: center;
+	padding: 0.5em;
 }
 .title{
 	font-size: 2em;

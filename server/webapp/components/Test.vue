@@ -2,7 +2,7 @@
 	<div>
 		<div>
 			<DonutChart :usage="usage" :size="20"/>
-			<HorizontalBar :usage="usage" :size="20"/>
+			<HorizontalBar :usage="usage" :width="20" :height="20" />
 		</div>
 		<br><br><br>
 		<div>

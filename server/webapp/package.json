@@ -14,9 +14,11 @@
         "./"
       ],
       "ignore": [
-        "dist"
+        "dist",
+        "node_modules"
       ],
       "quiet": false,
+      "verbose": true,
       "extensions": "js,vue"
     }
   },

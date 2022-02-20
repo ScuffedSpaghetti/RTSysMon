@@ -1,7 +1,13 @@
 <template>
 	<div>
-		<div><DonutChart :usage="usage" :size="20"/></div>
-		<div><HorizontalBar :usage="usage" :size="20"/></div>
+		<div>
+			<DonutChart :usage="usage" :size="20"/>
+			<HorizontalBar :usage="usage" :size="20"/>
+		</div>
+		<br><br><br>
+		<div>
+			<large-computer-overview :info="averageData"/>
+		</div>
 		<!-- <div><DonutChart v-for="i in 200" :usage="usage" :size="5"/></div> -->
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -15,6 +21,7 @@ import { decompress as decompressJson } from "compressed-json"
 import { ungzip } from "pako"
 import DonutChart from "./DonutChart.vue"
 import HorizontalBar from './HorizontalBar.vue'
+import LargeComputerOverview from './LargeComputerOverview.vue'
 
 
 export default {
@@ -24,6 +31,7 @@ export default {
 			usage:0,
 			totalDataString:0,
 			totalDataBuffer:0,
+			averageData:{},
 		}
 	},
 	mounted(){
@@ -35,6 +43,7 @@ export default {
 			if(obj.type == "info"){
 				this.text = JSON.stringify(obj,null,2)
 				this.usage = obj.average.cpu.average.usage * 4
+				this.averageData = obj.average
 			}
 		}
 		
@@ -70,7 +79,8 @@ export default {
 	},
 	components:{
 		DonutChart,
-HorizontalBar
+HorizontalBar,
+LargeComputerOverview
 	}
 }
 </script>

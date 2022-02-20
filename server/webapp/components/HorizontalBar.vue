@@ -99,6 +99,8 @@ export default {
 	display:inline-block;
 	position:relative;
 	background-color: #555555;
+	border-radius: 5%;
+	overflow: hidden;
 }
 .inner{
 	display:inline-block;
@@ -119,6 +121,6 @@ export default {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	text-shadow: 0em 0em 0.1em #ffffff;
-	font-size: 2em;
+	font-size: 1.5em;
 }
 </style>

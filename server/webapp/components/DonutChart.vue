@@ -1,11 +1,11 @@
 <template>
 	<div class="container" :style="{width:size+'em',height:size+'em'}" ref="container">
-		<ejs-accumulationchart ref="pie" style="display:inline-block; margin:auto" :enableBorderOnMouseMove="false" :height="pxSize.toString()" :width="pxSize.toString()">
+		<ejs-accumulationchart ref="pie" style="display:inline-block; margin:auto" :enableBorderOnMouseMove="false" :height="pxSize.toString()" :width="pxSize.toString()" :margin="{bottom:1,left:1,right:1,top:1}" background="transparent">
 			<e-accumulation-series-collection>
-				<e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="50%" pointColorMapping='fill'></e-accumulation-series>
+				<e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="45%" radius="100%" pointColorMapping='fill'></e-accumulation-series>
 			</e-accumulation-series-collection>
 		</ejs-accumulationchart>
-		<label class="label" :style="{fontSize:size/10+'em'}">{{usage.toFixed(1)}}%</label>
+		<label class="label" :style="{fontSize:size/7+'em'}">{{usage.toFixed(1)}}%</label>
 	</div>
 </template>
 

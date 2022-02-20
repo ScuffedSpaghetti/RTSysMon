@@ -129,8 +129,8 @@ async function queryDevices(devices,options){
 			ignoreSingleArrayKeys:["individual"],
 		})
 		if(devInfo?.average?.power?.watts != undefined){
-			info.power = info.power || {watts:0}
-			info.power.watts += devInfo.average.power.watts
+			info.power = info.power || {average:{watts:0}}
+			info.power.average.watts += devInfo.average.power.watts
 		}
 		if(options.individual !== false /*&& devInfoAll.length > 1*/){
 			devInfo.individual = devInfoAll

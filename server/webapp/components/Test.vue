@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<div><DonutChart :usage="usage" :size="50"/></div>
-		<div><DonutChart v-for="i in 200" :usage="usage" :size="5"/></div>
+		<div><DonutChart :usage="usage" :size="20"/></div>
+		<div><HorizontalBar :usage="usage" :size="20"/></div>
+		<!-- <div><DonutChart v-for="i in 200" :usage="usage" :size="5"/></div> -->
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
 		<div>Total buffer data received: {{totalDataBuffer.toLocaleString()}} bytes</div>
@@ -13,6 +14,7 @@ import { decode as msgPackDecode } from "@msgpack/msgpack"
 import { decompress as decompressJson } from "compressed-json"
 import { ungzip } from "pako"
 import DonutChart from "./DonutChart.vue"
+import HorizontalBar from './HorizontalBar.vue'
 
 
 export default {
@@ -32,7 +34,7 @@ export default {
 		var messageHandler = (obj) => {
 			if(obj.type == "info"){
 				this.text = JSON.stringify(obj,null,2)
-				this.usage = obj.average.cpu.average.usage
+				this.usage = obj.average.cpu.average.usage * 4
 			}
 		}
 		
@@ -67,7 +69,8 @@ export default {
 		}
 	},
 	components:{
-		DonutChart
+		DonutChart,
+HorizontalBar
 	}
 }
 </script>

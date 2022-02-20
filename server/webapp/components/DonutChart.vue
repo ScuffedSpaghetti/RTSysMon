@@ -26,7 +26,7 @@ export default {
 			seriesData: [
 				{y: 0, fill:"#ff5555"},
 				{y: 0, fill:"#33ff99"},
-				{y: 100, fill:"#999999"}
+				{y: 100, fill:"#555555"}
 			],
 			pxSize:1,
 		};
@@ -49,7 +49,6 @@ export default {
 			}
 		},
 		getPxSize(){
-			console.log("pxSize")
 			this.pxSize = Math.min(this.$refs.container.clientHeight, this.$refs.container.clientWidth)
 		}
 	},

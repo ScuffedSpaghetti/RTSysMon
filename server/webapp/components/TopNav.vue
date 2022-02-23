@@ -29,6 +29,7 @@ export default{
   font-size: 17px;
 }
 .top-nav a.active {
-    background-color: #C5050C;
+  background-color: #a600ff;
+  /* background-color: #C5050C; */
 }
 </style>

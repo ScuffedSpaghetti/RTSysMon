@@ -111,10 +111,10 @@ export default {
 	position: absolute;
 	top:0%;
 	left: 0%;
-	background-color: #33ff99;
+	background-color: #0dec2b;
 }
 .inner2{
-	background-color: #ff5555;
+	background-color: #ff0000;
 }
 .label {
 	top: 50%;

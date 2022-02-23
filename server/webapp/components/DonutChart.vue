@@ -24,8 +24,8 @@ export default {
 	data() {
 		return {
 			seriesData: [
-				{y: 0, fill:"#ff5555"},
-				{y: 0, fill:"#33ff99"},
+				{y: 0, fill:"#ff0000"},
+				{y: 0, fill:"#0dec2b"},
 				{y: 100, fill:"#555555"}
 			],
 			pxSize:1,

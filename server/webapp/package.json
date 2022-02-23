@@ -19,7 +19,7 @@
       ],
       "quiet": false,
       "verbose": true,
-      "extensions": "js,vue"
+      "extensions": "js,vue,css,html"
     }
   },
   "author": "",

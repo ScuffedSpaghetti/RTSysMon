@@ -4,10 +4,10 @@
 			<DonutChart :usage="usage" :size="20"/>
 			<HorizontalBar :usage="usage" :width="20" :height="20" />
 		</div>
-		<br><br><br>
-		<div>
-			<large-computer-overview :info="averageData"/>
-		</div>
+		<br>
+		<div><LargeComputerOverview :info="averageData"/></div>
+		<br>
+		<div class="container"><SmallComputerOverview v-for="i in 10" :info="averageData"/></div>
 		<!-- <div><DonutChart v-for="i in 200" :usage="usage" :size="5"/></div> -->
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -22,6 +22,7 @@ import { ungzip } from "pako"
 import DonutChart from "./DonutChart.vue"
 import HorizontalBar from './HorizontalBar.vue'
 import LargeComputerOverview from './LargeComputerOverview.vue'
+import SmallComputerOverview from "./SmallComputerOverview.vue"
 
 
 export default {
@@ -79,12 +80,21 @@ export default {
 	},
 	components:{
 		DonutChart,
-HorizontalBar,
-LargeComputerOverview
+		HorizontalBar,
+		LargeComputerOverview,
+		SmallComputerOverview
 	}
 }
 </script>
 
 <style>
+
+.container{
+	display: flex;
+	flex-direction: row;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	border-radius: 1em;
+}
 
 </style>

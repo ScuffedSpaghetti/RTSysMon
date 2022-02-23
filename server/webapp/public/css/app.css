@@ -1,0 +1,20 @@
+.box-background{
+    background-color: #bbbbbb;
+}
+
+.top-nav{
+    background-color: #bbbbbb;
+}
+
+.top-nav a {
+    color: #ffffff;
+  }
+  
+  .top-nav a:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  .top-nav a.active {
+    color: #ffffff;
+  }

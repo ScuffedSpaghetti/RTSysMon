@@ -80,8 +80,8 @@ export default {
 	transform: translate(-50%, -50%);
 }
 .container{
-	display:inline-block; 
-	position:relative;
+	display: inline-block; 
+	position: relative;
 }
 
 </style>

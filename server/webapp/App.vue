@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<div class="topnav">
-			<a class="active" href="#home">Home</a>
-			<a href="#about">About</a>
-		</div>
+		<TopNav/>
 		<h1>The scuffed vue ui goes here</h1>
 		<p>
 			<Test/>
@@ -16,7 +13,9 @@
 import Vue from "vue"
 import Test from "./components/Test.vue"
 import DonutChart from "./components/DonutChart.vue"
-import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts";
+import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts"
+import TopNav from "./components/TopNav.vue"
+import SmallComputerOverview from "./components/SmallComputerOverview.vue"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
@@ -24,49 +23,61 @@ Vue.use(ChartPlugin);
 export default {
 	data(){
 		return {
-			animation: true
+			animation: true,
+			darkMode: false
+		}
+	},
+	methods: {
+		setDarkMode(enable){
+			var darkModeElement = document.getElementById("dark-mode-style")
+			if(enable && !darkModeElement) {
+				darkModeElement = document.createElement("link")
+				darkModeElement.href = "css/dark.css"
+				darkModeElement.setAttribute("rel", "stylesheet")
+				darkModeElement.setAttribute("id", "dark-mode-style")
+				document.head.appendChild(darkModeElement)
+			}
+			if(!enable && darkModeElement) {
+				document.head.removeChild(darkModeElement)
+			}
 		}
 	},
 	components:{
-		Test,
-		DonutChart
+    Test,
+    DonutChart,
+    TopNav,
+    SmallComputerOverview
+},
+	mounted() {
+		try{
+			var systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+			this.setDarkMode(systemTheme.matches)
+			systemTheme.addEventListener(function(event) {
+				this.setDarkMode(event.matches)
+        	})
+    	}catch(a){}
 	},
-	provide:{
-		// accumulationchart: [PieSeries]
+	watch:{
+		darkMode: {
+			immediate: true,
+			handler(darkMode){
+				this.setDarkMode(darkMode)
+			}
+		}
 	}
 }
 </script>
 
 <style>
+.container{
+	display: flex;
+	flex-direction: row;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	border-radius: 1em;
+}
+
 .vsc-initialized {
 	margin: 0em;
-}
-
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
-}
-
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #00bdae;
-  color: white;
 }
 </style>

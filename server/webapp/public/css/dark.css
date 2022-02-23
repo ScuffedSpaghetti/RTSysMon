@@ -1,0 +1,25 @@
+body{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.box-background{
+    background-color: #383838;
+}
+
+.top-nav{
+    background-color: #383838;
+}
+
+.top-nav a {
+    color: #ffffff;
+  }
+  
+  .top-nav a:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .top-nav a.active {
+    color: #ffffff;
+  }

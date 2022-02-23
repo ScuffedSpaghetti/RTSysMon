@@ -121,7 +121,7 @@ export default {
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%, -50%);
-	text-shadow: 0em 0em 0.1em #ffffff;
-	color: black;
+	/* text-shadow: 0em 0em 0.1em #ffffff; */
+	color: #ffffff;
 }
 </style>

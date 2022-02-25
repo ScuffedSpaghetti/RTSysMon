@@ -8,7 +8,7 @@ function powerData(){
 		// in debian turbostat can be found in the linux-cpupower package
 		// in ubuntu it is in linux-tools-generic
 		// turbostat --quiet --show PkgWatt,CorWatt,Core,CPU --num_iterations 1 --interval 0.01
-		var prc = child_process.spawn("turbostat", ["--quiet", "--show", "PkgWatt,CorWatt,Core,CPU", "--num_iterations", "1", "--interval", "0.01"])
+		var prc = child_process.spawn("turbostat", ["--quiet", "--show", "PkgWatt,CorWatt,Core,CPU,CoreTmp,PkgTmp", "--num_iterations", "1", "--interval", "0.01"])
 		prc.on("error", reject)
 		var out = ""
 		prc.stdout.on("data",(data)=>{
@@ -21,7 +21,7 @@ function powerData(){
 			}
 			try{
 				var data = {}
-				
+				//@ts-ignore
 				var lines = out.replaceAll("\r","").trim().split("\n")
 				var index = undefined
 				var rawData = []
@@ -60,12 +60,36 @@ function powerData(){
 					if(core.corwatt >= 0){
 						data.coreWattage = (data.coreWattage || 0) + parseFloat(core.corwatt)
 					}
+					
+					var pkgTemp = parseFloat(core.pkgtmp)
+					if(isFinite(pkgTemp)){
+						var count = data.packageTemperatureCount || 0
+						data.packageTemperature = ((data.packageTemperature * count || 0) + pkgTemp) / (count + 1)
+						if(!isFinite(data.packageTemperatureMax)){
+							data.packageTemperatureMax = pkgTemp
+						}else{
+							data.packageTemperatureMax = Math.max(data.packageTemperatureMax, pkgTemp)
+						}
+						data.packageTemperatureCount = (data.packageTemperatureCount || 0) + 1
+					}
+					
+					var coreTemp = parseFloat(core.coretmp)
+					if(isFinite(coreTemp)){
+						var count = data.coreTemperatureCount || 0
+						data.coreTemperature = ((data.coreTemperature * count || 0) + coreTemp) / (count + 1)
+						if(!isFinite(data.coreTemperatureMax)){
+							data.coreTemperatureMax = coreTemp
+						}else{
+							data.coreTemperatureMax = Math.max(data.coreTemperatureMax, coreTemp)
+						}
+						data.coreTemperatureCount = (data.coreTemperatureCount || 0) + 1
+					}
 				}
 				
 				if(data.packageWattage != undefined || data.coreWattage != undefined){
 					data.power = data.packageWattage || data.coreWattage
 				}
-				
+				//console.log(data)
 				resolve(data)
 			}catch(err){
 				reject(err)
@@ -91,6 +115,15 @@ module.exports = class LinuxCPU extends GenericCPU{
 					extraData.power = {}
 					extraData.power.watts = rawData.power / devices.length
 				}
+				extraData.temperature = rawData.packageTemperature | rawData.coreTemperature
+				if(extraData.temperature != undefined){
+					extraData.temperature_info = {}
+					extraData.temperature_info.package = rawData.packageTemperature
+					extraData.temperature_info.package_max = rawData.packageTemperatureMax
+					extraData.temperature_info.core = rawData.coreTemperature
+					extraData.temperature_info.core_max = rawData.coreTemperature
+				}
+				
 				
 				if(this.turboStatSuccess == undefined){
 					this.turboStatSuccess = rawData.power != undefined

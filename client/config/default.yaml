@@ -1,0 +1,5 @@
+# create a new file named local.yaml to edit
+# for more details, see https://github.com/node-config/node-config/wiki/Configuration-Files 
+
+serverAddress: localhost:3498
+serverSecure: false

@@ -2,3 +2,6 @@ node_modules
 package-lock.json
 dist
 tmp
+*/config/*
+!*/config/default.yaml
+node

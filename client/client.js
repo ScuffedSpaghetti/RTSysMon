@@ -1,6 +1,8 @@
 //@ts-check
 var os = require("os")
 var WebSocket = require("ws")
+process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+var config = require("config")
 
 var NvidiaGPU = require("./devices/nvidia")
 var GenericCPU = require("./devices/cpu-generic")
@@ -162,12 +164,13 @@ void (async function(){
 	
 })
 
-
+var webSocketAddress = (config.get("serverSecure")?"wss":"ws")+"://"+config.get("serverAddress")
+console.log("connecting to " + webSocketAddress)
 void (async function(){
 	var devices = await getValidDevices()
 	while(true){
 		await new Promise((resolve)=>{
-			var websocket = new WebSocket("ws://127.0.0.1:3498")
+			var websocket = new WebSocket(webSocketAddress)
 			var interval = undefined
 			function close(){
 				if(interval){

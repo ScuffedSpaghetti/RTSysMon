@@ -4,17 +4,17 @@
 	<div class="container box-background">
 		<div class="item" v-if="averageData.cpu">
 			<div class="title">CPU</div>
-			<DonutChart :size="10" :usage="averageData.cpu.usage"/>
+			<DonutChart :size="20" :usage="averageData.cpu.usage"/>
 		</div>
 		<div class="item" v-if="averageData.memory">
 			<div class="title">Memory</div>
-			<HorizontalBar :height="7" :width="15" :usage="averageData.memory.usage"/>
+			<HorizontalBar :height="14" :width="30" :usage="averageData.memory.usage"/>
 			<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 		</div>
 		<div class="item" v-if="averageData.power">
 			<div class="title">Power</div>
-			<br>
 			<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
+			<br>
 		</div>
 	</div>
 	<br>
@@ -64,11 +64,16 @@ export default {
 .item{
 	text-align: center;
 	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	flex-flow: column wrap;
+	justify-content: space-around;
+	border-radius: 1em;
 }
 .title{
-	font-size: 2em;
+	font-size: 4em;
 }
 .info-text{
-	font-size: 1.5em;
+	font-size: 3em;
 }
 </style>

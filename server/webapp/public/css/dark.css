@@ -1,25 +1,33 @@
+.autocomplete-results {
+  background: #383838;
+  border: 1px solid #ffffff;
+}
+
 body{
-    background-color: #000000;
-    color: #ffffff;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .box-background{
-    background-color: #383838;
+  background-color: #383838;
 }
 
 .top-nav{
-    background-color: #383838;
+  background-color: #383838;
 }
 
 .top-nav a {
-    color: #ffffff;
-  }
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.top-nav a:hover {
+  background-color: #a600ff66;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
   
-  .top-nav a:hover {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  .top-nav a.active {
-    color: #ffffff;
-  }
+.top-nav a.active {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}

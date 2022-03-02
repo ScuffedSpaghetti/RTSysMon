@@ -5,9 +5,9 @@
 			<HorizontalBar :usage="usage" :width="20" :height="20" />
 		</div>
 		<br>
-		<div><LargeComputerOverview :info="averageData"/></div>
+		<div><LargeComputerOverview :info="averageData" :compHeight="14" :compWidth="30" /></div>
 		<br>
-		<div class="container"><SmallComputerOverview v-for="i in 10" :info="averageData"/></div>
+		<div class="container"><SmallComputerOverview v-for="i in 10" :info="averageData" :compHeight="7" :compWidth="15" /></div>
 		<!-- <div><DonutChart v-for="i in 200" :usage="usage" :size="5"/></div> -->
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>

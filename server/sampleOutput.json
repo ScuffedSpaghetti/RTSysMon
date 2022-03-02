@@ -1,66 +1,189 @@
 {
-    "average": {
+  "average": {
+    "cpu": {
+      "average": {
+        "usage": 6.464798927307129,
+        "model": "AMD Ryzen 9 5900X 12-Core Processor"
+      },
+      "individualUsage": [
+        10.276243209838867,
+        58.60927200317383,
+        39.69129180908203,
+        27.59381866455078,
+        13.79690933227539,
+        0,
+        0,
+        0,
+        5.187637805938721,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "memory": {
+      "average": {
+        "usage": 19.393056869506836,
+        "bytes_total": 68641202176,
+        "bytes": 13311627264
+      }
+    },
+    "power": {
+      "average": {
+        "watts": 370.94000244140625
+      }
+    },
+    "gpu": {
+      "average": {
+        "memory": {
+          "usage": 34.34244918823242,
+          "bytes_total": 25769803776,
+          "bytes": 8849981440
+        },
+        "power": {
+          "usage": 92.73500061035156,
+          "watts": 370.94000244140625,
+          "watts_limit": 400
+        },
+        "core": {
+          "usage": 100
+        },
+        "name": "NVIDIA GeForce RTX 3090",
+        "bus": {
+          "type": "pcie",
+          "tx_bytes": 74000000,
+          "rx_bytes": 176000000,
+          "generation": 4,
+          "width": 16
+        },
+        "fan_speed": 59,
+        "temperature": 55
+      }
+    },
+    "hostname": "DESKTOP-049G7P1",
+    "os": "Windows 10 Pro"
+  },
+  "individual": [
+    {
       "cpu": {
         "average": {
-          "usage": 15.61064338684082,
-          "model": "Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz"
+          "usage": 6.464798927307129,
+          "model": "AMD Ryzen 9 5900X 12-Core Processor"
         },
         "individualUsage": [
-          20.479520797729492,
-          11.248709678649902,
-          14.5510835647583,
-          18.048269271850586,
-          6.603773593902588,
-          17.943336486816406,
-          17.96218490600586,
-          18.048269271850586
+          10.276243209838867,
+          58.60927200317383,
+          39.69129180908203,
+          27.59381866455078,
+          13.79690933227539,
+          0,
+          0,
+          0,
+          5.187637805938721,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
         ]
       },
       "memory": {
         "average": {
-          "usage": 74.95022583007812,
-          "bytes_total": 16889241600,
-          "bytes": 12658524160
+          "usage": 19.393056869506836,
+          "bytes_total": 68641202176,
+          "bytes": 13311627264
+        },
+        "individual": [
+          {
+            "usage": 19.393056869506836,
+            "bytes_total": 68641202176,
+            "bytes": 13311627264
+          }
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 370.94000244140625
         }
       },
-      "hostname": "MSOE-PF2C2Y58",
-      "os": "Windows 10 Education"
-    },
-    "individual": [
-      {
-        "cpu": {
-          "average": {
-            "usage": 15.61064338684082,
-            "model": "Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz"
+      "gpu": {
+        "average": {
+          "memory": {
+            "usage": 34.34244918823242,
+            "bytes_total": 25769803776,
+            "bytes": 8849981440
           },
-          "individualUsage": [
-            20.479520797729492,
-            11.248709678649902,
-            14.5510835647583,
-            18.048269271850586,
-            6.603773593902588,
-            17.943336486816406,
-            17.96218490600586,
-            18.048269271850586
-          ]
-        },
-        "memory": {
-          "average": {
-            "usage": 74.95022583007812,
-            "bytes_total": 16889241600,
-            "bytes": 12658524160
+          "power": {
+            "usage": 92.73500061035156,
+            "watts": 370.94000244140625,
+            "watts_limit": 400
           },
-          "individual": [
-            {
-              "usage": 74.95022583007812,
-              "bytes_total": 16889241600,
-              "bytes": 12658524160
-            }
-          ]
+          "core": {
+            "usage": 100
+          },
+          "name": "NVIDIA GeForce RTX 3090",
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 74000000,
+            "rx_bytes": 176000000,
+            "generation": 4,
+            "width": 16
+          },
+          "fan_speed": 59,
+          "temperature": 55
         },
-        "hostname": "MSOE-PF2C2Y58",
-        "os": "Windows 10 Education"
-      }
-    ],
-    "type": "info"
-  }
+        "individual": [
+          {
+            "memory": {
+              "usage": 34.34244918823242,
+              "bytes_total": 25769803776,
+              "bytes": 8849981440
+            },
+            "power": {
+              "usage": 92.73500061035156,
+              "watts": 370.94000244140625,
+              "watts_limit": 400
+            },
+            "core": {
+              "usage": 100
+            },
+            "name": "NVIDIA GeForce RTX 3090",
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 74000000,
+              "rx_bytes": 176000000,
+              "generation": 4,
+              "width": 16
+            },
+            "fan_speed": 59,
+            "temperature": 55
+          }
+        ]
+      },
+      "hostname": "DESKTOP-049G7P1",
+      "os": "Windows 10 Pro"
+    }
+  ],
+  "type": "info"
+}

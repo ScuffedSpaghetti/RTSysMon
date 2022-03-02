@@ -80,4 +80,8 @@ export default {
 .vsc-initialized {
 	margin: 0em;
 }
+
+h1, p {
+	margin: 1em;
+}
 </style>

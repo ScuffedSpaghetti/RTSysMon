@@ -5,13 +5,13 @@
         <div class="item" v-if="averageData.cpu">
             <div class="title">CPU</div>
             <div class="component">
-                <DonutChart :size="10" :usage="averageData.cpu.usage"/>
+                <DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
             </div>
         </div>
         <div class="item" v-if="averageData.memory">
             <div class="title">Memory</div>
             <div class="component">
-            <HorizontalBar :height="7" :width="15" :usage="averageData.memory.usage"/>
+            <HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
             </div>
             <div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
         </div>
@@ -34,6 +34,14 @@ export default {
 		info:{
 			type:Object,
 			default:{}
+		},
+		compHeight:{
+			type: Number,
+			default: 7,
+		},
+		compWidth: {
+			type: Number,
+			default: 14,
 		}
 	},
 	methods:{

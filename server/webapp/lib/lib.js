@@ -3,6 +3,9 @@ import { decode as msgPackDecode } from "@msgpack/msgpack"
 import { decompress as decompressJson } from "compressed-json"
 import { ungzip } from "pako"
 
+
+var messageHandlers = []
+
 var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
 websocket.binaryType = "arraybuffer";
 
@@ -10,6 +13,9 @@ websocket.binaryType = "arraybuffer";
 var messageHandler = (obj) => {
     if(obj.type == "info"){
        
+    }
+    for(var x in messageHandlers){
+        messageHandlers[x](obj)
     }
 }
 
@@ -38,5 +44,5 @@ websocket.onopen = function(){
 }
 
 export default {
-	
+	messageHandlers: messageHandlers
 }

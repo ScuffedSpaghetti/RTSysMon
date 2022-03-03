@@ -16,6 +16,7 @@ import DonutChart from "./components/DonutChart.vue"
 import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts"
 import TopNav from "./components/TopNav.vue"
 import SmallComputerOverview from "./components/SmallComputerOverview.vue"
+import lib from "./lib/lib.js"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
@@ -24,7 +25,8 @@ export default {
 	data(){
 		return {
 			animation: true,
-			darkMode: false
+			darkMode: false,
+			info: {},
 		}
 	},
 	methods: {
@@ -40,6 +42,13 @@ export default {
 			if(!enable && darkModeElement) {
 				document.head.removeChild(darkModeElement)
 			}
+		},
+		messageHandler(message){
+			//messages are received here
+			if(message.type == "info"){
+				this.info = message
+    		}
+			console.log(message)
 		}
 	},
 	components:{
@@ -56,6 +65,7 @@ export default {
 				this.setDarkMode(event.matches)
         	})
     	}catch(a){}
+		lib.messageHandlers.push(this.messageHandler)
 	},
 	watch:{
 		darkMode: {

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TopNav/>
+		<TopNav :info="info"/>
 		<h1>The scuffed vue ui goes here</h1>
 		<p>
 			<Test/>
@@ -48,7 +48,7 @@ export default {
 			if(message.type == "info"){
 				this.info = message
     		}
-			console.log(message)
+			//console.log(message)
 		}
 	},
 	components:{

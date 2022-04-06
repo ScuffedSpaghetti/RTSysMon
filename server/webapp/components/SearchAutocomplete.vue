@@ -32,7 +32,7 @@ export default {
   props: {
     items: {
       type: Array,
-      required: false,
+      required: true,
       default: () => [],
     },
   },

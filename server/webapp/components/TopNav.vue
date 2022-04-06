@@ -22,6 +22,12 @@
 import SearchAutocomplete from "./SearchAutocomplete.vue";
 
 export default{
+	props:{
+		info:{
+			type:Object,
+			default:{}
+		}, 
+	},
     data() {
         return {};
     },

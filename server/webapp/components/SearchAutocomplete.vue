@@ -42,46 +42,52 @@ export default {
       results: [],
       isOpen: false,
       arrowCounter: -1,
-    };
+    }
   },
   mounted() {
-    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener('click', this.handleClickOutside)
   },
   destroyed() {
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener('click', this.handleClickOutside)
   },
   methods: {
     filterResults() {
-      this.results = this.items.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
+      this.results = this.items.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
     },
     onChange() {
-      this.filterResults();
-      this.isOpen = true;
+      this.filterResults()
+      this.isOpen = true
     },
     setResult(result) {
-      this.search = result;
-      this.isOpen = false;
+      this.search = result
+      this.navigate()
+      this.isOpen = false
     },
     handleClickOutside(event) {
       if (!this.$el.contains(event.target)) {
-        this.arrowCounter = -1;
-        this.isOpen = false;
+        this.arrowCounter = -1
+        this.isOpen = false
       }
     },
     onArrowDown() {
       if (this.arrowCounter < this.results.length) {
-        this.arrowCounter = this.arrowCounter + 1;
+        this.arrowCounter = this.arrowCounter + 1
       }
     },
     onArrowUp() {
       if (this.arrowCounter > 0) {
-        this.arrowCounter = this.arrowCounter - 1;
+        this.arrowCounter = this.arrowCounter - 1
       }
     },
     onEnter() {
-      this.search = this.results[this.arrowCounter];
-      this.arrowCounter = -1;
-      this.isOpen = false;
+      this.search = this.results[this.arrowCounter]
+      this.navigate()
+      this.arrowCounter = -1
+      this.isOpen = false
+    },
+    navigate(){
+      //console.log("/node/" + this.search)
+      this.$router.push("/node/" + this.search).catch(err => {})
     },
   },
 }

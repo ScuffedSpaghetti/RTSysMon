@@ -1,19 +1,9 @@
 <template>
     <div class="top-nav">
-        <a class="active" href="#home">Home</a>
-		<a href="#about">About</a>
+		<router-link class="active" :to="'/'">Home</router-link>
+		<router-link :to="'/about'">About</router-link>
 		<div class="container">
-			<SearchAutocomplete class="search-bar" :items="[
-			'Apple',
-			'Banana',
-			'Orange',
-			'Mango',
-			'Pear',
-			'Peach',
-			'Grape',
-			'Tangerine',
-			'Pineapple'
-			]"/>
+			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>
     </div>
 </template>
@@ -29,9 +19,23 @@ export default{
 		}, 
 	},
     data() {
-        return {};
+        return {
+			
+		};
     },
-    components: { SearchAutocomplete }
+    components: { 
+		SearchAutocomplete,
+	},
+	computed:{
+		hostnames(){
+			var hosts = []
+			for(var x in this.info.individual){
+				// console.log("host: " + this.info.individual[x].hostname)
+				hosts[x] = this.info.individual[x].hostname  
+            }
+			return hosts
+        },
+	}
 }
 </script>
 

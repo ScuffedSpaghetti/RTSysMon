@@ -2,7 +2,7 @@
     <div>
         <div><LargeComputerOverview :info="this.info" :compHeight="14" :compWidth="30" /></div>
         <p>
-            {{id =$route.params.id}}
+            
         </p>
     </div>
 </template>
@@ -14,11 +14,10 @@ import lib from "../lib/lib.js"
 
 export default {
     props:{
-        
+
     },
     data() {
         return {
-            id: "",
             info: {},
         }
     },
@@ -28,7 +27,7 @@ export default {
                 for(var x in obj.individual){
                     // console.log("id: " + this.id)
                     // console.log("host: " + obj.individual[x].hostname)
-                    if(obj.individual[x].hostname == this.id){
+                    if(obj.individual[x].hostname == this.$route.params.id){
                         this.info = obj.individual[x]
                     }
                 }
@@ -41,16 +40,7 @@ export default {
         LargeComputerOverview,
     },
     computed:{
-        nodeData(){
-            var data = this.info
-			var out = {}
-			for(var x in data){
-				var item = data[x]
-				out[x] = item.average
-			}
-			//console.log(out)
-			return out
-        },
+        
     },
 }
 </script>

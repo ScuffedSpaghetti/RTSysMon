@@ -20,6 +20,7 @@ import SmallComputerOverview from "./components/SmallComputerOverview.vue"
 import lib from "./lib/lib.js"
 import VueRouter from 'vue-router'
 import Node from "./components/Node.vue"
+import About from "./components/About.vue"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
@@ -29,6 +30,8 @@ const router = new VueRouter({
 	base: "",
 	routes:[
 		{ path: '/node/:id', component: Node },
+		{ path: '/' },
+		{ path: '/about', component: About },
 	],
 })
 

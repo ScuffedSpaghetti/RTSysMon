@@ -23,6 +23,7 @@ import DonutChart from "./DonutChart.vue"
 import HorizontalBar from './HorizontalBar.vue'
 import LargeComputerOverview from './LargeComputerOverview.vue'
 import SmallComputerOverview from "./SmallComputerOverview.vue"
+import lib from "../lib/lib.js"
 
 
 export default {
@@ -36,8 +37,6 @@ export default {
 		}
 	},
 	mounted(){
-		var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
-		websocket.binaryType = "arraybuffer";
 		
 		// sets text to the JSON sting if obj is a string
 		var messageHandler = (obj) => {
@@ -48,35 +47,7 @@ export default {
 			}
 		}
 		
-		
-		// the new function syntax preserves 'this' and should be used in vue elements for anonymous functions
-		// deals with decompressing the JSON if it is compressed
-		websocket.onmessage = (event) => {
-			if(typeof event.data == "string"){
-				this.totalDataString += event.data.length
-				var obj = JSON.parse(event.data)
-				messageHandler(obj)
-			}else{
-				//console.log(event.data)
-				this.totalDataBuffer += event.data.byteLength
-				var binary = ungzip(event.data)
-				var obj = msgPackDecode(binary)
-				obj = decompressJson(obj)
-				messageHandler(obj)
-			}
-			
-		}
-		
-		
-		
-		var initMessage = {
-			type: "init_client"
-		}
-		
-		// with the old function syntax 'this' is overwritten and can not be accessed
-		websocket.onopen = function(){
-			websocket.send(JSON.stringify(initMessage))
-		}
+		lib.messageHandlers.push(messageHandler)
 	},
 	components:{
 		DonutChart,

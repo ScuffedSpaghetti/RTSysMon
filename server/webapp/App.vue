@@ -3,8 +3,9 @@
 		<TopNav :info="info"/>
 		<h1>The scuffed vue ui goes here</h1>
 		<p>
-			<Test/>
+			
 		</p>
+		<router-view></router-view>
 	</div>
 	
 </template>
@@ -17,11 +18,22 @@ import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2
 import TopNav from "./components/TopNav.vue"
 import SmallComputerOverview from "./components/SmallComputerOverview.vue"
 import lib from "./lib/lib.js"
+import VueRouter from 'vue-router'
+import Node from "./components/Node.vue"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+	base: "",
+	routes:[
+		{ path: '/node/:id', component: Node },
+	],
+})
 
 export default {
+	router:router,
 	data(){
 		return {
 			animation: true,

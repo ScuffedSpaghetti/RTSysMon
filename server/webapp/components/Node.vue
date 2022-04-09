@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             info: {},
+            hostnames:[],
         }
     },
     mounted() {
@@ -29,6 +30,7 @@ export default {
                     // console.log("host: " + obj.individual[x].hostname)
                     if(obj.individual[x].hostname == this.$route.params.id){
                         this.info = obj.individual[x]
+                        break
                     }
                 }
 			}

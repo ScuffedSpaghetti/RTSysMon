@@ -1,10 +1,6 @@
 <template>
 	<div>
 		<TopNav :info="info"/>
-		<h1>The scuffed vue ui goes here</h1>
-		<p>
-			
-		</p>
 		<router-view></router-view>
 	</div>
 	
@@ -21,6 +17,7 @@ import lib from "./lib/lib.js"
 import VueRouter from 'vue-router'
 import Node from "./components/Node.vue"
 import About from "./components/About.vue"
+import Home from "./components/Home.vue"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
@@ -30,8 +27,9 @@ const router = new VueRouter({
 	base: "",
 	routes:[
 		{ path: '/node/:id', component: Node },
-		{ path: '/' },
+		{ path: '/', component: Home },
 		{ path: '/about', component: About },
+		{ path: '/test', component: Test },
 	],
 })
 

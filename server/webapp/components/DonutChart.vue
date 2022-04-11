@@ -64,7 +64,9 @@ export default {
 		usage: {
 			immediate: true,
 			handler(usage){
-				this.updateChart(usage)
+				setTimeout(()=>{
+					this.updateChart(usage)
+				},100)
 			}
 		}
 	},

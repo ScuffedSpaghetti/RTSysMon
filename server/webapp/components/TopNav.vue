@@ -31,7 +31,7 @@ export default{
 			var hosts = []
 			for(var x in this.info.individual){
 				// console.log("host: " + this.info.individual[x].hostname)
-				hosts[x] = this.info.individual[x].hostname  
+				hosts[x] = this.info.individual[x].uid  
             }
 			return hosts
         },

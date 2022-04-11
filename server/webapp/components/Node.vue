@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="individualData" :compHeight="14" :compWidth="30" :compTitle="individualData.hostname"/></div>
+        <div><LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/></div>
         <p>
             
         </p>
@@ -16,7 +16,7 @@ export default {
     props:{
         info:{
 			type:Object,
-			default:{}
+			default:()=>{}
 		},
     },
     data() {
@@ -33,14 +33,13 @@ export default {
     computed:{
         individualData(){
             for(var x in this.info.individual){
-                // console.log("id: " + this.id)
-                // console.log("host: " + obj.individual[x].hostname)
-                if(this.info.individual[x].hostname == this.$route.params.id){
+                // console.log("id: " + this.$route.params.id)
+                // console.log("host: " + this.info.individual[x].uid)
+                if(this.info.individual[x].uid == this.$route.params.id){
                     return this.info.individual[x]
-                } else {
-                    return {}
                 }
             }
+            return {}
         }
     },
 }

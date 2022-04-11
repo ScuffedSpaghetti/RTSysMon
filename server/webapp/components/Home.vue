@@ -4,7 +4,9 @@
             <LargeComputerOverview :info="this.info.average" :compTitle="'Whole System Network Overview'"/>
         </div>
         <div class="container">
-            <SmallComputerOverview v-for="x in this.info.individual" :key="x.uid" :info="x" :compHeight="5" :compWidth="8" :compTitle="x.hostname"/>
+            <span class="link" v-on:click='gotoNode(x.uid)' custom v-for="x in this.info.individual" :key="x.uid">
+                <SmallComputerOverview  :info="x" :compHeight="5" :compWidth="8" :compTitle="x.hostname"/>
+            </span>
         </div>
     </div>
 </template>
@@ -30,6 +32,9 @@ export default{
         
     },
     methods: {
+        gotoNode(uid){
+            this.$router.push("/node/" + uid).catch(err => {})
+        }
         
     },
     computed:{
@@ -52,4 +57,7 @@ export default{
 	border-radius: 1em;
 }
 
+.link{
+    cursor: pointer;
+}
 </style>

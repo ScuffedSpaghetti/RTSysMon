@@ -8,6 +8,7 @@ var NvidiaGPU = require("./devices/nvidia")
 var GenericCPU = require("./devices/cpu-generic")
 var LinuxCPU = require("./devices/cpu-linux")
 var GenericRAM = require("./devices/memory-generic")
+var LinuxRAM = require("./devices/memory-linux")
 
 
 function recursiveRecordTotal(totalObj, obj){
@@ -98,17 +99,18 @@ function averageObjects(arr,settings){
 async function getValidDevices(){
 	var devices = {}
 	var cpu
+	var memory
 	switch(process.platform){
 		case "linux":
 			cpu = new LinuxCPU()
+			memory = new LinuxRAM()
 		break
 		
 		default:
 			cpu = new GenericCPU()
+			memory = new GenericRAM()
 	}
 	devices.cpu = cpu
-	
-	var memory = new GenericRAM()
 	devices.memory = memory
 	
 	var nvidia = new NvidiaGPU()
@@ -165,6 +167,11 @@ void (async function(){
 })
 
 var webSocketAddress = (config.get("serverSecure")?"wss":"ws")+"://"+config.get("serverAddress")
+
+if(config.get("verbose")){
+	process.env.VERBOSE = "true"
+}
+
 console.log("connecting to " + webSocketAddress)
 void (async function(){
 	var devices = await getValidDevices()

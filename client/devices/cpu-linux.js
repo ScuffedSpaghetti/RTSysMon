@@ -134,7 +134,7 @@ module.exports = class LinuxCPU extends GenericCPU{
 				}
 				if(process.env.VERBOSE){
 					console.error(err)
-					console.error("Could not get cpu power. Root privileges are needed to access MSR and turbostat must be installed")
+					console.error("Could not get cpu power. Root privileges are needed to access MSR and turbostat must be installed.")
 				}
 			}
 		}

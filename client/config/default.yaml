@@ -3,3 +3,4 @@
 
 serverAddress: localhost:3498
 serverSecure: false
+verbose: false

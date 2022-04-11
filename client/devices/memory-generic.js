@@ -3,7 +3,6 @@ var os = require("os")
 
 
 module.exports = class GenericRAM{
-	oldCpusData = os.cpus()
 	async getDeviceInfo(){
 		
 		var mem = {}

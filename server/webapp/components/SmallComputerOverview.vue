@@ -1,6 +1,5 @@
 <template>
 <div>
-    <br>
     <div class="container box-background">
 		<div class="title">{{compTitle}}</div>
 		<div class="component">
@@ -34,12 +33,10 @@
 			</div>
 			<div class="item" v-if="averageData.power">
 				<div class="title">Power</div>
-				<br>
 				<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
 			</div>
         </div>
     </div>
-    <br>
 </div>
 </template>
 
@@ -101,6 +98,7 @@ export default {
 	flex-flow: column wrap;
 	justify-content: space-around;
 	border-radius: 1em;
+	padding: 0.5em;
 }
 .item{
     align-content: center;

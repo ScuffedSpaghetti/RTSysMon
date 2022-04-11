@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<br>
 		<div class="container box-background">
 			<div class="title">{{compTitle}}</div>
 			<div class="component">
@@ -29,7 +28,6 @@
 				</div>
 			</div>
 		</div>
-		<br>
 	</div>
 </template>
 
@@ -91,6 +89,7 @@ export default {
 	flex-flow: column wrap;
 	justify-content: space-around;
 	border-radius: 1em;
+	padding: 0.5em;
 }
 .item{
 	text-align: center;

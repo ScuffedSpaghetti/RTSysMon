@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/></div>
+        <div class="pad">
+            <LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/>
+        </div>
         <p>
             
         </p>
@@ -44,3 +46,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+
+.pad{
+    margin:1em;
+}
+</style>

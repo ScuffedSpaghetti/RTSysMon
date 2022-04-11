@@ -1,5 +1,5 @@
 <template>
-	<div class="container" :style="{width:size+'em',height:size+'em'}" ref="container">
+	<div class="container-donut-chart" :style="{width:size+'em',height:size+'em'}" ref="container">
 		<ejs-accumulationchart ref="pie" style="display:inline-block; margin:auto" :enableBorderOnMouseMove="false" :height="pxSize.toString()" :width="pxSize.toString()" :margin="{bottom:1,left:1,right:1,top:1}" background="transparent">
 			<e-accumulation-series-collection>
 				<e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="45%" radius="100%" pointColorMapping='fill'></e-accumulation-series>
@@ -79,7 +79,7 @@ export default {
 	position: absolute;
 	transform: translate(-50%, -50%);
 }
-.container{
+.container-donut-chart{
 	display: inline-block; 
 	position: relative;
 }

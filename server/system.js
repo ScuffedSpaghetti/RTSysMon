@@ -179,9 +179,28 @@ module.exports = class System{
 			this.info.hostname = this.hostname
 			this.info.os = this.os
 			if(!this.initialized){
+				var uid = this.hostname
+				var counter = 1
+				while(true){
+					var collision = false
+					for(var x in System.activeSystems){
+						var system = System.activeSystems[x]
+						if(system.uid == uid){
+							collision = true
+							counter++
+							uid = this.hostname + " " + counter
+							break
+						}
+					}
+					if(collision == false){
+						break
+					}
+				}
+				this.uid = uid
 				System.activeSystems.push(this)
 				this.initialized = true
 			}
+			this.info.uid = this.uid
 		}
 		
 	}

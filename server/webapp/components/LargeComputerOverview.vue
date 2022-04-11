@@ -41,7 +41,7 @@ export default {
 	props:{
 		info:{
 			type:Object,
-			default:{},
+			default:() => {},
 		},
 		compHeight:{
 			type: Number,
@@ -103,9 +103,9 @@ export default {
 }
 .title{
 	text-align: center;
-	font-size: 4em;
+	font-size: 2em;
 }
 .info-text{
-	font-size: 3em;
+	font-size: 1.5em;
 }
 </style>

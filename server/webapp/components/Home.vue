@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="this.info.average" :compHeight="14" :compWidth="30" :compTitle="'Whole System Network Overview'"/></div>
-        <div class="container"><SmallComputerOverview v-for="x in this.info.individual" :info="x" :compHeight="7" :compWidth="15" :compTitle="x.hostname"/></div>
+        <div>
+            <LargeComputerOverview :info="this.info.average" :compTitle="'Whole System Network Overview'"/>
+        </div>
+        <div class="container">
+            <SmallComputerOverview v-for="x in this.info.individual" :key="x.uid" :info="x" :compHeight="5" :compWidth="8" :compTitle="x.hostname"/>
+        </div>
     </div>
 </template>
 
@@ -14,7 +18,7 @@ export default{
     props:{
         info:{
 			type:Object,
-			default:{}
+			default:()=>{}
 		},
     },
     data() {
@@ -38,7 +42,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 
 .container{
 	display: flex;

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div><LargeComputerOverview :info="averageData" :compHeight="14" :compWidth="30" :compTitle="'Whole System Network Overview'"/></div>
+		<div><LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'"/></div>
 		<br>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .container{
 	display: flex;

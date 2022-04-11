@@ -3,36 +3,40 @@
     <br>
     <div class="container box-background">
 		<div class="title">{{compTitle}}</div>
-        <div class="item" v-if="averageData.cpu">
-            <div class="title">CPU</div>
-            <div class="component">
-                <DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
-            </div>
-        </div>
-        <div class="item" v-if="averageData.memory">
-            <div class="title">Memory</div>
-            <div class="component">
-            	<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
-            </div>
-            <div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
-        </div>
-		<div class="item" v-if="averageData.gpu">
-			<div class="title">GPU</div>
-			<div class="component">
-				<DonutChart :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
+		<div class="component">
+			<div class="item" v-if="averageData.cpu">
+				<div class="title">CPU</div>
+				<!-- <div class="component"> -->
+					<DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
+				<!-- </div> -->
+			</div>
+			<div class="item" v-if="averageData.memory">
+				<div class="title">Memory</div>
+				<!-- <div class="component"> -->
+					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
+				<!-- </div> -->
+				<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 			</div>
 		</div>
-		<div class="item" v-if="averageData.gpu">
-			<div class="title">GPU Memory</div>
-            <div class="component">
-            	<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
-            </div>
-            <div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
-		</div>
-        <div class="item" v-if="averageData.power">
-            <div class="title">Power</div>
-            <br>
-            <div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
+		<div class="component">
+			<div class="item" v-if="averageData.gpu">
+				<div class="title">GPU</div>
+				<!-- <div class="component"> -->
+					<DonutChart :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
+				<!-- </div> -->
+			</div>
+			<div class="item" v-if="averageData.gpu">
+				<div class="title">GPU Memory</div>
+				<!-- <div class="component"> -->
+					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
+				<!-- </div> -->
+				<div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
+			</div>
+			<div class="item" v-if="averageData.power">
+				<div class="title">Power</div>
+				<br>
+				<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
+			</div>
         </div>
     </div>
     <br>
@@ -47,7 +51,7 @@ export default {
 	props:{
 		info:{
 			type:Object,
-			default:{}
+			default:() => {}
 		},
 		compHeight:{
 			type: Number,
@@ -102,11 +106,20 @@ export default {
     align-content: center;
 	text-align: center;
 	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	flex-flow: column wrap;
+	justify-content: space-around;
+}
+.flex-break{
+	flex-basis: 100%;
+	height: 0;
 }
 .title{
-	font-size: 2em;
+	text-align: center;
+	font-size: 1.5em;
 }
 .info-text{
-	font-size: 1.5em;
+	font-size: 1em;
 }
 </style>

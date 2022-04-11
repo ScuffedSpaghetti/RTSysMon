@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style>
+<style vsc-initialized>
 .container{
 	display: flex;
 	flex-direction: row;

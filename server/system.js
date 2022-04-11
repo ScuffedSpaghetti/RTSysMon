@@ -142,7 +142,7 @@ module.exports = class System{
 				// 	return 0
 				// }
 				// return (a.hostname > b.hostname)? 1 : -1
-				return alphanumSort(a.hostname, b.hostname)
+				return alphanumSort(a.uid, b.uid)
 			})
 			var totalAverage = averageObjects(individual,{
 				addKeys:["bytes","bytes_total", "watts","watts_limit"],

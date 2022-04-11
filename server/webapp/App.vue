@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<TopNav :info="info"/>
-		<router-view></router-view>
+		<router-view :info="info"></router-view>
 	</div>
 	
 </template>

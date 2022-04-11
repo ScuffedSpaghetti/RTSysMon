@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="this.info" :compHeight="14" :compWidth="30" /></div>
+        <div><LargeComputerOverview :info="individualData" :compHeight="14" :compWidth="30" /></div>
         <p>
             
         </p>
@@ -14,35 +14,34 @@ import lib from "../lib/lib.js"
 
 export default {
     props:{
-
+        info:{
+			type:Object,
+			default:{}
+		},
     },
     data() {
         return {
-            info: {},
-            hostnames:[],
+            
         }
     },
     mounted() {
-        var messageHandler = (obj) => {
-			if(obj.type == "info"){
-                for(var x in obj.individual){
-                    // console.log("id: " + this.id)
-                    // console.log("host: " + obj.individual[x].hostname)
-                    if(obj.individual[x].hostname == this.$route.params.id){
-                        this.info = obj.individual[x]
-                        break
-                    }
-                }
-			}
-		}
-		
-		lib.messageHandlers.push(messageHandler)
+        
     },
     components:{
         LargeComputerOverview,
     },
     computed:{
-        
+        individualData(){
+            for(var x in this.info.individual){
+                // console.log("id: " + this.id)
+                // console.log("host: " + obj.individual[x].hostname)
+                if(this.info.individual[x].hostname == this.$route.params.id){
+                    return this.info.individual[x]
+                } else {
+                    return {}
+                }
+            }
+        }
     },
 }
 </script>

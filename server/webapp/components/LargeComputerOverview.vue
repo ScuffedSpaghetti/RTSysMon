@@ -1,24 +1,36 @@
 <template>
-<div>
-	<br>
-	<div class="container box-background">
-		<div class="item" v-if="averageData.cpu">
-			<div class="title">CPU</div>
-			<DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
+	<div>
+		<br>
+		<div class="container box-background">
+			<div class="title">Whole System Network Overview</div>
+			<div class="component">
+				<div class="item" v-if="averageData.cpu">
+					<div class="title">CPU</div>
+					<DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
+				</div>
+				<div class="item" v-if="averageData.memory">
+					<div class="title">Memory</div>
+					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
+					<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
+				</div>
+				<div class="item" v-if="averageData.gpu">
+					<div class="title">GPU</div>
+					<DonutChart :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
+				</div>
+				<div class="item" v-if="averageData.gpu">
+					<div class="title">GPU Memory</div>
+					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
+					<div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
+				</div>
+				<div class="item" v-if="averageData.power">
+					<div class="title">Power</div>
+					<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
+					<br>
+				</div>
+			</div>
 		</div>
-		<div class="item" v-if="averageData.memory">
-			<div class="title">Memory</div>
-			<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
-			<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
-		</div>
-		<div class="item" v-if="averageData.power">
-			<div class="title">Power</div>
-			<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
-			<br>
-		</div>
+		<br>
 	</div>
-	<br>
-</div>
 </template>
 
 <script>
@@ -62,10 +74,17 @@ export default {
 
 <style scoped>
 
-.container{
+.component{
 	display: flex;
 	flex-direction: row;
 	flex-flow: row wrap;
+	justify-content: space-around;
+	border-radius: 1em;
+}
+.container{
+	display: flex;
+	flex-direction: column;
+	flex-flow: column wrap;
 	justify-content: space-around;
 	border-radius: 1em;
 }
@@ -79,6 +98,7 @@ export default {
 	border-radius: 1em;
 }
 .title{
+	text-align: center;
 	font-size: 4em;
 }
 .info-text{

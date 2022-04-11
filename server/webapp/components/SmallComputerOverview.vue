@@ -2,6 +2,7 @@
 <div>
     <br>
     <div class="container box-background">
+		<div class="title">{{this.info.hostname}}</div>
         <div class="item" v-if="averageData.cpu">
             <div class="title">CPU</div>
             <div class="component">
@@ -11,10 +12,23 @@
         <div class="item" v-if="averageData.memory">
             <div class="title">Memory</div>
             <div class="component">
-            <HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
+            	<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
             </div>
             <div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
         </div>
+		<div class="item" v-if="averageData.gpu">
+			<div class="title">GPU</div>
+			<div class="component">
+				<DonutChart :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
+			</div>
+		</div>
+		<div class="item" v-if="averageData.gpu">
+			<div class="title">GPU Memory</div>
+            <div class="component">
+            	<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
+            </div>
+            <div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
+		</div>
         <div class="item" v-if="averageData.power">
             <div class="title">Power</div>
             <br>

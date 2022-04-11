@@ -9,10 +9,8 @@
 <script>
 import Vue from "vue"
 import Test from "./components/Test.vue"
-import DonutChart from "./components/DonutChart.vue"
 import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts"
 import TopNav from "./components/TopNav.vue"
-import SmallComputerOverview from "./components/SmallComputerOverview.vue"
 import lib from "./lib/lib.js"
 import VueRouter from 'vue-router'
 import Node from "./components/Node.vue"
@@ -65,10 +63,7 @@ export default {
 		}
 	},
 	components:{
-    Test,
-    DonutChart,
     TopNav,
-    SmallComputerOverview
 },
 	mounted() {
 		try{

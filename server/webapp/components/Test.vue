@@ -1,11 +1,6 @@
 <template>
 	<div>
-		<div>
-			<DonutChart :usage="cpuUsage" :size="20"/>
-			<HorizontalBar :usage="cpuUsage" :width="20" :height="20" />
-		</div>
-		<br>
-		<div><LargeComputerOverview :info="averageData" :compHeight="14" :compWidth="30" /></div>
+		<div><LargeComputerOverview :info="averageData" :compHeight="14" :compWidth="30" :compTitle="'Whole System Network Overview'"/></div>
 		<br>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -50,7 +45,6 @@ export default {
 		DonutChart,
 		HorizontalBar,
 		LargeComputerOverview,
-		SmallComputerOverview
 	}
 }
 </script>

@@ -2,7 +2,7 @@
 <div>
     <br>
     <div class="container box-background">
-		<div class="title">{{this.info.hostname}}</div>
+		<div class="title">{{compTitle}}</div>
         <div class="item" v-if="averageData.cpu">
             <div class="title">CPU</div>
             <div class="component">
@@ -56,7 +56,11 @@ export default {
 		compWidth: {
 			type: Number,
 			default: 14,
-		}
+		},
+		compTitle:{
+			type: String,
+			default: "",
+		},
 	},
 	methods:{
 		toGB(bytes){

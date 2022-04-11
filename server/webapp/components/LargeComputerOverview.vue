@@ -2,7 +2,7 @@
 	<div>
 		<br>
 		<div class="container box-background">
-			<div class="title">Whole System Network Overview</div>
+			<div class="title">{{compTitle}}</div>
 			<div class="component">
 				<div class="item" v-if="averageData.cpu">
 					<div class="title">CPU</div>
@@ -41,7 +41,7 @@ export default {
 	props:{
 		info:{
 			type:Object,
-			default:{}
+			default:{},
 		},
 		compHeight:{
 			type: Number,
@@ -50,7 +50,11 @@ export default {
 		compWidth: {
 			type: Number,
 			default: 14,
-		}
+		},
+		compTitle:{
+			type: String,
+			default: "",
+		},
 	},
 	methods:{
 		toGB(bytes){

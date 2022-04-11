@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="individualData" :compHeight="14" :compWidth="30" /></div>
+        <div><LargeComputerOverview :info="individualData" :compHeight="14" :compWidth="30" :compTitle="individualData.hostname"/></div>
         <p>
             
         </p>

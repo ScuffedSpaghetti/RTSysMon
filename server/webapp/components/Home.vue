@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div><LargeComputerOverview :info="this.info.average" :compHeight="14" :compWidth="30" /></div>
-        <div class="container"><SmallComputerOverview v-for="x in this.info.individual" :info="x" :compHeight="7" :compWidth="15" /></div>
+        <div><LargeComputerOverview :info="this.info.average" :compHeight="14" :compWidth="30" :compTitle="'Whole System Network Overview'"/></div>
+        <div class="container"><SmallComputerOverview v-for="x in this.info.individual" :info="x" :compHeight="7" :compWidth="15" :compTitle="x.hostname"/></div>
     </div>
 </template>
 

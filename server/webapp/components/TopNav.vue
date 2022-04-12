@@ -2,6 +2,7 @@
     <div class="top-nav">
 		<router-link class="active" :to="'/'">Home</router-link>
 		<router-link :to="'/about'">About</router-link>
+		<router-link :to="'/settings'">Settings</router-link>
 		<div class="container">
 			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>

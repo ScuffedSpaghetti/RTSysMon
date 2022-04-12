@@ -16,6 +16,7 @@ import VueRouter from 'vue-router'
 import Node from "./components/Node.vue"
 import About from "./components/About.vue"
 import Home from "./components/Home.vue"
+import Settings from "./components/Settings.vue"
 
 Vue.use(AccumulationChartPlugin);
 Vue.use(ChartPlugin);
@@ -27,6 +28,7 @@ const router = new VueRouter({
 		{ path: '/node/:id', component: Node },
 		{ path: '/', component: Home },
 		{ path: '/about', component: About },
+		{ path: '/settings', component: Settings },
 		{ path: '/test', component: Test },
 	],
 })
@@ -68,9 +70,11 @@ export default {
 	mounted() {
 		try{
 			var systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-			this.setDarkMode(systemTheme.matches)
+			// this.setDarkMode(systemTheme.matches)
+			this.darkMode = systemTheme.matches
 			systemTheme.addEventListener(function(event) {
-				this.setDarkMode(event.matches)
+				// this.setDarkMode(event.matches)
+				this.darkMode = systemTheme.matches
         	})
     	}catch(a){}
 		lib.messageHandlers.push(this.messageHandler)

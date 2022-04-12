@@ -83,6 +83,6 @@ export default{
 }
 .info-text{
     text-align: center;
-	font-size: 0.5em;
+	font-size: 0.75em;
 }
 </style>

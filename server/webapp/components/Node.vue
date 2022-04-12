@@ -3,16 +3,16 @@
         <div class="pad">
             <LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/>
         </div>
-        <p>
-            
-        </p>
+        <div class="pad">
+            <CpuDetails :info="individualData.cpu" :compHeight="4" :compWidth="4"/>
+        </div>
     </div>
 </template>
 
 <script>
 
 import LargeComputerOverview from './LargeComputerOverview.vue'
-import lib from "../lib/lib.js"
+import CpuDetails from './CpuDetails.vue'
 
 export default {
     props:{
@@ -31,6 +31,7 @@ export default {
     },
     components:{
         LargeComputerOverview,
+        CpuDetails
     },
     computed:{
         individualData(){
@@ -41,7 +42,7 @@ export default {
                     return this.info.individual[x]
                 }
             }
-            return {}
+            return this.info.average
         }
     },
 }

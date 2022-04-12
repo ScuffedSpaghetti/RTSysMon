@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div><LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'"/></div>
+		<div v-if="averageData.cpu">
+			<div><OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/></div>
+		</div>
+		<div><LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/></div>
 		<br>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -11,6 +14,7 @@
 <script>
 import DonutChart from "./DonutChart.vue"
 import HorizontalBar from './HorizontalBar.vue'
+import OpacityBox from "./OpacityBox.vue"
 import LargeComputerOverview from './LargeComputerOverview.vue'
 import SmallComputerOverview from "./SmallComputerOverview.vue"
 
@@ -45,6 +49,7 @@ export default {
 		DonutChart,
 		HorizontalBar,
 		LargeComputerOverview,
+		OpacityBox
 	}
 }
 </script>

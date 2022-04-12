@@ -1,0 +1,903 @@
+{
+  "average": {
+    "cpu": {
+      "average": {
+        "usage": 28.011049270629883,
+        "model": "Intel(R) Xeon(R) CPU E5-1620 0 @ 3.60GHz | AMD Ryzen 9 3900X 12-Core Processor | Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz | Intel(R) Core(TM) i3-4130 CPU @ 3.40GHz | Intel(R) Xeon(R) CPU X5690 @ 3.47GHz",
+        "power": {
+          "watts": 69.0999984741211
+        },
+        "temperature": 17,
+        "temperature_info": {
+          "package": 34,
+          "package_max": 34,
+          "core": 32.5,
+          "core_max": 32.5
+        }
+      },
+      "individualUsage": [
+        26.956993103027344,
+        28.125364303588867,
+        45.2670783996582,
+        25.52503776550293,
+        32.72615051269531,
+        35.45301055908203,
+        32.84196472167969,
+        29.340076446533203,
+        48.56787872314453,
+        28.4287166595459,
+        43.00173568725586,
+        26.436077117919922,
+        42.3464241027832,
+        44.47455978393555,
+        42.909912109375,
+        40.05488204956055,
+        44.88622283935547,
+        34.97844314575195,
+        70.53559112548828,
+        65.02058410644531,
+        37.02020263671875,
+        27.917871475219727,
+        32.65306091308594,
+        33.67346954345703,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1.0989011526107788,
+        0,
+        0,
+        2.17391300201416,
+        1.08695650100708,
+        0,
+        100,
+        51.64834976196289,
+        0,
+        8.88888931274414,
+        0,
+        29.34782600402832,
+        30.769229888916016,
+        5.494505405426025,
+        59.340660095214844,
+        53.846153259277344,
+        27.77777862548828,
+        53.846153259277344,
+        26.373626708984375,
+        52.74725341796875,
+        10,
+        67.03296661376953,
+        25.27472496032715,
+        27.173913955688477,
+        97.82608795166016,
+        96.73912811279297,
+        0,
+        0,
+        0,
+        1.08695650100708,
+        0,
+        1.08695650100708,
+        0,
+        0,
+        0,
+        0,
+        1.0989011526107788,
+        0,
+        0,
+        1.08695650100708,
+        3.2608695030212402,
+        0
+      ]
+    },
+    "power": {
+      "average": {
+        "watts": 913.6099853515625
+      }
+    },
+    "memory": {
+      "average": {
+        "usage": 50.671077728271484,
+        "bytes_total": 663389589504,
+        "bytes": 192047362048
+      }
+    },
+    "gpu": {
+      "average": {
+        "power": {
+          "usage": 72.37844848632812,
+          "watts": 844.510009765625,
+          "watts_limit": 1172
+        },
+        "temperature": 70.30000305175781,
+        "core": {
+          "usage": 91.30000305175781
+        },
+        "name": "GeForce GTX 1060 6GB | NVIDIA GeForce RTX 2080 | Tesla T4 | NVIDIA GeForce GTX 1080",
+        "memory": {
+          "usage": 68.60167694091797,
+          "bytes": 37747687424,
+          "bytes_total": 102026444800
+        },
+        "bus": {
+          "type": "pcie",
+          "tx_bytes": 477900000,
+          "rx_bytes": 208700000,
+          "generation": 2.799999952316284,
+          "width": 16
+        },
+        "fan_speed": 42.625
+      }
+    },
+    "hostname": "DESKTOP-JJAH54F | PERSONAL-PC | dh-node11 | dorm-server | personal-linux | server",
+    "os": "Windows 10 Pro | #139-Ubuntu SMP Mon Jan 18 17:38:24 UTC 2021 | #1 SMP Debian 4.19.208-1 (2021-09-29) | #1 SMP Debian 5.10.92-1 (2022-01-18) | #1 SMP Debian 5.10.46-4 (2021-08-03)",
+    "uid": "DESKTOP-JJAH54F | PERSONAL-PC | PERSONAL-PC 2 | dh-node11 | dorm-server | personal-linux | server"
+  },
+  "individual": [
+    {
+      "cpu": {
+        "average": {
+          "usage": 7.124605655670166,
+          "model": "Intel(R) Xeon(R) CPU E5-1620 0 @ 3.60GHz"
+        },
+        "individualUsage": [
+          6.29370641708374,
+          4.6795525550842285,
+          12.703251838684082,
+          3.1504065990448,
+          6.3008131980896,
+          6.395938873291016,
+          6.395938873291016,
+          11.07723617553711
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 166.8699951171875
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 62.32678985595703,
+          "bytes_total": 34315423744,
+          "bytes": 21387702272
+        },
+        "individual": [
+          {
+            "usage": 62.32678985595703,
+            "bytes_total": 34315423744,
+            "bytes": 21387702272
+          }
+        ]
+      },
+      "gpu": {
+        "average": {
+          "power": {
+            "usage": 89.52361297607422,
+            "watts": 166.8699951171875,
+            "watts_limit": 192
+          },
+          "temperature": 76.5,
+          "core": {
+            "usage": 100
+          },
+          "name": "GeForce GTX 1060 6GB",
+          "memory": {
+            "usage": 86.328125,
+            "bytes": 11123294208,
+            "bytes_total": 12884901888
+          },
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 8000000,
+            "rx_bytes": 22000000,
+            "generation": 2,
+            "width": 16
+          },
+          "fan_speed": 50.5
+        },
+        "individual": [
+          {
+            "power": {
+              "usage": 99.97222137451172,
+              "watts": 71.9800033569336,
+              "watts_limit": 72
+            },
+            "temperature": 72,
+            "core": {
+              "usage": 100
+            },
+            "name": "GeForce GTX 1060 6GB",
+            "memory": {
+              "usage": 83.7890625,
+              "bytes": 5398069248,
+              "bytes_total": 6442450944
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 7000000,
+              "rx_bytes": 22000000,
+              "generation": 2,
+              "width": 16
+            },
+            "fan_speed": 45
+          },
+          {
+            "power": {
+              "usage": 79.07499694824219,
+              "watts": 94.88999938964844,
+              "watts_limit": 120
+            },
+            "temperature": 81,
+            "core": {
+              "usage": 100
+            },
+            "name": "GeForce GTX 1060 6GB",
+            "memory": {
+              "usage": 88.8671875,
+              "bytes": 5725224960,
+              "bytes_total": 6442450944
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 9000000,
+              "rx_bytes": 22000000,
+              "generation": 2,
+              "width": 16
+            },
+            "fan_speed": 56
+          }
+        ]
+      },
+      "hostname": "DESKTOP-JJAH54F",
+      "os": "Windows 10 Pro",
+      "uid": "DESKTOP-JJAH54F"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 52.40443801879883,
+          "model": "AMD Ryzen 9 3900X 12-Core Processor"
+        },
+        "individualUsage": [
+          64.99466705322266,
+          46.69509506225586,
+          71.67198944091797,
+          41.6844367980957,
+          63.287086486816406,
+          62.5,
+          59.97865676879883,
+          38.31376647949219,
+          77.37602996826172,
+          21.748401641845703,
+          63.32622528076172,
+          28.35820960998535,
+          49.2130126953125,
+          60.650577545166016,
+          51.70575714111328,
+          51.65421676635742,
+          54.962646484375,
+          38.31376647949219,
+          51.65421676635742,
+          50
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 155.5
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 83.23155975341797,
+          "bytes_total": 47177568256,
+          "bytes": 39266627584
+        },
+        "individual": [
+          {
+            "usage": 83.23155975341797,
+            "bytes_total": 47177568256,
+            "bytes": 39266627584
+          }
+        ]
+      },
+      "gpu": {
+        "average": {
+          "power": {
+            "usage": 59.80769348144531,
+            "watts": 155.5,
+            "watts_limit": 260
+          },
+          "temperature": 69,
+          "core": {
+            "usage": 80
+          },
+          "name": "NVIDIA GeForce RTX 2080",
+          "memory": {
+            "usage": 91.6015625,
+            "bytes": 7868514304,
+            "bytes_total": 8589934592
+          },
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 425000000,
+            "rx_bytes": 325000000,
+            "generation": 3,
+            "width": 16
+          },
+          "fan_speed": 35
+        },
+        "individual": [
+          {
+            "power": {
+              "usage": 59.80769348144531,
+              "watts": 155.5,
+              "watts_limit": 260
+            },
+            "temperature": 69,
+            "core": {
+              "usage": 80
+            },
+            "name": "NVIDIA GeForce RTX 2080",
+            "memory": {
+              "usage": 91.6015625,
+              "bytes": 7868514304,
+              "bytes_total": 8589934592
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 425000000,
+              "rx_bytes": 325000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": 35
+          }
+        ]
+      },
+      "hostname": "PERSONAL-PC",
+      "os": "Windows 10 Pro",
+      "uid": "PERSONAL-PC"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 51.60348892211914,
+          "model": "AMD Ryzen 9 3900X 12-Core Processor"
+        },
+        "individualUsage": [
+          72.24409484863281,
+          35.43307113647461,
+          66.14173126220703,
+          43.70000076293945,
+          62.5,
+          60.63063049316406,
+          62.5,
+          35.96403503417969,
+          73.5,
+          25,
+          58.46456527709961,
+          33.891624450683594,
+          50,
+          49.16256332397461,
+          51.5,
+          45.29999923706055,
+          54.70000076293945,
+          40.599998474121094,
+          61.57635498046875,
+          49.261085510253906
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 127.87000274658203
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 83.2482681274414,
+          "bytes_total": 47177568256,
+          "bytes": 39274508288
+        },
+        "individual": [
+          {
+            "usage": 83.2482681274414,
+            "bytes_total": 47177568256,
+            "bytes": 39274508288
+          }
+        ]
+      },
+      "gpu": {
+        "average": {
+          "power": {
+            "usage": 49.18077087402344,
+            "watts": 127.87000274658203,
+            "watts_limit": 260
+          },
+          "temperature": 68,
+          "core": {
+            "usage": 80
+          },
+          "name": "NVIDIA GeForce RTX 2080",
+          "memory": {
+            "usage": 91.6015625,
+            "bytes": 7868514304,
+            "bytes_total": 8589934592
+          },
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 1912000000,
+            "rx_bytes": 508000000,
+            "generation": 3,
+            "width": 16
+          },
+          "fan_speed": 35
+        },
+        "individual": [
+          {
+            "power": {
+              "usage": 49.18077087402344,
+              "watts": 127.87000274658203,
+              "watts_limit": 260
+            },
+            "temperature": 68,
+            "core": {
+              "usage": 80
+            },
+            "name": "NVIDIA GeForce RTX 2080",
+            "memory": {
+              "usage": 91.6015625,
+              "bytes": 7868514304,
+              "bytes_total": 8589934592
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 1912000000,
+              "rx_bytes": 508000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": 35
+          }
+        ]
+      },
+      "hostname": "PERSONAL-PC",
+      "os": "Windows 10 Pro",
+      "uid": "PERSONAL-PC 2"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 18.99138832092285,
+          "model": "Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz"
+        },
+        "individualUsage": [
+          0,
+          25.27472496032715,
+          100,
+          26.086956024169922,
+          0,
+          30,
+          2.1978023052215576,
+          26.086956024169922,
+          26.66666603088379,
+          29.34782600402832,
+          26.373626708984375,
+          0,
+          10.98901081085205,
+          0,
+          1.08695650100708,
+          0,
+          27.173913955688477,
+          0,
+          97.77777862548828,
+          97.77777862548828,
+          3.3333332538604736,
+          1.0989011526107788,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1.0989011526107788,
+          0,
+          0,
+          2.17391300201416,
+          1.08695650100708,
+          0,
+          100,
+          51.64834976196289,
+          0,
+          8.88888931274414,
+          0,
+          29.34782600402832,
+          30.769229888916016,
+          5.494505405426025,
+          59.340660095214844,
+          53.846153259277344,
+          27.77777862548828,
+          53.846153259277344,
+          26.373626708984375,
+          52.74725341796875,
+          10,
+          67.03296661376953,
+          25.27472496032715,
+          27.173913955688477,
+          97.82608795166016,
+          96.73912811279297,
+          0,
+          0,
+          0,
+          1.08695650100708,
+          0,
+          1.08695650100708,
+          0,
+          0,
+          0,
+          0,
+          1.0989011526107788,
+          0,
+          0,
+          1.08695650100708,
+          3.2608695030212402,
+          0
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 280.5199890136719
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 7.153456687927246,
+          "bytes_total": 404352294912,
+          "bytes": 28925165568
+        },
+        "individual": [
+          {
+            "usage": 7.153456687927246,
+            "bytes_total": 404352294912,
+            "bytes": 28925165568
+          }
+        ]
+      },
+      "gpu": {
+        "average": {
+          "power": {
+            "usage": 100.18571472167969,
+            "watts": 280.5199890136719,
+            "watts_limit": 280
+          },
+          "temperature": 63,
+          "core": {
+            "usage": 97.5
+          },
+          "name": "Tesla T4",
+          "memory": {
+            "usage": 8.35263729095459,
+            "bytes": 5293211648,
+            "bytes_total": 63371739136
+          },
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 1500000,
+            "rx_bytes": 8500000,
+            "generation": 3,
+            "width": 16
+          },
+          "fan_speed": null
+        },
+        "individual": [
+          {
+            "power": {
+              "usage": 98.5142822265625,
+              "watts": 68.95999908447266,
+              "watts_limit": 70
+            },
+            "temperature": 65,
+            "core": {
+              "usage": 96
+            },
+            "name": "Tesla T4",
+            "memory": {
+              "usage": 8.577669143676758,
+              "bytes": 1358954496,
+              "bytes_total": 15842934784
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 1000000,
+              "rx_bytes": 8000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": null
+          },
+          {
+            "power": {
+              "usage": 99.61428833007812,
+              "watts": 69.7300033569336,
+              "watts_limit": 70
+            },
+            "temperature": 65,
+            "core": {
+              "usage": 99
+            },
+            "name": "Tesla T4",
+            "memory": {
+              "usage": 8.246740341186523,
+              "bytes": 1306525696,
+              "bytes_total": 15842934784
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 2000000,
+              "rx_bytes": 8000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": null
+          },
+          {
+            "power": {
+              "usage": 101.54285430908203,
+              "watts": 71.08000183105469,
+              "watts_limit": 70
+            },
+            "temperature": 73,
+            "core": {
+              "usage": 96
+            },
+            "name": "Tesla T4",
+            "memory": {
+              "usage": 8.220266342163086,
+              "bytes": 1302331392,
+              "bytes_total": 15842934784
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 2000000,
+              "rx_bytes": 12000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": null
+          },
+          {
+            "power": {
+              "usage": 101.07142639160156,
+              "watts": 70.75,
+              "watts_limit": 70
+            },
+            "temperature": 49,
+            "core": {
+              "usage": 99
+            },
+            "name": "Tesla T4",
+            "memory": {
+              "usage": 8.365874290466309,
+              "bytes": 1325400064,
+              "bytes_total": 15842934784
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 1000000,
+              "rx_bytes": 6000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": null
+          }
+        ]
+      },
+      "hostname": "dh-node11",
+      "os": "#139-Ubuntu SMP Mon Jan 18 17:38:24 UTC 2021",
+      "uid": "dh-node11"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 1.7962340116500854,
+          "model": "Intel(R) Core(TM) i3-4130 CPU @ 3.40GHz",
+          "power": {
+            "watts": 7.440000057220459
+          },
+          "temperature": 34,
+          "temperature_info": {
+            "package": 34,
+            "package_max": 34,
+            "core": 32.5,
+            "core_max": 32.5
+          }
+        },
+        "individualUsage": [
+          3.0612244606018066,
+          1.0309277772903442,
+          1.0309277772903442,
+          2.0618555545806885
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 7.440000057220459
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 25.80352210998535,
+          "bytes_total": 12501618688,
+          "bytes": 3225858048
+        },
+        "individual": [
+          {
+            "usage": 25.80352210998535,
+            "bytes_total": 12501618688,
+            "bytes": 3225858048
+          }
+        ]
+      },
+      "hostname": "dorm-server",
+      "os": "#1 SMP Debian 4.19.208-1 (2021-09-29)",
+      "uid": "dorm-server"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 62.77644729614258,
+          "model": "AMD Ryzen 9 3900X 12-Core Processor",
+          "power": {
+            "watts": 61.65999984741211
+          },
+          "temperature": 0,
+          "temperature_info": {}
+        },
+        "individualUsage": [
+          42.105262756347656,
+          82.65306091308594,
+          64.21052551269531,
+          59.79381561279297,
+          63.157894134521484,
+          53.191490173339844,
+          65.97937774658203,
+          62.37623596191406,
+          62,
+          64.94845581054688,
+          64.6464614868164,
+          67.70833587646484,
+          59.18367385864258,
+          68.0851058959961,
+          67.34693908691406,
+          63.26530456542969,
+          42.70833206176758,
+          61,
+          71.13401794433594,
+          63.043479919433594,
+          70.70706939697266,
+          54.73684310913086,
+          65.30612182617188,
+          67.34693908691406
+        ]
+      },
+      "power": {
+        "average": {
+          "watts": 175.41000366210938
+        }
+      },
+      "memory": {
+        "average": {
+          "usage": 77.329345703125,
+          "bytes_total": 67355672576,
+          "bytes": 52085702656
+        },
+        "individual": [
+          {
+            "usage": 77.329345703125,
+            "bytes_total": 67355672576,
+            "bytes": 52085702656
+          }
+        ]
+      },
+      "gpu": {
+        "average": {
+          "power": {
+            "usage": 63.19444274902344,
+            "watts": 113.75,
+            "watts_limit": 180
+          },
+          "temperature": 75,
+          "core": {
+            "usage": 99
+          },
+          "name": "NVIDIA GeForce GTX 1080",
+          "memory": {
+            "usage": 65.12451171875,
+            "bytes": 5594152960,
+            "bytes_total": 8589934592
+          },
+          "bus": {
+            "type": "pcie",
+            "tx_bytes": 43000000,
+            "rx_bytes": 180000000,
+            "generation": 3,
+            "width": 16
+          },
+          "fan_speed": 50
+        },
+        "individual": [
+          {
+            "power": {
+              "usage": 63.19444274902344,
+              "watts": 113.75,
+              "watts_limit": 180
+            },
+            "temperature": 75,
+            "core": {
+              "usage": 99
+            },
+            "name": "NVIDIA GeForce GTX 1080",
+            "memory": {
+              "usage": 65.12451171875,
+              "bytes": 5594152960,
+              "bytes_total": 8589934592
+            },
+            "bus": {
+              "type": "pcie",
+              "tx_bytes": 43000000,
+              "rx_bytes": 180000000,
+              "generation": 3,
+              "width": 16
+            },
+            "fan_speed": 50
+          }
+        ]
+      },
+      "hostname": "personal-linux",
+      "os": "#1 SMP Debian 5.10.92-1 (2022-01-18)",
+      "uid": "personal-linux"
+    },
+    {
+      "cpu": {
+        "average": {
+          "usage": 1.3807488679885864,
+          "model": "Intel(R) Xeon(R) CPU X5690 @ 3.47GHz"
+        },
+        "individualUsage": [
+          0,
+          1.1111111640930176,
+          1.1111111640930176,
+          2.1978023052215576,
+          1.1111111640930176,
+          0,
+          0,
+          2.222222328186035,
+          3.296703338623047,
+          1.0989011526107788,
+          2.1978023052215576,
+          2.222222328186035
+        ]
+      },
+      "memory": {
+        "average": {
+          "usage": 15.604601860046387,
+          "bytes_total": 50509443072,
+          "bytes": 7881797632
+        },
+        "individual": [
+          {
+            "usage": 15.604601860046387,
+            "bytes_total": 50509443072,
+            "bytes": 7881797632
+          }
+        ]
+      },
+      "hostname": "server",
+      "os": "#1 SMP Debian 5.10.46-4 (2021-08-03)",
+      "uid": "server"
+    }
+  ],
+  "type": "info"
+}

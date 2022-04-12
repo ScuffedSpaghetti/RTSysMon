@@ -33,7 +33,7 @@
 			</div>
 			<div class="item" v-if="averageData.power">
 				<div class="title">Power</div>
-				<div class="info-text">{{averageData.power.watts.toFixed(1)}} Watts</div>
+				<div class="info-text" style="min-width:6em;">{{averageData.power.watts.toFixed(1)}} Watts</div>
 			</div>
         </div>
     </div>

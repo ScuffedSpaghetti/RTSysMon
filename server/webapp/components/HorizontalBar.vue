@@ -6,7 +6,7 @@
 	<div class="inner inner2" :class="{animate: this.$root.animation !== false}" :style="inner2Style">
 		
 	</div>
-	<label class="label" :style="{fontSize:(size || height)/5+'em'}">{{usage.toFixed(1)}}%</label>
+	<div class="label" :style="{fontSize:(size || height)/5+'em'}">{{usage.toFixed(1)}}%</div>
 </div>
 </template>
 

@@ -5,7 +5,7 @@
 				<e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="45%" radius="100%" pointColorMapping='fill'></e-accumulation-series>
 			</e-accumulation-series-collection>
 		</ejs-accumulationchart>
-		<label class="label" :style="{fontSize:size/8+'em'}">{{usage.toFixed(1)}}%</label>
+		<div class="label" :style="{fontSize:size/8+'em'}">{{usage.toFixed(1)}}%</div>
 	</div>
 </template>
 

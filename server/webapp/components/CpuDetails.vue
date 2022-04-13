@@ -2,6 +2,12 @@
     <div>
         <div class="container box-background">
             <div class="title">{{this.info?this.info.average.model:""}}</div>
+			<div class="component" v-if="this.info?this.info.individualUsage:undefined">
+                <div  class="item" v-for="(x, i) in this.info.individualUsage" :key="i">
+                    <OpacityBox class="flex-child" :usage="x" :height="compHeight" :width="compWidth"/>
+                    <div class="info-text">Core {{i}}</div>
+                </div>
+            </div>
 			<div class="component">
 				<div  class="item" v-if="this.info?this.info.average.temperature:undefined">
                     <div class="title">Temperature</div>
@@ -12,12 +18,6 @@
                     <div class="text">{{this.info.average.power.watts.toFixed(1)}}Watts</div>
                 </div>
 			</div>
-            <div class="component" v-if="this.info?this.info.individualUsage:undefined">
-                <div  class="item" v-for="(x, i) in this.info.individualUsage" :key="i">
-                    <OpacityBox class="flex-child" :usage="x" :height="compHeight" :width="compWidth"/>
-                    <div class="info-text">Core {{i}}</div>
-                </div>
-            </div>
         </div>
     </div>
 </template>

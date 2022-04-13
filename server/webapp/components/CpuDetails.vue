@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="container box-background">
-            <div class="title">{{this.info.average.model}}</div>
-            <div class="component" v-if="this.info.individualUsage">
+            <div class="title">{{this.info?this.info.average.model:""}}</div>
+            <div class="component" v-if="this.info?this.info.individualUsage:undefined">
                 <div  class="item" v-for="(x, i) in this.info.individualUsage" :key="i">
                     <OpacityBox class="flex-child" :usage="x" :height="compHeight" :width="compWidth"/>
                     <div class="info-text">Core {{i}}</div>
@@ -19,7 +19,7 @@ export default{
     props:{
         info:{
 			type:Object,
-			default:{}
+			default:()=>{}
 		},
         compHeight:{
 			type: Number,

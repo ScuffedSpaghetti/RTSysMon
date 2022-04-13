@@ -44,7 +44,7 @@ export default{
     props:{
         info:{
 			type:Object,
-			default:{}
+			default:()=>{}
 		},
         compHeight:{
 			type: Number,
@@ -70,6 +70,9 @@ export default{
     },
     computed:{
        individualData(){
+           if(!this.info){
+               return
+           }
 		   if(this.info.individual){
 			   return this.info.individual
 		   }

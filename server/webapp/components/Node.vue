@@ -47,7 +47,7 @@ export default {
                     return this.info.individual[x]
                 }
             }
-            return this.info.average
+            return this.info.average || {}
         }
     },
 }

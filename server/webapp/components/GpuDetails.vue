@@ -1,31 +1,31 @@
 <template>
     <div>
-        <div class="container box-background" v-for="(x, i) in this.info.individual" :key="i">
+        <div class="container box-background" v-for="(x, i) in individualData" :key="i" style="margin-bottom:0.25em">
             <div class="title">GPU {{i}} | {{x.name}}</div>
             <div class="component">
-                <div  class="item">
+                <div  class="item" v-if="x.core">
                     <div class="title">Utilization</div>
                     <DonutChart class="flex-child" :usage="x.core.usage" :size="compHeight*1.5"/>
                 </div>
-                <div  class="item">
+                <div  class="item" v-if="x.memory">
                     <div class="title">Memory</div>
                     <HorizontalBar class="flex-child" :usage="x.memory.usage" :height="compHeight" :width="compWidth"/>
                     <div class="info-text">{{toGB(x.memory.bytes)}}GB / {{toGB(x.memory.bytes_total)}}GB</div>
                 </div>
-                <div  class="item">
+                <div  class="item" v-if="x.temperature != undefined">
                     <div class="title">Temperature</div>
                     <DonutChart class="flex-child" :usage="x.temperature" :text="x.temperature + '°C'" :size="compHeight*1.5"/>
                 </div>
-                <div  class="item">
+                <div  class="item" v-if="x.fan_speed != undefined">
                     <div class="title">Fan</div>
                     <DonutChart class="flex-child" :usage="x.fan_speed" :size="compHeight*1.5"/>
                 </div>
-                <div  class="item">
+                <div  class="item" v-if="x.power">
                     <div class="title">Power</div>
                     <HorizontalBar class="flex-child" :usage="x.power.usage" :height="compHeight" :width="compWidth"/>
                     <div class="info-text">{{x.power.watts.toFixed(1)}}Watts / {{x.power.watts_limit.toFixed(1)}}Watts</div>
                 </div>
-                <div  class="item">
+                <div  class="item" v-if="x.bus">
                     <div class="title">Bus</div>
                     <div class="info-text">{{x.bus.type}} gen{{x.bus.generation}} {{x.bus.width}}x</div>
                     <div class="info-text">TX: {{toGB(x.bus.tx_bytes)}}GB</div>
@@ -69,7 +69,12 @@ export default{
 		},
     },
     computed:{
-       
+       individualData(){
+		   if(this.info.individual){
+			   return this.info.individual
+		   }
+		   return [this.info.average]
+	   }
     },
     components:{
         DonutChart,

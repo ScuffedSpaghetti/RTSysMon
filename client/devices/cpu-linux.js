@@ -92,7 +92,7 @@ function powerData(){
 				if(data.packageTemperature != undefined || data.coreTemperature != undefined){
 					data.temperature = data.packageTemperature || data.coreTemperature
 				}
-				console.log(data)
+				//console.log(data)
 				resolve(data)
 			}catch(err){
 				reject(err)

@@ -9,7 +9,7 @@
                 </div>
             </div>
 			<div class="component">
-				<div  class="item" v-if="this.info?this.info.average.temperature:undefined">
+				<div  class="item" v-if="this.info?this.info.average.temperature != undefined:undefined">
                     <div class="title">Temperature</div>
                     <DonutChart class="flex-child" :usage="this.info.average.temperature" :text="this.info.average.temperature.toFixed(1) + '°C'" :size="compHeight*1.5"/>
                 </div>

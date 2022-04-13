@@ -22,12 +22,12 @@ body{
 }
   
 .top-nav a:hover {
-  background-color: #a600ff66;
+  background-color: #7171719e;
   border: 1px solid #000000;
   color: #ffffff;
 }
 
 .top-nav a.active {
-  color: #ffffff;
-  border: 1px solid #000000;
+  /* color: #ffffff;
+  border: 1px solid #000000; */
 }

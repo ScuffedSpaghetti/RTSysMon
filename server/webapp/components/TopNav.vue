@@ -61,7 +61,7 @@ export default{
 	font-size: 17px;
 }
 .top-nav a.active {
-	background-color: #a600ff;
+	/* background-color: #35d6ec; */
 	/* background-color: #C5050C; */
 }
 .search-bar {

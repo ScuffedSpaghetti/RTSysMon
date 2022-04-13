@@ -23,8 +23,8 @@ function gpuData(){
 				return
 			}
 			var data = parser.parse(out)
-			data = data.nvidia_smi_log
-			if(!(data.gpu instanceof Array)){
+			data = data?.nvidia_smi_log
+			if(data && !(data.gpu instanceof Array)){
 				data.gpu = [data.gpu]
 			}
 			resolve(data)

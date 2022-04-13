@@ -1,10 +1,12 @@
 <template>
     <div>
         <div>
-            <LargeComputerOverview class="pad" :info="this.info.average" :compTitle="'Whole System Network Overview'"/>
+            <span class="pad link" v-on:click='gotoNode("undefined")'>
+                <LargeComputerOverview :info="this.info.average" :compTitle="'Whole System Network Overview'"/>
+            </span>
         </div>
         <div class="container">
-            <span class="link pad item" v-on:click='gotoNode(x.uid)' custom v-for="x in this.info.individual" :key="x.uid">
+            <span class="link pad item" v-on:click='gotoNode(x.uid)' v-for="x in this.info.individual" :key="x.uid">
                 <SmallComputerOverview  :info="x" :compHeight="5" :compWidth="8" :compTitle="x.hostname"/>
             </span>
         </div>

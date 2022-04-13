@@ -14,7 +14,7 @@
                 </div>
                 <div  class="item" v-if="x.temperature != undefined">
                     <div class="title">Temperature</div>
-                    <DonutChart class="flex-child" :usage="x.temperature" :text="x.temperature + '°C'" :size="compHeight*1.5"/>
+                    <DonutChart class="flex-child" :usage="x.temperature" :text="x.temperature.toFixed(1) + '°C'" :size="compHeight*1.5"/>
                 </div>
                 <div  class="item" v-if="x.fan_speed != undefined">
                     <div class="title">Fan</div>
@@ -27,7 +27,7 @@
                 </div>
                 <div  class="item" v-if="x.bus">
                     <div class="title">Bus</div>
-                    <div class="info-text">{{x.bus.type}} gen{{x.bus.generation}} {{x.bus.width}}x</div>
+                    <div class="info-text">{{x.bus.type}} gen{{Math.round(x.bus.generation)}} {{x.bus.width}}x</div>
                     <div class="info-text">TX: {{toGB(x.bus.tx_bytes)}}GB</div>
                     <div class="info-text">RX: {{toGB(x.bus.rx_bytes)}}GB</div>
                 </div>

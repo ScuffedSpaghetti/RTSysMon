@@ -2,6 +2,16 @@
     <div>
         <div class="container box-background">
             <div class="title">{{this.info?this.info.average.model:""}}</div>
+			<div class="component">
+				<div  class="item" v-if="this.info.average.temperature != undefined">
+                    <div class="title">Temperature</div>
+                    <DonutChart class="flex-child" :usage="this.info.average.temperature" :text="this.info.average.temperature.toFixed(1) + '°C'" :size="compHeight*1.5"/>
+                </div>
+				<div  class="item" v-if="this.info.average.power">
+                    <div class="title">Power</div>
+                    <div class="info-text">{{this.info.average.power.watts.toFixed(1)}}Watts</div>
+                </div>
+			</div>
             <div class="component" v-if="this.info?this.info.individualUsage:undefined">
                 <div  class="item" v-for="(x, i) in this.info.individualUsage" :key="i">
                     <OpacityBox class="flex-child" :usage="x" :height="compHeight" :width="compWidth"/>
@@ -42,7 +52,7 @@ export default{
         
     },
     computed:{
-		
+
     },
     components:{
         OpacityBox

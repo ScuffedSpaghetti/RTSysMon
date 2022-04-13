@@ -6,6 +6,9 @@
         <div class="pad">
             <CpuDetails :info="individualData.cpu" :compHeight="4" :compWidth="4"/>
         </div>
+        <div class="pad">
+            <GpuDetails :info="individualData.gpu" :compHeight="5" :compWidth="10"/>
+        </div>
     </div>
 </template>
 
@@ -13,6 +16,7 @@
 
 import LargeComputerOverview from './LargeComputerOverview.vue'
 import CpuDetails from './CpuDetails.vue'
+import GpuDetails from './GpuDetails.vue'
 
 export default {
     props:{
@@ -31,7 +35,8 @@ export default {
     },
     components:{
         LargeComputerOverview,
-        CpuDetails
+        CpuDetails,
+        GpuDetails,
     },
     computed:{
         individualData(){

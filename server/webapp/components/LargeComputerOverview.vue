@@ -5,20 +5,20 @@
 			<div class="component">
 				<div class="item" v-if="averageData.cpu">
 					<div class="title">CPU</div>
-					<DonutChart :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
+					<DonutChart class="flex-child" :size="compHeight*1.5" :usage="averageData.cpu.usage"/>
 				</div>
 				<div class="item" v-if="averageData.memory">
 					<div class="title">Memory</div>
-					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
+					<HorizontalBar class="flex-child" :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
 					<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 				</div>
 				<div class="item" v-if="averageData.gpu">
 					<div class="title">GPU</div>
-					<DonutChart :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
+					<DonutChart class="flex-child" :size="compHeight*1.5" :usage="averageData.gpu.core.usage"/>
 				</div>
 				<div class="item" v-if="averageData.gpu">
 					<div class="title">GPU Memory</div>
-					<HorizontalBar :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
+					<HorizontalBar class="flex-child" :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
 					<div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
 				</div>
 				<div class="item" v-if="averageData.power">
@@ -103,8 +103,13 @@ export default {
 .title{
 	text-align: center;
 	font-size: 2em;
+	align-self: center;
 }
 .info-text{
 	font-size: 1.5em;
+	align-self: center;
+}
+.flex-child{
+    align-self: center;
 }
 </style>

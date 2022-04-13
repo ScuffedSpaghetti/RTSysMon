@@ -4,7 +4,7 @@
             <div class="title">{{this.info.average.model}}</div>
             <div class="component">
                 <div  class="item" v-for="(x, i) in this.info.individualUsage" :key="i">
-                    <OpacityBox :usage="x" :height="compHeight" :width="compWidth"/>
+                    <OpacityBox class="flex-child" :usage="x" :height="compHeight" :width="compWidth"/>
                     <div class="info-text">Core {{i}}</div>
                 </div>
             </div>
@@ -32,8 +32,7 @@ export default{
     },
     data() {
         return {
-            totalDataString:0,
-			totalDataBuffer:0,
+            
         }
     },
     mounted() {
@@ -80,9 +79,14 @@ export default{
 .title{
 	text-align: center;
 	font-size: 2em;
+	align-self: center;
 }
 .info-text{
     text-align: center;
 	font-size: 0.75em;
+	align-self: center;
+}
+.flex-child{
+    align-self: center;
 }
 </style>

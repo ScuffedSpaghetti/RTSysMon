@@ -167,6 +167,7 @@ void (async function(){
 })
 
 var webSocketAddress = (config.get("serverSecure")?"wss":"ws")+"://"+config.get("serverAddress")
+var password = config.get("password")
 
 if(config.get("verbose")){
 	process.env.VERBOSE = "true"
@@ -199,7 +200,8 @@ void (async function(){
 				sendJSON({
 					type:"init_system",
 					hostname:os.hostname(),
-					os:os.version()
+					os:os.version(),
+					password:password,
 				})
 				interval = setInterval(async ()=>{
 					var info = await queryDevices(devices)

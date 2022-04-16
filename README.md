@@ -14,3 +14,6 @@ To automatically build the vue webapp in development mode whenever a change is m
 * once the server address is set, the client can be executed with `node client.js` to get the stats of the machine it is running on
 * the the server can be accessed in the browser
 * once it is set up it is possible to make it portable by placing a node.js binary with it so that node and npm do not need to be installed on the target system
+
+
+To get cpu power and temperature on supported processors turbostat bus be installed and the client must be run as root. In debian turbostat can be found in the linux-cpupower package, in ubuntu it is in linux-tools-generic.

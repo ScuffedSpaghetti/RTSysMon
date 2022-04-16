@@ -1,6 +1,7 @@
 <template>
     <div>
-        <form @submit.prevent="handelSave">
+        <h1>Web Dashboard Settings:</h1>
+        <form @submit.prevent="handelSave" class="checkboxes">
             <input type="checkbox" v-model="$root.darkMode" id="darkmode">
             <label for="darkmode">Dark Mode</label>
             <br>
@@ -40,3 +41,9 @@ export default{
     },
 }
 </script>
+
+<style scoped>
+.checkboxes{
+    padding-left: 3em;
+}
+</style>

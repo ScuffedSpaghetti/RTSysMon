@@ -80,7 +80,9 @@ export default {
       }
     },
     onEnter() {
-      this.search = this.results[this.arrowCounter]
+      if(this.arrowCounter != -1){
+        this.search = this.results[this.arrowCounter]
+      }
       this.navigate()
       this.arrowCounter = -1
       this.isOpen = false

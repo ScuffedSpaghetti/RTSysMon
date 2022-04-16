@@ -9,6 +9,7 @@ var GenericCPU = require("./devices/cpu-generic")
 var LinuxCPU = require("./devices/cpu-linux")
 var GenericRAM = require("./devices/memory-generic")
 var LinuxRAM = require("./devices/memory-linux")
+var LinuxNetwork = require("./devices/network-linux")
 
 
 function recursiveRecordTotal(totalObj, obj){
@@ -98,20 +99,17 @@ function averageObjects(arr,settings){
 
 async function getValidDevices(){
 	var devices = {}
-	var cpu
-	var memory
 	switch(process.platform){
 		case "linux":
-			cpu = new LinuxCPU()
-			memory = new LinuxRAM()
+			devices.cpu = new LinuxCPU()
+			devices.memory = new LinuxRAM()
+			devices.network = new LinuxNetwork()
 		break
 		
 		default:
-			cpu = new GenericCPU()
-			memory = new GenericRAM()
+			devices.cpu = new GenericCPU()
+			devices.memory = new GenericRAM()
 	}
-	devices.cpu = cpu
-	devices.memory = memory
 	
 	var nvidia = new NvidiaGPU()
 	if((await nvidia.getDeviceInfo()).length > 0){
@@ -129,7 +127,7 @@ async function queryDevices(devices,options){
 		var devInfoAll = await devices[x].getDeviceInfo()
 		var devInfo = {}
 		devInfo.average = averageObjects(devInfoAll,{
-			addKeys:["bytes","bytes_total", "watts","watts_limit"],
+			addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
 			ignoreSingleArrayKeys:["individual"],
 		})
 		if(devInfo?.average?.power?.watts != undefined){

@@ -26,7 +26,7 @@ function recursiveRecordTotal(totalObj, obj){
 			if(val instanceof Array){
 				totalObj[x] = totalObj[x] || {type:"array", object:[]}
 			}else{
-				totalObj[x] = totalObj[x] || {type:"object", object:{}}
+				totalObj[x] = totalObj[x] || {type:"object", object:Object.create(null)}
 			}
 			recursiveRecordTotal(totalObj[x].object, val)
 		}
@@ -66,7 +66,7 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 			}
 		}
 		if(val.type == "object"){
-			total[x] = {}
+			total[x] = Object.create(null)
 			recursiveFinalTotal(val.object,total[x], settings)
 		}
 		if(val.type == "array"){
@@ -82,11 +82,11 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 function averageObjects(arr,settings){
 	settings = settings || {}
 	
-	var totalRecordObj = {}
+	var totalRecordObj = Object.create(null)
 	for(var x in arr){
 		recursiveRecordTotal(totalRecordObj, arr[x])
 	}
-	var total = {}
+	var total = Object.create(null)
 	//console.log(totalRecordObj)
 	recursiveFinalTotal(totalRecordObj, total, settings)
 	return total

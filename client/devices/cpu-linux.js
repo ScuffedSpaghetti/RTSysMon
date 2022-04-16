@@ -7,7 +7,7 @@ function powerData(){
 	return new Promise(async (resolve,reject)=>{
 		// in debian turbostat can be found in the linux-cpupower package
 		// in ubuntu it is in linux-tools-generic
-		// turbostat --quiet --show PkgWatt,CorWatt,Core,CPU --num_iterations 1 --interval 0.01
+		// turbostat --quiet --show PkgWatt,CorWatt,Core,CPU,CoreTmp,PkgTmp --num_iterations 1 --interval 0.01
 		var prc = child_process.spawn("turbostat", ["--quiet", "--show", "PkgWatt,CorWatt,Core,CPU,CoreTmp,PkgTmp", "--num_iterations", "1", "--interval", "0.01"])
 		prc.on("error", reject)
 		var out = ""
@@ -89,6 +89,9 @@ function powerData(){
 				if(data.packageWattage != undefined || data.coreWattage != undefined){
 					data.power = data.packageWattage || data.coreWattage
 				}
+				if(data.packageTemperature != undefined || data.coreTemperature != undefined){
+					data.temperature = data.packageTemperature || data.coreTemperature
+				}
 				//console.log(data)
 				resolve(data)
 			}catch(err){
@@ -115,8 +118,9 @@ module.exports = class LinuxCPU extends GenericCPU{
 					extraData.power = {}
 					extraData.power.watts = rawData.power / devices.length
 				}
-				extraData.temperature = rawData.packageTemperature | rawData.coreTemperature
-				if(extraData.temperature != undefined){
+				
+				if(rawData.temperature != undefined){
+					extraData.temperature = rawData.temperature
 					extraData.temperature_info = {}
 					extraData.temperature_info.package = rawData.packageTemperature
 					extraData.temperature_info.package_max = rawData.packageTemperatureMax

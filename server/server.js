@@ -2,6 +2,10 @@
 
 var WebSocket = require("ws")
 var http = require("http")
+
+process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+var config = require("config")
+
 var System = require("./system")
 var Listener = require("./listener")
 var lightHttp = require("./lighthttp")
@@ -17,9 +21,9 @@ var webServer = lightHttp()
 webServer.add_server(httpServer)
 webServer.web_directory = "webapp/dist"
 
-httpServer.listen(3498)
+httpServer.listen(config.get("port"))
 
-
+var password = config.get("password")
 
 wsServer.on("connection",(socket,req)=>{
 	req.socket.setKeepAlive(true, 10000)
@@ -40,6 +44,9 @@ wsServer.on("connection",(socket,req)=>{
 		}else{
 			switch(obj.type){
 				case "init_system":
+					if(password && password !== obj.password){
+						close()
+					}
 					endpoint = new System(socket, obj)
 				break
 				

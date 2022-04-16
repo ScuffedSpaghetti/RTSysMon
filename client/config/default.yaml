@@ -1,6 +1,14 @@
 # create a new file named local.yaml to edit
 # for more details, see https://github.com/node-config/node-config/wiki/Configuration-Files 
 
-serverAddress: localhost:3498
+# main server to connect to
+serverAddress: "localhost:3498"
+
+# enable if the server can be reached over https
 serverSecure: false
+
+# print additional debug information
 verbose: false
+
+# password to use to connect to main server
+password: ""

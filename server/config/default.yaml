@@ -1,0 +1,8 @@
+# create a new file named local.yaml to edit
+# for more details, see https://github.com/node-config/node-config/wiki/Configuration-Files
+
+# port to start the http and websocket server on
+port: 3498
+
+# if the password is not blank nodes will have to use the same password in their config to connect
+password: ""

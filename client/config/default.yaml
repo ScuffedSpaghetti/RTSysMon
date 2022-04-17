@@ -12,3 +12,6 @@ verbose: false
 
 # password to use to connect to main server
 password: ""
+
+# show virtual network interfaces such as bridges
+showVirtualNetworkInterfaces: false

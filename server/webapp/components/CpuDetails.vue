@@ -15,7 +15,7 @@
                 </div>
 				<div  class="item" v-if="this.info?this.info.average.power:undefined">
                     <div class="title">Power</div>
-                    <div class="text">{{this.info.average.power.watts.toFixed(1)}}Watts</div>
+                    <div class="text"  style="min-width:6em;">{{this.info.average.power.watts.toFixed(1)}}Watts</div>
                 </div>
 			</div>
         </div>

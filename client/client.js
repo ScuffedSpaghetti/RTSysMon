@@ -103,7 +103,7 @@ async function getValidDevices(){
 		case "linux":
 			devices.cpu = new LinuxCPU()
 			devices.memory = new LinuxRAM()
-			devices.network = new LinuxNetwork()
+			devices.network = new LinuxNetwork(config.get("showVirtualNetworkInterfaces"))
 		break
 		
 		default:

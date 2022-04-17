@@ -22,6 +22,12 @@ async function tryReadInt(filePath){
 module.exports = class LinuxNetwork{
 	loggedError = false
 	lastData = {}
+	showVirtualInterfaces = false
+	
+	constructor(showVirtualInterfaces){
+		this.showVirtualInterfaces = showVirtualInterfaces
+	}
+	
 	async getDeviceInfo(){
 		var devices = []
 		try{
@@ -34,7 +40,7 @@ module.exports = class LinuxNetwork{
 				var name = interfaceNamesAll[x]
 				var fullPath = await fs.promises.realpath(path.join(devDir,name))
 				var physical = fullPath.indexOf("virtual") == -1
-				if(physical){
+				if(physical || this.showVirtualInterfaces){
 					interfaceNames.push(name)
 					var device = {
 						name: name,
@@ -60,14 +66,14 @@ module.exports = class LinuxNetwork{
 							device.rx_bytes = (rx_bytes - this.lastData[name].rx_bytes) / deltaTime
 							if(speed){
 								device.rx_bytes_limit = speed
-								device.rx_usage = device.rx_bytes / speed
+								device.rx_usage = device.rx_bytes / speed * 100
 							}
 						}
 						if(this.lastData[name].tx_bytes != undefined && tx_bytes != undefined){
 							device.tx_bytes = (tx_bytes - this.lastData[name].tx_bytes) / deltaTime
 							if(speed){
 								device.tx_bytes_limit = speed
-								device.tx_usage = device.tx_bytes / speed
+								device.tx_usage = device.tx_bytes / speed * 100
 							}
 						}
 					}

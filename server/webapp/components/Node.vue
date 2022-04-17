@@ -3,11 +3,14 @@
         <div class="pad">
             <LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/>
         </div>
-        <div class="pad">
+        <div class="pad" v-if="individualData.cpu">
             <CpuDetails :info="individualData.cpu" :compHeight="4" :compWidth="4"/>
         </div>
-        <div class="pad">
+        <div class="pad" v-if="individualData.gpu">
             <GpuDetails :info="individualData.gpu" :compHeight="5" :compWidth="10"/>
+        </div>
+        <div class="pad" v-if="individualData.network">
+            <NetworkDetails :info="individualData.network" :compHeight="3" :compWidth="3"/>
         </div>
     </div>
 </template>
@@ -17,6 +20,7 @@
 import LargeComputerOverview from './LargeComputerOverview.vue'
 import CpuDetails from './CpuDetails.vue'
 import GpuDetails from './GpuDetails.vue'
+import NetworkDetails from './NetworkDetails.vue'
 
 export default {
     props:{
@@ -37,6 +41,7 @@ export default {
         LargeComputerOverview,
         CpuDetails,
         GpuDetails,
+        NetworkDetails,
     },
     computed:{
         individualData(){

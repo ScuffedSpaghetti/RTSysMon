@@ -96,7 +96,7 @@ export default{
 	display: flex;
 	flex-direction: column;
 	flex-flow: column wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 	border-radius: 1em;
 }
 .title{

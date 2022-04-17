@@ -27,8 +27,13 @@ var password = config.get("password")
 
 wsServer.on("connection",(socket,req)=>{
 	req.socket.setKeepAlive(true, 10000)
+	req.socket.setTimeout(30000)
 	/**@type {System | Listener} */
 	var endpoint = undefined
+	req.socket.on('timeout', () => {
+		console.log('socket timeout')
+		close()
+	})
 	socket.on("message",function(msg,isBinary){
 		if(isBinary){
 			return

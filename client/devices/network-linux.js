@@ -41,7 +41,7 @@ module.exports = class LinuxNetwork{
 				var fullPath = await fs.promises.realpath(path.join(devDir,name))
 				var physical = fullPath.indexOf("virtual") == -1
 				var portState = await tryRead(path.join(fullPath,"operstate"))
-				if(portState == "up" && (physical || this.showVirtualInterfaces)){
+				if(portState && portState.replace("\n","") == "up" && (physical || this.showVirtualInterfaces)){
 					interfaceNames.push(name)
 					var device = {
 						name: name,

@@ -211,7 +211,15 @@ void (async function(){
 				},1000 - Math.random() * 100)
 				//@ts-ignore
 				websocket._socket.setKeepAlive(true, 10000)
+				//@ts-ignore
+				websocket._socket.setTimeout(30000)
+				//@ts-ignore
+				websocket._socket.on('timeout', () => {
+					console.log('socket timeout')
+					websocket.close()
+				})
 			}
+			
 		})
 	}
 })()

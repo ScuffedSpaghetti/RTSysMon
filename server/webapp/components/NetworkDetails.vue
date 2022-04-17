@@ -6,12 +6,12 @@
 				<div class="component" >
 					<div  class="item" v-if="x.rx_bytes != undefined">
 						<div class="info-text">Receive</div>
-						<DonutChart class="flex-child" v-if="x.rx_usage != undefined" :usage="x.rx_usage" :size="compHeight*1.5"/>
+						<HorizontalBar class="flex-child" v-if="x.rx_usage != undefined" :usage="x.rx_usage" :width="compWidth" :height="compHeight"/>
 						<div class="info-text">{{toMb(x.rx_bytes)}}Mbps {{(x.rx_bytes_limit)?"/" + toMb(x.rx_bytes_limit) + "Mbps":""}}</div>
 					</div>
 					<div  class="item" v-if="x.tx_bytes != undefined">
 						<div class="info-text">Transmit</div>
-						<DonutChart class="flex-child" v-if="x.tx_usage != undefined" :usage="x.tx_usage" :size="compHeight*1.5"/>
+						<HorizontalBar class="flex-child" v-if="x.tx_usage != undefined" :usage="x.tx_usage" :width="compWidth" :height="compHeight"/>
 						<div class="info-text">{{toMb(x.tx_bytes)}}Mbps {{(x.tx_bytes_limit)?"/" + toMb(x.tx_bytes_limit) + "Mbps":""}}</div>
 					</div>
 				</div>

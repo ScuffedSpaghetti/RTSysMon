@@ -145,7 +145,7 @@ module.exports = class System{
 				return alphanumSort(a.uid, b.uid)
 			})
 			var totalAverage = averageObjects(individual,{
-				addKeys:["bytes","bytes_total", "watts","watts_limit"],
+				addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
 				ignoreKeys:["individual"],
 			})
 			System.clusterInfoCache = {

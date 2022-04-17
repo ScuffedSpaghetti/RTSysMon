@@ -10,7 +10,7 @@
             <GpuDetails :info="individualData.gpu" :compHeight="5" :compWidth="10"/>
         </div>
         <div class="pad" v-if="individualData.network">
-            <NetworkDetails :info="individualData.network" :compHeight="3" :compWidth="3"/>
+            <NetworkDetails :info="individualData.network" :compHeight="4" :compWidth="9"/>
         </div>
     </div>
 </template>

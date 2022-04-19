@@ -53,14 +53,14 @@ module.exports = class WindowsNetwork{
 				}
 				switch(x.substring((lastBackSlash + 1))){
 					case "Current Bandwidth":
-						devices.get(name).rx_bytes_limit = rawData[x]
-						devices.get(name).tx_bytes_limit = rawData[x]
+						devices.get(name).rx_bytes_limit = parseFloat(rawData[x]) / 8
+						devices.get(name).tx_bytes_limit = parseFloat(rawData[x]) / 8
 					break
 					case "Bytes Sent/sec":
-						devices.get(name).tx_bytes = rawData[x]
+						devices.get(name).tx_bytes = parseFloat(rawData[x])
 					break
 					case "Bytes Received/sec":
-						devices.get(name).rx_bytes = rawData[x]
+						devices.get(name).rx_bytes = parseFloat(rawData[x])
 					break
 				}		
 			}
@@ -68,15 +68,15 @@ module.exports = class WindowsNetwork{
 			for(var [key, value] of devices){
 				var nic = {}
 				nic.name = value.name
-				nic.rx_bytes_limit = parseFloat(value.rx_bytes_limit)
-				nic.tx_bytes_limit = parseFloat(value.tx_bytes_limit)
-				nic.rx_bytes = parseFloat(value.rx_bytes)
-				nic.tx_bytes = parseFloat(value.tx_bytes)
+				nic.rx_bytes_limit = value.rx_bytes_limit
+				nic.tx_bytes_limit = value.tx_bytes_limit
+				nic.rx_bytes = value.rx_bytes
+				nic.tx_bytes = value.tx_bytes
 				nic.rx_usage = nic.rx_bytes > 0 ? ((nic.rx_bytes / nic.rx_bytes_limit) * 100) : 0.0
 				nic.tx_usage = nic.tx_bytes > 0 ? ((nic.tx_bytes / nic.tx_bytes_limit) * 100) : 0.0
 				NICs.push(nic)
 			}
-			console.log(NICs)
+			// console.log(NICs)
 			return NICs
 		}catch(err){
 			if(process.env.VERBOSE){

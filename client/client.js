@@ -10,7 +10,7 @@ var LinuxCPU = require("./devices/cpu-linux")
 var GenericRAM = require("./devices/memory-generic")
 var LinuxRAM = require("./devices/memory-linux")
 var LinuxNetwork = require("./devices/network-linux")
-
+var WindowsNetwork = require("./devices/network-windows")
 
 function recursiveRecordTotal(totalObj, obj){
 	for(var x in obj){
@@ -105,7 +105,11 @@ async function getValidDevices(){
 			devices.memory = new LinuxRAM()
 			devices.network = new LinuxNetwork(config.get("showVirtualNetworkInterfaces"))
 		break
-		
+		case "win32":
+			devices.cpu = new GenericCPU()
+			devices.memory = new GenericRAM()
+			devices.network = new WindowsNetwork()
+		break
 		default:
 			devices.cpu = new GenericCPU()
 			devices.memory = new GenericRAM()

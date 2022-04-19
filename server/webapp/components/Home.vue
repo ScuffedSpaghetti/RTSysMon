@@ -2,7 +2,7 @@
     <div>
         <div>
             <span class="pad link" v-on:click='gotoNode("undefined")'>
-                <LargeComputerOverview :info="this.info.average" :compTitle="'Whole System Network Overview'"/>
+                <LargeComputerOverview :info="this.info.average" :compTitle="'Whole Network Overview'"/>
             </span>
         </div>
         <div class="container">

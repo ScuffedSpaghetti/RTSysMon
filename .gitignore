@@ -5,3 +5,6 @@ tmp
 */config/*
 !*/config/default.yaml
 node
+node.exe
+node-test.exe
+webpack-client/packed

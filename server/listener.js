@@ -1,3 +1,4 @@
+//@ts-check
 const System = require("./system")
 const msgPack = require("@msgpack/msgpack")
 const compressJson = require("compressed-json")
@@ -31,10 +32,11 @@ module.exports = class Listener{
 			// }))
 			
 			var type = obj.type
-			var obj = compressJson.compress(obj)
+			obj = compressJson.compress(obj)
 			obj.type = type
 			var binary = msgPack.encode(obj, {
-				forceFloat32: true
+				forceFloat32: true,
+				ignoreUndefined: true
 			})
 			//may cause memory fragmentation if async
 			//more testing would be necessary to determine if gzip shows the same behavior as deflate

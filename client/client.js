@@ -2,6 +2,8 @@
 var os = require("os")
 var WebSocket = require("ws")
 process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+//@ts-ignore
+//require("module")._cache["js-yaml"] =  require("js-yaml")
 var config = require("config")
 
 var NvidiaGPU = require("./devices/nvidia")
@@ -198,7 +200,7 @@ void (async function(){
 				sendJSON({
 					type:"init_system",
 					hostname:os.hostname(),
-					os:os.version(),
+					os:os.version?os.version():undefined,
 					password:password,
 				})
 				interval = setInterval(async ()=>{

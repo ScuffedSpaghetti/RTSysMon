@@ -1,6 +1,9 @@
 //@ts-check
 
 
+const msgPack = require("@msgpack/msgpack")
+const compressJson = require("compressed-json")
+const zlib = require("zlib")
 
 
 
@@ -127,9 +130,10 @@ function alphanumSort(a, b) {
 module.exports = class System{
 	static activeSystems = []
 	static clusterInfoCache = {}
-	static clusterInfoCacheTime = 0
+	static clusterInfoCacheCompressed = new Uint8Array()
+	static clusterInfoCacheTime = -Infinity
 	
-	static getClusterInfo(){
+	static getClusterInfo(compressed){
 		var now = Date.now() / 1000
 		if(now - System.clusterInfoCacheTime > 0.9){
 			System.clusterInfoCacheTime = now
@@ -152,8 +156,23 @@ module.exports = class System{
 				average: totalAverage,
 				individual: individual
 			}
+			var obj = compressJson.compress(obj)
+			obj.type = "info"
+			var binary = msgPack.encode(obj, {
+				forceFloat32: true,
+				ignoreUndefined: true
+			})
+			//may cause memory fragmentation if async
+			//more testing would be necessary to determine if gzip shows the same behavior as deflate
+			binary = zlib.gzipSync(binary)
+			System.clusterInfoCacheCompressed = binary
 		}
-		return System.clusterInfoCache
+		if(compressed){
+			return System.clusterInfoCacheCompressed
+		}else{
+			return System.clusterInfoCache
+		}
+		
 	}
 	
 	

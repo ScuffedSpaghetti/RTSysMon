@@ -66,7 +66,8 @@ module.exports = class WindowsNetwork{
 			}
 			//console.log(devices)
 			for(var [key, value] of devices){
-				var nic = {}
+				if(value.rx_bytes_limit > 0){
+					var nic = {}
 				nic.name = value.name
 				nic.rx_bytes_limit = value.rx_bytes_limit
 				nic.tx_bytes_limit = value.tx_bytes_limit
@@ -75,6 +76,7 @@ module.exports = class WindowsNetwork{
 				nic.rx_usage = nic.rx_bytes > 0 ? ((nic.rx_bytes / nic.rx_bytes_limit) * 100) : 0.0
 				nic.tx_usage = nic.tx_bytes > 0 ? ((nic.tx_bytes / nic.tx_bytes_limit) * 100) : 0.0
 				NICs.push(nic)
+				}
 			}
 			// console.log(NICs)
 			return NICs

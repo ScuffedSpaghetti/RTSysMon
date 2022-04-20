@@ -110,7 +110,7 @@ export default {
     margin: 0;
     /* height: 120px;? */
     min-height: 1em;
-    max-height: 6em;    
+    max-height: 6.5em;    
     overflow: auto;
   }
 
@@ -122,7 +122,7 @@ export default {
   }
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: #a600ff;
+    background-color: #7171719e;
     color: #ffffff;
   }
 </style>

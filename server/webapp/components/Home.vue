@@ -1,10 +1,12 @@
 <template>
     <div>
-        <div>
+        <div v-if="Object.keys(this.info).length > 0">
             <span class="pad link" v-on:click='gotoNode("undefined")'>
                 <LargeComputerOverview :info="this.info.average" :compTitle="'Whole Network Overview'"/>
             </span>
+            <h1 style="text-align:center" v-if="Object.keys(this.info.individual).length == 0">No System Nodes Connected</h1>
         </div>
+        <h2 style="text-align:center" v-else>Loading...</h2>
         <div class="container">
             <span class="link pad item" v-on:click='gotoNode(x.uid)' v-for="x in this.info.individual" :key="x.uid">
                 <SmallComputerOverview  :info="x" :compHeight="5" :compWidth="8" :compTitle="x.hostname"/>

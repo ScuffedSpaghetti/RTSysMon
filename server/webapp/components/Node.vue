@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div class="pad">
+        <div class="pad" v-if="Object.keys(this.info).length > 0">
             <LargeComputerOverview :info="individualData" :compHeight="8" :compWidth="16" :compTitle="individualData.hostname"/>
         </div>
+        <h2 style="text-align:center" v-else>Loading...</h2>
         <div class="pad" v-if="individualData.cpu">
             <CpuDetails :info="individualData.cpu" :compHeight="4" :compWidth="4"/>
         </div>

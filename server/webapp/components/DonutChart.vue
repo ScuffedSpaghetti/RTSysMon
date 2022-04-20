@@ -42,8 +42,11 @@ export default {
 	methods: {
 		updateChart(usage) {
 			if(this.$refs.pie1){
-				var dasharray = usage/100 + " 1"
+				var dasharray = "0 1"
 				var dasharray2 = "0 1"
+				if(usage >= 0.01){
+					dasharray = usage/100 + " 1"
+				}
 				if(usage>=100){
 					dasharray = "1 0"
 				}

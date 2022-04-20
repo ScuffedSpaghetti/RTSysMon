@@ -85,7 +85,11 @@ module.exports = class LinuxNetwork{
 			this.lastData = newLastData
 			//console.log(interfaceNames)
 		}catch(err){
-			console.error(err)
+			if(process.env.VERBOSE && !this.loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not get network information from /sys.")
+			}
 		}
 		return devices
 	}

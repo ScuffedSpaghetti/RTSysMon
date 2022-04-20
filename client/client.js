@@ -186,14 +186,22 @@ void (async function(){
 		await new Promise((resolve)=>{
 			var websocket = new WebSocket(webSocketAddress)
 			var interval = undefined
+			var intervalAlive = undefined
+			var lastSeen = Date.now() / 1000
 			function close(){
 				if(interval){
 					clearInterval(interval)
+				}
+				if(intervalAlive){
+					clearInterval(intervalAlive)
 				}
 				setTimeout(()=>{
 					resolve()
 				},1000)
 				websocket.close()
+				if(process.env.VERBOSE){
+					console.error("Socket disconnected at "+Date())
+				}
 			}
 			websocket.onerror = close
 			websocket.onclose = close
@@ -202,6 +210,16 @@ void (async function(){
 					websocket.send(JSON.stringify(obj))
 				}
 			}
+			websocket.on("pong",()=>{
+				lastSeen = Date.now() / 1000
+			})
+			intervalAlive = setInterval(async ()=>{
+				var now = Date.now() / 1000
+				if(now - lastSeen > 200){
+					console.log('socket ping timeout, reconnecting')
+					close()
+				}
+			},10000)
 			websocket.onopen = async ()=>{
 				sendJSON({
 					type:"init_system",
@@ -215,6 +233,7 @@ void (async function(){
 						type:"info",
 						info:info
 					})
+					websocket.ping()
 				//introduce some randomness to interval times so that nodes send at different times
 				},1000 - Math.random() * 100)
 				//@ts-ignore
@@ -223,8 +242,10 @@ void (async function(){
 				websocket._socket.setTimeout(30000)
 				//@ts-ignore
 				websocket._socket.on('timeout', () => {
-					console.log('socket timeout')
-					websocket.close()
+					if(process.env.VERBOSE){
+						console.log('socket timeout, reconnecting')
+					}
+					close()
 				})
 			}
 			

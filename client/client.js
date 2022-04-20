@@ -131,23 +131,25 @@ async function queryDevices(devices,options){
 	var info = {}
 	for(var x in devices){
 		var devInfoAll = await devices[x].getDeviceInfo()
-		var devInfo = {}
-		devInfo.average = averageObjects(devInfoAll,{
-			addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
-			ignoreSingleArrayKeys:["individual"],
-		})
-		if(devInfo?.average?.power?.watts != undefined){
-			info.power = info.power || {average:{watts:0}}
-			info.power.average.watts += devInfo.average.power.watts
+		if(devInfoAll && devInfoAll.length > 0){
+			var devInfo = {}
+			devInfo.average = averageObjects(devInfoAll,{
+				addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
+				ignoreSingleArrayKeys:["individual"],
+			})
+			if(devInfo?.average?.power?.watts != undefined){
+				info.power = info.power || {average:{watts:0}}
+				info.power.average.watts += devInfo.average.power.watts
+			}
+			if(options.individual !== false /*&& devInfoAll.length > 1*/){
+				devInfo.individual = devInfoAll
+			}
+			if(x == "cpu"){
+				devInfo.individual=undefined
+				devInfo.individualUsage = devInfoAll.map((a) => a.usage)
+			} 
+			info[x] = devInfo
 		}
-		if(options.individual !== false /*&& devInfoAll.length > 1*/){
-			devInfo.individual = devInfoAll
-		}
-		if(x == "cpu"){
-			devInfo.individual=undefined
-			devInfo.individualUsage = devInfoAll.map((a) => a.usage)
-		} 
-		info[x] = devInfo
 	}
 	return info
 }

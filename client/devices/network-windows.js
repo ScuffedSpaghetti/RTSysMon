@@ -37,7 +37,13 @@ function networkData(){
 }
 
 module.exports = class WindowsNetwork{
+	data = []
 	async getDeviceInfo(){
+		this.getNICs()
+		return this.data
+	}
+
+	async getNICs(){
 		try{
 			var rawData = await networkData()
 			var devices = new Map()
@@ -79,13 +85,12 @@ module.exports = class WindowsNetwork{
 				}
 			}
 			// console.log(NICs)
-			return NICs
+			this.data = NICs
 		}catch(err){
 			if(process.env.VERBOSE){
 				console.error(err)
 				console.error("No NICs found on system")
 			}
-			return []
 		}
 	}
 }

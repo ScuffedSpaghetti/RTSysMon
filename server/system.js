@@ -10,15 +10,15 @@ const zlib = require("zlib")
 function recursiveRecordTotal(totalObj, obj){
 	for(var x in obj){
 		var val = obj[x]
-		if(typeof val == "string"){
+		if((totalObj[x] == undefined || totalObj[x].type == "string") && typeof val == "string"){
 			totalObj[x] = totalObj[x] || {type:"string", strings:new Set()}
 			totalObj[x].strings.add(val)
 		}
-		if(typeof val == "number"){
+		if((totalObj[x] == undefined || totalObj[x].type == "number") && typeof val == "number"){
 			totalObj[x] = totalObj[x] || {type:"number", numbers:[]}
 			totalObj[x].numbers.push(val)
 		}
-		if(typeof val == "object"){
+		if((totalObj[x] == undefined || totalObj[x].type == "object" ||  totalObj[x].type == "array") && typeof val == "object"){
 			if(val instanceof Array){
 				totalObj[x] = totalObj[x] || {type:"array", object:[]}
 			}else{

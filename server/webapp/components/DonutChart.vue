@@ -3,8 +3,8 @@
 		<svg ref="svg" viewBox="0 0 100 100" style="transform: rotate(-90deg)">
 			<g>
 				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorBackground" :stroke-width="50 - innerRadius/2 - 0.25"/>
-				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorMain" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie1" style="transition: stroke-dasharray 0.7s linear;"/>
-				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorSecondary" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie2" style="transition: stroke-dasharray 0.7s linear;"/>
+				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorMain" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie1" :style="animationStyle"/>
+				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorSecondary" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie2" :style="animationStyle"/>
 			</g> 
 		</svg>
 		<div class="label" :style="{fontSize:size/8+'em'}">{{text == "" ? usage.toFixed(1) + "%" : text}}</div>
@@ -57,6 +57,15 @@ export default {
 				this.$refs.pie2.setAttribute("stroke-dasharray", dasharray2)
 			}
 		},
+	},
+	computed:{
+		animationStyle(){
+			var style = {}
+			if(this.$root.animation !== false){
+				style.transition = "stroke-dasharray 0.7s linear"
+			}
+			return style
+		}
 	},
 	mounted(){
 		this.updateChart(this.usage)

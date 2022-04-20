@@ -1,0 +1,40 @@
+<svg id="dots" width="132px" height="58px" viewBox="0 0 132 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
+    <title>dots</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="dots" sketch:type="MSArtboardGroup" fill="#A3A3A3">
+            <circle id="dot1" sketch:type="MSShapeGroup" cx="25" cy="30" r="13"></circle>
+            <circle id="dot2" sketch:type="MSShapeGroup" cx="65" cy="30" r="13"></circle>
+            <circle id="dot3" sketch:type="MSShapeGroup" cx="105" cy="30" r="13"></circle>
+        </g>
+    </g>
+	<style>
+		#dots #dot1{
+		  animation: load 1s infinite;
+		}
+
+		#dots #dot2{
+		  animation: load 1s infinite;
+		  animation-delay: 0.2s;
+		}
+
+		#dots #dot3{
+		  animation: load 1s infinite;
+		  animation-delay: 0.4s;
+		}
+
+		@keyframes load{
+		  0%{
+			opacity: 0;
+		  }
+		  50%{
+			opacity: 1;
+		  }
+		  100%{
+			opacity: 0;
+		  }
+		}
+	</style>
+</svg>

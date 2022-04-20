@@ -9,7 +9,7 @@
 <script>
 import Vue from "vue"
 import Test from "./components/Test.vue"
-import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts"
+//import { AccumulationChartPlugin, ChartPlugin, PieSeries } from "@syncfusion/ej2-vue-charts"
 import TopNav from "./components/TopNav.vue"
 import lib from "./lib/lib.js"
 import VueRouter from 'vue-router'
@@ -18,8 +18,8 @@ import About from "./components/About.vue"
 import Home from "./components/Home.vue"
 import Settings from "./components/Settings.vue"
 
-Vue.use(AccumulationChartPlugin);
-Vue.use(ChartPlugin);
+//Vue.use(AccumulationChartPlugin);
+//Vue.use(ChartPlugin);
 Vue.use(VueRouter)
 
 const router = new VueRouter({

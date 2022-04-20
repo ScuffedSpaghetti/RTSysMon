@@ -1,9 +1,12 @@
 <template>
 	<div>
 		<div v-if="averageData.cpu">
-			<div><OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/></div>
+			<OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/>><NutChart :usage="cpuUsage * 4"/>
 		</div>
-		<div><LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/></div>
+		<div>
+			<LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/>
+		</div>
+		
 		<br>
 		<pre>{{text}}</pre>
 		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
@@ -17,6 +20,7 @@ import HorizontalBar from './HorizontalBar.vue'
 import OpacityBox from "./OpacityBox.vue"
 import LargeComputerOverview from './LargeComputerOverview.vue'
 import SmallComputerOverview from "./SmallComputerOverview.vue"
+import NutChart from './DonutChart.vue'
 
 export default {
 	 props:{
@@ -49,7 +53,8 @@ export default {
 		DonutChart,
 		HorizontalBar,
 		LargeComputerOverview,
-		OpacityBox
+		OpacityBox,
+		NutChart
 	}
 }
 </script>

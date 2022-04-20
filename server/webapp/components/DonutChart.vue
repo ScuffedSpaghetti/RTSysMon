@@ -1,10 +1,12 @@
 <template>
-	<div class="container-donut-chart" :style="{width:size+'em',height:size+'em'}" ref="container">
-		<ejs-accumulationchart ref="pie" style="display:inline-block; margin:auto" :enableBorderOnMouseMove="false" :height="pxSize.toString()" :width="pxSize.toString()" :margin="{bottom:1,left:1,right:1,top:1}" background="transparent">
-			<e-accumulation-series-collection>
-				<e-accumulation-series :dataSource='seriesData' type='Pie' xName='x' yName='y' innerRadius="45%" radius="100%" pointColorMapping='fill'></e-accumulation-series>
-			</e-accumulation-series-collection>
-		</ejs-accumulationchart>
+	<div class="container-donut-chart" :style="{width:size+'em',height:size+'em'}" >
+		<svg ref="svg" viewBox="0 0 100 100" style="transform: rotate(-90deg)">
+			<g>
+				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorBackground" :stroke-width="50 - innerRadius/2 - 0.25"/>
+				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorMain" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie1" style="transition: stroke-dasharray 0.7s linear;"/>
+				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorSecondary" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie2" style="transition: stroke-dasharray 0.7s linear;"/>
+			</g> 
+		</svg>
 		<div class="label" :style="{fontSize:size/8+'em'}">{{text == "" ? usage.toFixed(1) + "%" : text}}</div>
 	</div>
 </template>
@@ -20,6 +22,10 @@ export default {
 			type: Number,
 			default: 20,
 		},
+		innerRadius: {
+			type: Number,
+			default: 45,
+		},
 		text: {
 			type: String,
 			default: "",
@@ -27,50 +33,39 @@ export default {
 	},
 	data() {
 		return {
-			seriesData: [
-				{y: 0, fill:"#ff0000"},
-				{y: 0, fill:"#0dec2b"},
-				{y: 100, fill:"#555555"}
-			],
+			colorBackground: "#555555",
+			colorMain: "#0dec2b",
+			colorSecondary: "#ff0000",
 			pxSize:1,
 		};
 	},
 	methods: {
 		updateChart(usage) {
-			if(this.$refs.pie && this.$refs.pie.ej2Instances){
-				this.$refs.pie.ej2Instances.series[0].dataSource[1].y = usage
-				this.$refs.pie.ej2Instances.series[0].dataSource[2].y = Math.max(100 - usage, 0)
-				if(usage > 100){
-					usage = Math.min(usage,200)
-					this.$refs.pie.ej2Instances.series[0].dataSource[0].y = usage - 100
-					this.$refs.pie.ej2Instances.series[0].dataSource[1].y = 200 - usage
-				}else{
-					this.$refs.pie.ej2Instances.series[0].dataSource[0].y = 0
+			if(this.$refs.pie1){
+				var dasharray = usage/100 + " 1"
+				var dasharray2 = "0 1"
+				if(usage>=100){
+					dasharray = "1 0"
 				}
-				// this.$refs.pie.ej2Instances.series[0].dataSource = seriesData
-				// this.$refs.pie.ej2Instances.series[0].dataSource = seriesData
-				if(this.$root.animation !== false){
-					this.$refs.pie.ej2Instances.animate(700);
-				}else{
-					this.$refs.pie.ej2Instances.animate(2);
+				if(usage>100){
+					dasharray2 = (usage-100)/100 + " 1"
 				}
-				
+				if(usage>=200){
+					dasharray2 = "1 0"
+				}
+				this.$refs.pie1.setAttribute("stroke-dasharray", dasharray)
+				this.$refs.pie2.setAttribute("stroke-dasharray", dasharray2)
 			}
 		},
-		getPxSize(){
-			this.pxSize = Math.min(this.$refs.container.clientHeight, this.$refs.container.clientWidth)
-		}
 	},
 	mounted(){
-		this.getPxSize()
+		this.updateChart(this.usage)
 	},
 	watch: {
 		usage: {
-			immediate: true,
+			immediate: false,
 			handler(usage){
-				setTimeout(()=>{
-					this.updateChart(usage)
-				},100)
+				this.updateChart(usage)
 			}
 		}
 	},
@@ -89,5 +84,6 @@ export default {
 	display: inline-block; 
 	position: relative;
 }
+
 
 </style>

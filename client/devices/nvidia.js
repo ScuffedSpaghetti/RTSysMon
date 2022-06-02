@@ -81,11 +81,17 @@ function standardGpuData(gpu){
 	out.memory.bytes = parseUnit(gpu?.fb_memory_usage?.used)
 	out.memory.bytes_total = parseUnit(gpu?.fb_memory_usage?.total)
 	out.memory.usage = out.memory.bytes / out.memory.bytes_total * 100
+	if(!isFinite(out.memory.bytes)){
+		delete out.memory
+	}
 	
 	out.power = {}
 	out.power.watts = parseFloat(gpu?.power_readings?.power_draw)
 	out.power.watts_limit = parseFloat(gpu?.power_readings?.power_limit)
 	out.power.usage = out.power.watts / out.power.watts_limit * 100
+	if(!isFinite(out.power.watts)){
+		delete out.power
+	}
 	
 	out.bus = {}
 	out.bus.type = "pcie"

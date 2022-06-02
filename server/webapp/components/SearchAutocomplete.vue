@@ -1,25 +1,8 @@
 <template>
   <div class="autocomplete">
-    <input
-      class="search-box"
-      v-model="search"
-      @input="onChange"
-      @keydown.down="onArrowDown"
-      @keydown.up="onArrowUp"
-      @keydown.enter="onEnter"
-      type="text"
-    />
-    <ul
-      v-show="isOpen"
-      class="autocomplete-results"
-    >
-      <li
-        v-for="(result, i) in results"
-        :key="i"
-        @click="setResult(result)"
-        class="autocomplete-result"
-        :class="{ 'is-active': i === arrowCounter }"
-      >
+    <input class="search-box" v-model="search" @input="onChange" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter" type="text"/>
+    <ul v-show="isOpen" class="autocomplete-results">
+      <li  v-for="(result, i) in results" :key="i" @click="setResult(result)" class="autocomplete-result" :class="{ 'is-active': i === arrowCounter }">
         {{ result }}
       </li>
     </ul>
@@ -96,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-  .autocomplete {
+  .autocomplete{
     position: relative;
   }
 

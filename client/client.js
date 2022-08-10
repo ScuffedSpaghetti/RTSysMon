@@ -130,7 +130,14 @@ async function queryDevices(devices,options){
 	
 	var info = {}
 	for(var x in devices){
-		var devInfoAll = await devices[x].getDeviceInfo()
+		var devInfoAll = undefined
+		try{
+			devInfoAll = await devices[x].getDeviceInfo()
+		}catch(err){
+			console.error(err)
+			console.error("A device reader threw an error! This is a sign that something was programed wrong or there is a system failure.\n" +
+				"This message should never appear during normal operation.")
+		}
 		if(devInfoAll && devInfoAll.length > 0){
 			var devInfo = {}
 			devInfo.average = averageObjects(devInfoAll,{

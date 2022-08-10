@@ -8,31 +8,35 @@ var csvParse = require("csv-parse/sync")
 
 function networkData(){
 	return new Promise(async (resolve,reject)=>{
-		var prc = child_process.spawn("typeperf", ["-sc", "1", "\\Network Interface(*)\\Current Bandwidth", "\\Network Interface(*)\\Bytes Sent/sec", "\\Network Interface(*)\\Bytes Received/sec"])
-		prc.on("error", reject)
-		var out = ""
-		prc.stdout.on("data",(data)=>{
-			out += data
-		})
-		prc.stdout.on("end",()=>{
-			try {
-				if(!out){
-					reject(new Error("No output"))
-					return
-				} else{
-					out = out.replace("The command completed successfully.", "")
-					out = out.replace("Exiting, please wait...", "")
-					out = out.trim()
+		try{
+			var prc = child_process.spawn("typeperf", ["-sc", "1", "\\Network Interface(*)\\Current Bandwidth", "\\Network Interface(*)\\Bytes Sent/sec", "\\Network Interface(*)\\Bytes Received/sec"])
+			prc.on("error", reject)
+			var out = ""
+			prc.stdout.on("data",(data)=>{
+				out += data
+			})
+			prc.stdout.on("end",()=>{
+				try {
+					if(!out){
+						reject(new Error("No output"))
+						return
+					} else{
+						out = out.replace("The command completed successfully.", "")
+						out = out.replace("Exiting, please wait...", "")
+						out = out.trim()
+					}
+					// console.log("Output: " + out)
+					var data = csvParse.parse(out, {columns: true, skip_empty_lines: true})
+					//console.log("Data: ", data)
+					resolve(data[0])
+				} catch (error) {
+					reject(new Error("Oops, Something Went Wrong!"))
 				}
-				// console.log("Output: " + out)
-				var data = csvParse.parse(out, {columns: true, skip_empty_lines: true})
-				//console.log("Data: ", data)
-				resolve(data[0])
-			} catch (error) {
-				reject(new Error("Oops, Something Went Wrong!"))
-			}
-			
-		})
+				
+			})
+		}catch(err){
+			reject(err)
+		}
 	})
 }
 

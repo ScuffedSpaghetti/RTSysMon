@@ -13,6 +13,9 @@ var GenericRAM = require("./devices/memory-generic")
 var LinuxRAM = require("./devices/memory-linux")
 var LinuxNetwork = require("./devices/network-linux")
 var WindowsNetwork = require("./devices/network-windows")
+var ExtraDevice = require("./devices/extra-device")
+
+
 
 function recursiveRecordTotal(totalObj, obj){
 	for(var x in obj){
@@ -122,42 +125,84 @@ async function getValidDevices(){
 		devices.gpu = nvidia
 	}
 	
+	var extraDevices = config.get("extraDevices").filter((extraDevice) => {return extraDevice.type != "example"})
+	
+	if(extraDevices.length > 0){
+		devices.extra = []
+		for(var x in extraDevices){
+			var extraDeviceOptions = extraDevices[x]
+			try{
+				devices.extra.push(new ExtraDevice(extraDeviceOptions))
+			}catch(err){
+				console.error(err)
+				console.error("Failed to load custom device " + extraDeviceOptions.type)
+			}
+		}
+	}
+	
 	return devices
 }
 
 async function queryDevices(devices,options){
 	options = options || {}
 	
-	var info = {}
-	for(var x in devices){
-		var devInfoAll = undefined
+	async function queryDevice(device, info, existingDevInfo){
+		var individuals = undefined
 		try{
-			devInfoAll = await devices[x].getDeviceInfo()
+			individuals = await device.getDeviceInfo()
 		}catch(err){
 			console.error(err)
 			console.error("A device reader threw an error! This is a sign that something was programed wrong or there is a system failure.\n" +
 				"This message should never appear during normal operation.")
 		}
-		if(devInfoAll && devInfoAll.length > 0){
+		if(individuals && individuals.length > 0){
+			var devInfoAll = existingDevInfo || []
+			devInfoAll = devInfoAll.concat(individuals)
 			var devInfo = {}
 			devInfo.average = averageObjects(devInfoAll,{
 				addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
 				ignoreSingleArrayKeys:["individual"],
 			})
-			if(devInfo?.average?.power?.watts != undefined){
-				info.power = info.power || {average:{watts:0}}
-				info.power.average.watts += devInfo.average.power.watts
+			for(var x in individuals){
+				var individual = individuals[x]
+				if(individual?.power?.watts != undefined){
+					info.power = info.power || {average:{watts:0}}
+					info.power.average.watts += individual.power.watts
+				}
 			}
 			if(options.individual !== false /*&& devInfoAll.length > 1*/){
 				devInfo.individual = devInfoAll
 			}
+			return devInfo
+		}
+	}
+	
+	var info = {}
+	for(var x in devices){
+		if(x == "extra"){
+			continue
+		}
+		var devInfo = await queryDevice(devices[x], info)
+		if(devInfo){
 			if(x == "cpu"){
+				devInfo.individualUsage = devInfo.individual.map((a) => a.usage)
 				devInfo.individual=undefined
-				devInfo.individualUsage = devInfoAll.map((a) => a.usage)
-			} 
+			}
 			info[x] = devInfo
 		}
 	}
+	if(devices.extra){
+		info.extra = {}
+		// query extra devices and merge any that have the same type
+		for(var x in devices.extra){
+			var extraDevice = devices.extra[x]
+			var devInfo = await queryDevice(extraDevice, info, info.extra[extraDevice.type]?.individual)
+			if(devInfo){
+				info.extra[extraDevice.type] = devInfo
+			}
+		}
+	}
+	
 	return info
 }
 
@@ -190,7 +235,7 @@ console.log("connecting to " + webSocketAddress)
 void (async function(){
 	var devices = await getValidDevices()
 	while(true){
-		await new Promise((resolve)=>{
+		await /** @type {Promise<void>} */(new Promise((resolve)=>{
 			var websocket = new WebSocket(webSocketAddress)
 			var interval = undefined
 			var intervalAlive = undefined
@@ -230,7 +275,7 @@ void (async function(){
 			websocket.onopen = async ()=>{
 				sendJSON({
 					type:"init_system",
-					hostname:os.hostname(),
+					hostname:config.get("customName") || os.hostname(),
 					os:os.version?os.version():undefined,
 					password:password,
 				})
@@ -256,6 +301,6 @@ void (async function(){
 				})
 			}
 			
-		})
+		}))
 	}
 })()

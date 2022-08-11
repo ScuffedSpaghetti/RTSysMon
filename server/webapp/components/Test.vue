@@ -1,7 +1,9 @@
 <template>
 	<div>
+		<OpacityBox :height="5" :width="5" style="padding:0.5em"/>
 		<div v-if="averageData.cpu">
-			<OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/>><NutChart :usage="cpuUsage * 4"/>
+			<OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/>
+			<NutChart :usage="cpuUsage * 4"/>
 		</div>
 		<div>
 			<LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/>

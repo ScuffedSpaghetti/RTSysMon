@@ -15,6 +15,9 @@
         <div class="pad" v-if="individualData.network">
             <NetworkDetails :info="individualData.network" :compHeight="4" :compWidth="9"/>
         </div>
+        <template v-for="(x, i) in individualData.extra" >
+            <ExtraDetails class="pad" :key="i" :info="x" :compHeight="5" :compWidth="10"/>
+        </template>
     </div>
 </template>
 
@@ -24,6 +27,7 @@ import LargeComputerOverview from './LargeComputerOverview.vue'
 import CpuDetails from './CpuDetails.vue'
 import GpuDetails from './GpuDetails.vue'
 import NetworkDetails from './NetworkDetails.vue'
+import ExtraDetails from './ExtraDetails.vue'
 
 export default {
     props:{
@@ -45,8 +49,10 @@ export default {
         CpuDetails,
         GpuDetails,
         NetworkDetails,
+        ExtraDetails,
     },
     computed:{
+        // get data for specific node from info
         individualData(){
             for(var x in this.info.individual){
                 // console.log("id: " + this.$route.params.id)

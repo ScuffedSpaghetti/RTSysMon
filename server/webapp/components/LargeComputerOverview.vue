@@ -26,6 +26,11 @@
 					<div class="info-text" style="min-width:6em;">{{averageData.power.watts.toFixed(1)}} Watts</div>
 					<br>
 				</div>
+				<template v-for="(extra, i) in info.extra">
+					<template v-for="(value, i2) in extra.average.values_overview">
+						<Value class="item" :key="i+' '+i2" :value="value" :height="compHeight" :width="compWidth"/>
+					</template>
+				</template>
 			</div>
 		</div>
 	</div>
@@ -34,8 +39,9 @@
 <script>
 import DonutChart from './DonutChart.vue'
 import HorizontalBar from './HorizontalBar.vue'
+import Value from './Value.vue'
 export default {
-  components: { DonutChart, HorizontalBar },
+  components: { DonutChart, HorizontalBar, Value },
 	props:{
 		info:{
 			type:Object,

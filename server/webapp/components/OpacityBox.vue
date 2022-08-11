@@ -1,6 +1,6 @@
 <template>
 <div class="outer" :style="outerStyle">
-	<div class="inner" id="in" :class="{animate: this.$root.animation !== false}" :style="innerStyle "></div>
+	<div class="inner" id="in" :class="{animate: this.$root.animation !== false}" :style="innerStyle"></div>
 	<label class="label" :style="{fontSize:(size || height)/5+'em'}">{{usage.toFixed(1)}}%</label>
 </div>
 </template>
@@ -32,10 +32,17 @@ export default {
 	methods: {
 		updateChart(usage) {
 			if(usage > 100){
-				// usage = Math.min(usage,200)
-                this.innerStyle.backgroundColor = "rgba(255, 0, 0," + (usage -100)/100 + ")"
+				usage = (Math.min(usage,200) - 100) / 100
+				var r = 13 * (1 - usage) + 255 * Math.min(usage * 2,1);
+				var g = 236 * (1 - Math.max(usage * 2 - 1,0));
+				var b = 43 * (1 - usage);
+                this.innerStyle.backgroundColor = "rgba(" + r + "," + g + "," + b +",1)"
+				//var h = 128 * (1 - usage);
+				//var s = 90 * (1 - usage) + 100 * usage;
+				//this.innerStyle.backgroundColor = "hsl(" + h + ", " + s + "%, 50%, 1)"
 			}else{
-				this.innerStyle.backgroundColor = "rgba(13, 236, 43," + usage/100 + ")"
+				this.innerStyle.backgroundColor = "rgba(13,236,43," + usage/100 + ")"
+				//this.innerStyle.backgroundColor = "hsl(128, 90%, 50%," + usage/100 + ")"
 			}
 		},
         addAlpha(color, opacity) {

@@ -11,8 +11,11 @@
 		
 		<br>
 		<pre>{{text}}</pre>
-		<div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
-		<div>Total buffer data received: {{totalDataBuffer.toLocaleString()}} bytes</div>
+		<!-- <div>Total string data received: {{totalDataString.toLocaleString()}} bytes</div>
+		<div>Total buffer data received: {{totalDataBuffer.toLocaleString()}} bytes</div> -->
+		<div>Data received: {{info.bytes}} bytes</div>
+		<div>Total buffer data received: {{info.totalBytes}} bytes</div>
+		<div>Compression ratio: {{info.bytes / JSON.stringify(info).length}} bytes</div>
 	</div>
 </template>
 

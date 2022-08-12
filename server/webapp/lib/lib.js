@@ -9,10 +9,14 @@ var messageHandlers = []
 var websocket = new WebSocket(((location.protocol.indexOf("s") > -1)?"wss://":"ws://")+location.host+location.pathname)
 websocket.binaryType = "arraybuffer";
 
+var totalBytes = 0
+var lastMessageLength = 0
+
 // sets text to the JSON sting if obj is a string
 var messageHandler = (obj) => {
     if(obj.type == "info"){
-       
+        obj.bytes = lastMessageLength
+        obj.totalBytes = totalBytes
     }
     for(var x in messageHandlers){
         messageHandlers[x](obj)
@@ -22,6 +26,9 @@ var messageHandler = (obj) => {
 // the new function syntax preserves 'this' and should be used in vue elements for anonymous functions
 // deals with decompressing the JSON if it is compressed
 websocket.onmessage = (event) => {
+    var length = event.data.length || event.data.byteLength
+    lastMessageLength = length
+    totalBytes += length
     if(typeof event.data == "string"){
         var obj = JSON.parse(event.data)
         messageHandler(obj)

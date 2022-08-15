@@ -9,11 +9,12 @@
 		</template>
 		<template v-else-if="value.type == 'bar'">
 			<HorizontalBar class="flex-child" :usage="value.usage" :height="height" :width="width"/>
-			<div class="info-text">{{value.value.toFixed(1)}} {{value.unit||""}} / {{value.value_limit.toFixed(1)}} {{value.unit||""}}</div>
+			<div class="info-text">{{addUnit(value.value, value.unit)}} / {{addUnit(value.value_limit, value.unit)}}</div>
 		</template>
 		<template v-else>
-			<div class="info-text" style="min-width:6em;">{{value.value}} {{value.unit||""}}</div>
+			<div class="info-text" style="min-width:6em; white-space: pre-wrap;">{{addUnit(value.value, value.unit)}}</div>
 		</template>
+		<div class="info-text" v-if="value.description" style="white-space: pre-wrap;">{{value.description}}</div>
 	</div>
 </template>
 
@@ -22,7 +23,7 @@ import DonutChart from './DonutChart.vue'
 import HorizontalBar from './HorizontalBar.vue'
 import OpacityBox from './OpacityBox.vue'
 export default {
-  components: { DonutChart, OpacityBox, HorizontalBar },
+	components: { DonutChart, OpacityBox, HorizontalBar },
 	props:{
         value:{
 			type:Object,
@@ -37,6 +38,29 @@ export default {
 			default: 10,
 		},
     },
+	methods:{
+		addUnit(value,unit){
+			if(typeof value == "string"){
+				return value + (unit ? " " + unit : "")
+			}else if(unit == "time"){
+				function pad(num,length){
+					if(typeof num == "number"){
+						num = num.toString()
+					}
+					while(num.length < length){
+						num = "0"+num
+					}
+					return num
+				}
+				var hours = Math.floor(value / 3600)
+				var minutes = pad(Math.floor((value / 60) % 60), 2)
+				var seconds = pad(Math.floor(value % 60), 2)
+				return (hours > 0 ? hours + ":" : "") + minutes + ":" + seconds
+			}else{
+				return value.toFixed(1) +  (unit ? " " + unit : "")
+			}
+		}
+	}
 }
 </script>
 

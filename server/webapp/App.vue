@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
 		hash: to.hash,
 		query: to.query
 	}
-	console.log(to, from)
+	//console.log(to, from)
 	var override = false
 	/*if(nextLocation.hash == "" && from.hash != ""){
 		nextLocation.hash = from.hash
@@ -50,11 +50,11 @@ router.beforeEach((to, from, next) => {
 		override = true
 	}
 	if(from.query.clearQuery !== undefined){
-		console.log("clearQuery")
+		//console.log("clearQuery")
 		override = false
 	}
 	if(override){
-		console.log(nextLocation)
+		//console.log(nextLocation)
 		next(nextLocation)
 	}else{
 		next()
@@ -69,6 +69,7 @@ export default {
 			themeOverride: false,
 			darkMode: false,
 			showAboutPage: false,
+			dev: false,
 			
 			animationInterval: undefined,
 			animationLastTime: 0,
@@ -77,11 +78,17 @@ export default {
 			autoScrollDirection: 1,
 			autoScrollLastTime: 0,
 			autoScrollLocation: 0,
-			autoScrollSpeed: 50,
+			autoScrollSpeed: 200,
+			autoScrollAutoSpeed: true,
 			autoScrollPauseUntil: 0,
+			autoScrollLastPageHeight: 0,
 			
 			autoCycle: false,
-			
+			autoCycleHomeTime: 10,
+			autoCycleNodeTime: 5,
+			autoCycleElapsed: 0,
+			autoCycleCurrentNode:-1,
+			autoCycleOnNode: false,
 			
 			info: {},
 		}
@@ -141,6 +148,31 @@ export default {
 				if(this.autoScrollLocation <= 0){
 					this.autoScrollDirection = 1
 				}
+				if(this.autoCycle && this.autoScrollAutoSpeed){
+					var totalTime = (this.autoCycleOnNode ? this.autoCycleNodeTime : this.autoCycleHomeTime)
+					this.autoScrollSpeed = Math.max((document.body.parentElement.scrollHeight - window.innerHeight) / totalTime, 0)
+				}
+				this.autoScrollLastPageHeight = document.body.parentElement.scrollHeight
+			}
+			
+			if(this.autoCycle){
+				this.autoCycleElapsed += delta
+				if(this.autoCycleElapsed > this.autoCycleHomeTime && this.autoCycleOnNode == false){
+					this.autoCycleElapsed = 0
+					this.autoCycleOnNode = true
+					var individual = this.info?.individual
+					if(individual){
+						this.autoCycleCurrentNode = (this.autoCycleCurrentNode + 1) % (individual.length)
+						this.autoScrollLocation = 0
+						this.$router.push("/node/" + individual[this.autoCycleCurrentNode].uid).catch(()=>{})
+					}
+				}
+				if(this.autoCycleElapsed > this.autoCycleNodeTime && this.autoCycleOnNode == true){
+					this.autoCycleElapsed = 0
+					this.autoCycleOnNode = false
+					this.autoScrollLocation = 0
+					this.$router.push("/").catch(()=>{})
+				}
 			}
 			
 			
@@ -153,9 +185,9 @@ export default {
 			}
 		},
 		scrollPause(event){
-			if(Math.abs(window.scrollY - this.scrollLocation) > 20){
+			if(Math.abs(window.scrollY - this.autoScrollLocation) > 20 && !this.autoCycle && this.autoScrollLastPageHeight == document.body.parentElement.scrollHeight){
 				var now = (performance||Date).now() / 1000
-				this.scrollPauseUntil = now + 4
+				this.autoScrollPauseUntil = now + 4
 			}
 			
 		}
@@ -196,6 +228,7 @@ export default {
 		$route:{
 			immediate: true,
 			handler(route){
+				this.dev = route.query.dev !== undefined
 				if(route.query.dark_mode !== undefined){
 					this.themeOverride = true
 					this.darkMode = true
@@ -205,11 +238,21 @@ export default {
 					this.darkMode = false
 				}
 				if(route.query.auto_scroll !== undefined){
-					this.scrollSpeed = parseFloat(route.query.auto_scroll) || 50
-					this.scrollLocation = 0
+					this.autoScrollSpeed = parseFloat(route.query.auto_scroll)
+					this.autoScrollAutoSpeed = !this.autoScrollSpeed
+					this.autoScrollSpeed = this.autoScrollSpeed || 200
+					this.autoScrollLocation = 0
 					this.autoScroll = true
 				}else{
 					this.autoScroll = false
+				}
+				if(route.query.auto_cycle !== undefined){
+					var split = (route.query.auto_cycle || "").split(",")
+					this.autoCycleHomeTime = parseFloat(split[0]) || 10
+					this.autoCycleNodeTime = parseFloat(split[1]) || parseFloat(split[0]) || 5
+					this.autoCycle = true
+				}else{
+					this.autoCycle = false
 				}
 				this.animationFrame()
 			}

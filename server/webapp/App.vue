@@ -69,6 +69,20 @@ export default {
 			themeOverride: false,
 			darkMode: false,
 			showAboutPage: false,
+			
+			animationInterval: undefined,
+			animationLastTime: 0,
+			
+			autoScroll: false,
+			autoScrollDirection: 1,
+			autoScrollLastTime: 0,
+			autoScrollLocation: 0,
+			autoScrollSpeed: 50,
+			autoScrollPauseUntil: 0,
+			
+			autoCycle: false,
+			
+			
 			info: {},
 		}
 	},
@@ -90,7 +104,7 @@ export default {
 			//messages are received here
 			if(message.type == "info"){
 				this.info = message
-    		}
+			}
 			
 			if(message.type == "settings"){
 				this.showAboutPage = message.settings.show_about
@@ -105,13 +119,50 @@ export default {
 				if(message.settings.disable_animation){
 					this.animation = false
 				}
-    		}
+			}
 			//console.log(message)
+		},
+		animationFrame(){
+			var now = (performance||Date).now() / 1000
+			var delta = now - (this.animationLastTime || now)
+			//console.log(now)
+			
+			if(this.autoScroll){
+				if(this.autoScrollPauseUntil < now){
+					this.autoScrollLocation += delta * this.autoScrollSpeed * this.autoScrollDirection
+					window.scrollTo(0,this.autoScrollLocation)
+				}else{
+					this.autoScrollLocation = window.scrollY
+				}
+				
+				if (window.scrollY + window.innerHeight >= document.body.parentElement.scrollHeight) {
+					this.autoScrollDirection = -1
+				}
+				if(this.autoScrollLocation <= 0){
+					this.autoScrollDirection = 1
+				}
+			}
+			
+			
+			this.animationLastTime = now
+			cancelAnimationFrame(this.animationInterval)
+			if(this.autoScroll || this.autoCycle){
+				this.animationInterval = requestAnimationFrame(()=>{
+					this.animationFrame()
+				})
+			}
+		},
+		scrollPause(event){
+			if(Math.abs(window.scrollY - this.scrollLocation) > 20){
+				var now = (performance||Date).now() / 1000
+				this.scrollPauseUntil = now + 4
+			}
+			
 		}
 	},
 	components:{
-    TopNav,
-},
+		TopNav,
+	},
 	mounted() {
 		try{
 			var systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
@@ -124,9 +175,16 @@ export default {
 				if(!this.themeOverride){
 					this.darkMode = systemTheme.matches
 				}
-        	})
-    	}catch(a){}
+			})
+		}catch(a){}
 		lib.messageHandlers.push(this.messageHandler)
+		window.addEventListener("scroll",this.scrollPause)
+	},
+	beforeDestroy() {
+		cancelAnimationFrame(this.animationInterval)
+		this.autoScroll = false
+		this.autoCycle = false
+		window.removeEventListener("scroll",this.scrollPause)
 	},
 	watch:{
 		darkMode: {
@@ -138,14 +196,22 @@ export default {
 		$route:{
 			immediate: true,
 			handler(route){
-				if(route.query.darkMode !== undefined){
+				if(route.query.dark_mode !== undefined){
 					this.themeOverride = true
 					this.darkMode = true
 				}
-				if(route.query.lightMode !== undefined){
+				if(route.query.light_mode !== undefined){
 					this.themeOverride = true
 					this.darkMode = false
 				}
+				if(route.query.auto_scroll !== undefined){
+					this.scrollSpeed = parseFloat(route.query.auto_scroll) || 50
+					this.scrollLocation = 0
+					this.autoScroll = true
+				}else{
+					this.autoScroll = false
+				}
+				this.animationFrame()
 			}
 		}
 	}

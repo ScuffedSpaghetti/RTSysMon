@@ -33,6 +33,34 @@ const router = new VueRouter({
 	],
 })
 
+router.beforeEach((to, from, next) => {
+	var nextLocation = {
+		path: to.path,
+		hash: to.hash,
+		query: to.query
+	}
+	console.log(to, from)
+	var override = false
+	/*if(nextLocation.hash == "" && from.hash != ""){
+		nextLocation.hash = from.hash
+		override = true
+	}*/
+	if(Object.keys(nextLocation.query).length == 0 && Object.keys(from.query).length != 0){
+		nextLocation.query = from.query
+		override = true
+	}
+	if(from.query.clearQuery !== undefined){
+		console.log("clearQuery")
+		override = false
+	}
+	if(override){
+		console.log(nextLocation)
+		next(nextLocation)
+	}else{
+		next()
+	}
+})
+
 export default {
 	router:router,
 	data(){
@@ -66,7 +94,7 @@ export default {
 			
 			if(message.type == "settings"){
 				this.showAboutPage = message.settings.show_about
-				if(message.settings.default_theme){
+				if(message.settings.default_theme && !this.themeOverride){
 					this.themeOverride = true
 					if(message.settings.default_theme == 2){
 						this.darkMode = true
@@ -105,6 +133,19 @@ export default {
 			immediate: true,
 			handler(darkMode){
 				this.setDarkMode(darkMode)
+			}
+		},
+		$route:{
+			immediate: true,
+			handler(route){
+				if(route.query.darkMode !== undefined){
+					this.themeOverride = true
+					this.darkMode = true
+				}
+				if(route.query.lightMode !== undefined){
+					this.themeOverride = true
+					this.darkMode = false
+				}
 			}
 		}
 	}

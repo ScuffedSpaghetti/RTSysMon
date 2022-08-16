@@ -1,8 +1,8 @@
 <template>
     <div class="top-nav">
 		<router-link class="active" :to="'/'">Home</router-link>
-		<router-link :to="'/about'">About</router-link>
 		<router-link :to="'/settings'">Settings</router-link>
+		<router-link v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
 		<div class="container">
 			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>
@@ -43,10 +43,12 @@ export default{
 
 <style scoped>
 .container {
-	display: inline-block;
-	position: absolute;
-	top: 0.7em;
-	right: 1em;
+	/* display: inline-block; */
+	/* position: absolute; */
+	/* top: 0.7em; */
+	/* right: 1em; */
+	float: right;
+	margin: 0.6em;
 }
 .top-nav {
   	overflow: hidden;
@@ -56,9 +58,9 @@ export default{
 .top-nav a {
 	float: left;
 	text-align: center;
-	padding: 14px 16px;
+	padding: 0.8em 1em;
 	text-decoration: none;
-	font-size: 17px;
+	font-size: 1em;
 }
 .top-nav a.active {
 	/* background-color: #35d6ec; */

@@ -38,7 +38,9 @@ export default {
 	data(){
 		return {
 			animation: true,
+			themeOverride: false,
 			darkMode: false,
+			showAboutPage: false,
 			info: {},
 		}
 	},
@@ -61,6 +63,21 @@ export default {
 			if(message.type == "info"){
 				this.info = message
     		}
+			
+			if(message.type == "settings"){
+				this.showAboutPage = message.settings.show_about
+				if(message.settings.default_theme){
+					this.themeOverride = true
+					if(message.settings.default_theme == 2){
+						this.darkMode = true
+					}else{
+						this.darkMode = false
+					}
+				}
+				if(message.settings.disable_animation){
+					this.animation = false
+				}
+    		}
 			//console.log(message)
 		}
 	},
@@ -71,10 +88,14 @@ export default {
 		try{
 			var systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
 			// this.setDarkMode(systemTheme.matches)
-			this.darkMode = systemTheme.matches
+			if(!this.themeOverride){
+				this.darkMode = systemTheme.matches
+			}
 			systemTheme.addEventListener(function(event) {
 				// this.setDarkMode(event.matches)
-				this.darkMode = systemTheme.matches
+				if(!this.themeOverride){
+					this.darkMode = systemTheme.matches
+				}
         	})
     	}catch(a){}
 		lib.messageHandlers.push(this.messageHandler)

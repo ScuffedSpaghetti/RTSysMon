@@ -3,6 +3,7 @@ const System = require("./system")
 const msgPack = require("@msgpack/msgpack")
 const compressJson = require("compressed-json")
 const zlib = require("zlib")
+const config = require("config")
 
 module.exports = class Listener{
 	
@@ -12,12 +13,28 @@ module.exports = class Listener{
 		this.interval = setInterval(()=>{
 			this.sendInfo()
 		}, 1000)
+		setTimeout(()=>{
+			this.sendSettings()
+		}, 500)
+		this.sendSettings()
+		this.sendInfo()
 	}
 	
 	sendInfo(){
 		var info = System.getClusterInfo()
 		info.type = "info"
 		this.sendJSON(info)
+	}
+	
+	sendSettings(){
+		this.sendJSON({
+			settings:{
+				show_about: config.get("webShowAbout"),
+				default_theme: config.get("webDefaultTheme"),
+				disable_animation: config.get("webDisableAnimation"),
+			},
+			type: "settings"
+		})
 	}
 	
 	sendJSON(obj){

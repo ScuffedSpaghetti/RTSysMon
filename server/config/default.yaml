@@ -6,3 +6,12 @@ port: 3498
 
 # if the password is not blank nodes will have to use the same password in their config to connect
 password: ""
+
+# set to true if the web client should show the about page
+webShowAbout: false
+
+# 0 for automatic  1 for light  2 for dark
+webDefaultTheme: 0
+
+# set to true if web clients should not animate charts
+webDisableAnimation: false

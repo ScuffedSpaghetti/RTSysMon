@@ -85,7 +85,7 @@ export default {
 
   .search-box {
     height: 1.5em;
-    width: 15em
+    width: 15em;
   }
 
   .autocomplete-results {
@@ -100,7 +100,7 @@ export default {
   .autocomplete-result {
     list-style: none;
     text-align: left;
-    padding: 4px 2px;
+    padding: 0.2em 0.1em;
     cursor: pointer;
   }
   .autocomplete-result.is-active,

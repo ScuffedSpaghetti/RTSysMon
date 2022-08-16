@@ -104,20 +104,22 @@ function averageObjects(arr,settings){
 
 async function getValidDevices(){
 	var devices = {}
-	switch(process.platform){
-		case "linux":
-			devices.cpu = new LinuxCPU()
-			devices.memory = new LinuxRAM()
-			devices.network = new LinuxNetwork(config.get("showVirtualNetworkInterfaces"))
-		break
-		case "win32":
-			devices.cpu = new GenericCPU()
-			devices.memory = new GenericRAM()
-			devices.network = new WindowsNetwork()
-		break
-		default:
-			devices.cpu = new GenericCPU()
-			devices.memory = new GenericRAM()
+	if(!config.get("hideDefaultDevices")){
+		switch(process.platform){
+			case "linux":
+				devices.cpu = new LinuxCPU()
+				devices.memory = new LinuxRAM()
+				devices.network = new LinuxNetwork(config.get("showVirtualNetworkInterfaces"))
+			break
+			case "win32":
+				devices.cpu = new GenericCPU()
+				devices.memory = new GenericRAM()
+				devices.network = new WindowsNetwork()
+			break
+			default:
+				devices.cpu = new GenericCPU()
+				devices.memory = new GenericRAM()
+		}
 	}
 	
 	var nvidia = new NvidiaGPU()
@@ -281,6 +283,7 @@ void (async function(){
 				})
 				interval = setInterval(async ()=>{
 					var info = await queryDevices(devices)
+					//console.log(info)
 					sendJSON({
 						type:"info",
 						info:info

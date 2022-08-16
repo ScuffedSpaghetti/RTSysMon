@@ -8,3 +8,4 @@ node
 node.exe
 node-test.exe
 webpack-client/packed
+client/extra-local

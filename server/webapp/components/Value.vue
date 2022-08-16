@@ -9,10 +9,10 @@
 		</template>
 		<template v-else-if="value.type == 'bar'">
 			<HorizontalBar class="flex-child" :usage="value.usage" :height="height" :width="width"/>
-			<div class="info-text">{{addUnit(value.value, value.unit)}} / {{addUnit(value.value_limit, value.unit)}}</div>
+			<div class="info-text">{{addUnit(value.value, value.unit, value)}} / {{addUnit(value.value_limit, value.unit, value)}}</div>
 		</template>
 		<template v-else>
-			<div class="info-text" style="min-width:6em; white-space: pre-wrap;">{{addUnit(value.value, value.unit)}}</div>
+			<div class="info-text" style="min-width:6em; white-space: pre-wrap;">{{addUnit(value.value, value.unit, value)}}</div>
 		</template>
 		<div class="info-text" v-if="value.description" style="white-space: pre-wrap;">{{value.description}}</div>
 	</div>
@@ -39,7 +39,9 @@ export default {
 		},
     },
 	methods:{
-		addUnit(value,unit){
+		addUnit(value,unit,obj){
+			obj = obj || {}
+			obj.decimals = (obj.decimals != undefined ? obj.decimals : 1)
 			if(typeof value == "string"){
 				return value + (unit ? " " + unit : "")
 			}else if(unit == "time"){
@@ -57,7 +59,7 @@ export default {
 				var seconds = pad(Math.floor(value % 60), 2)
 				return (hours > 0 ? hours + ":" : "") + minutes + ":" + seconds
 			}else{
-				return value.toFixed(1) +  (unit ? " " + unit : "")
+				return value.toFixed(obj.decimals) +  (unit ? " " + unit : "")
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<div v-if="!connected" class="disconnected-popup">Disconnected</div>
 		<TopNav :info="info"/>
 		<router-view :info="info"></router-view>
 	</div>
@@ -70,6 +71,7 @@ export default {
 			darkMode: false,
 			showAboutPage: false,
 			dev: false,
+			connected: false,
 			
 			animationInterval: undefined,
 			animationLastTime: 0,
@@ -126,6 +128,10 @@ export default {
 				if(message.settings.disable_animation){
 					this.animation = false
 				}
+			}
+			//locally generated websocket connections status events
+			if(message.type == "status"){
+				this.connected = message.connected
 			}
 			//console.log(message)
 		},
@@ -210,6 +216,7 @@ export default {
 			})
 		}catch(a){}
 		lib.messageHandlers.push(this.messageHandler)
+		lib.connect()
 		window.addEventListener("scroll",this.scrollPause)
 	},
 	beforeDestroy() {
@@ -262,19 +269,15 @@ export default {
 </script>
 
 <style vsc-initialized>
-.container{
+/*.container{
 	display: flex;
 	flex-direction: row;
 	flex-flow: row wrap;
 	justify-content: space-around;
 	border-radius: 1em;
-}
+}*/
 
 .vsc-initialized {
 	margin: 0em;
-}
-
-h1, p {
-	margin: 1em;
 }
 </style>

@@ -3,7 +3,7 @@
 		<router-link class="active" :to="'/'">Home</router-link>
 		<router-link :to="'/settings'">Settings</router-link>
 		<router-link v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
-		<div class="container">
+		<div class="search-bar-container">
 			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>
     </div>
@@ -42,7 +42,7 @@ export default{
 
 
 <style scoped>
-.container {
+.search-bar-container {
 	/* display: inline-block; */
 	/* position: absolute; */
 	/* top: 0.7em; */

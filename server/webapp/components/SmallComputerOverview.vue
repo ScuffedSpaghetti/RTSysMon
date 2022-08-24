@@ -12,6 +12,14 @@
 					<HorizontalBar class="flex-child" :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
 				<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 			</div>
+			<div class="item" v-if="averageData.warning" style="color:#FF7601;">
+				<div class="title">Warning</div>
+				<div class="info-text" style="min-width:4em;">{{averageData.warning}}</div>
+			</div>
+			<div class="item" v-if="averageData.error" style="color:red;">
+				<div class="title">Warning</div>
+				<div class="info-text" style="min-width:4em;">{{averageData.error}}</div>
+			</div>
 		</div>
 		<div class="component">
 			<div class="item" v-if="averageData.gpu && averageData.gpu.core">
@@ -77,6 +85,37 @@ export default {
 			for(var x in data){
 				var item = data[x]
 				out[x] = item.average
+				if(item.warning){
+					if(out.warning){
+						out.warning += " | " + item.warning
+					}else{
+						out.warning = item.warning
+					}
+				}
+				if(item.error){
+					if(out.error){
+						out.error += " | " + item.error
+					}else{
+						out.error = item.error
+					}
+				}
+			}
+			for(var x in data.extra){
+				var extraItem = data.extra[x].average
+				if(extraItem.warning){
+					if(out.warning){
+						out.warning += " | " + extraItem.warning
+					}else{
+						out.warning = extraItem.warning
+					}
+				}
+				if(extraItem.error){
+					if(out.error){
+						out.error += " | " + extraItem.error
+					}else{
+						out.error = extraItem.error
+					}
+				}
 			}
 			//console.log(out)
 			return out

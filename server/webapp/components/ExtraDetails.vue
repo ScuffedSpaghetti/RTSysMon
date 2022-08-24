@@ -46,6 +46,14 @@
 						<div class="info-text" style="min-width:6em;">{{x.status}}</div>
 					</div>
 					<Value class="item" v-for="(value, i2) in x.values" :key="i2" :value="value" :height="compHeight" :width="compWidth"/>
+					<div class="item" v-if="x.warning" style="color:#FF7601;">
+						<div class="title">Warning</div>
+						<div class="info-text" style="min-width:4em;">{{x.warning}}</div>
+					</div>
+					<div class="item" v-if="x.error" style="color:red;">
+						<div class="title">Warning</div>
+						<div class="info-text" style="min-width:4em;">{{x.error}}</div>
+					</div>
 				</div>
 			</div>
 		</template>

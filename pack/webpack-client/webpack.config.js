@@ -8,7 +8,7 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     devtool: false,
-    entry: ['fs.promises',"../client/client"],
+    entry: ['fs.promises',"../../client/client"],
     name: 'main',
     target: 'node',
     output: {

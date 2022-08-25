@@ -1,0 +1,7 @@
++ /config/default.yaml
+- /config/*
++ /webapp/dist
+- /webapp/*
+- .gitkeep
+- .git
+

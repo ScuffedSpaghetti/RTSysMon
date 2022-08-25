@@ -9,3 +9,7 @@ node.exe
 node-test.exe
 webpack-client/packed
 client/extra-local
+/pack/sysmon-client
+/pack/sysmon-server
+/pack/include-client/config
+/pack/include-server/config

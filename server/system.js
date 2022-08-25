@@ -139,6 +139,9 @@ module.exports = class System{
 			System.clusterInfoCacheTime = now
 			var individual = []
 			for(var x in System.activeSystems){
+				if(System.activeSystems[x].uid == "Minecraft-Modded" || System.activeSystems[x].uid == "server" || System.activeSystems[x].uid == "ScooterMediaPc"){
+					continue
+				}
 				individual.push(System.activeSystems[x].info)
 			}
 			individual.sort((a, b) => {
@@ -180,7 +183,7 @@ module.exports = class System{
 	
 	
 	
-	info = undefined
+	info = {}
 	initialized = false
 	constructor(socket,initMsg){
 		this.socket = socket
@@ -194,7 +197,7 @@ module.exports = class System{
 	}
 	async onMessage(obj){
 		if(obj.type == "info"){
-			this.info = obj.info
+			this.info = (typeof obj.info == "object" ? obj.info || {} : {})
 			this.info.hostname = this.hostname
 			this.info.os = this.os
 			if(!this.initialized){

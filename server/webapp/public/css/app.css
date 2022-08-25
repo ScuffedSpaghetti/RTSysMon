@@ -31,3 +31,21 @@ body{
   /* color: #ffffff;
   border: 1px solid #000000; */
 }
+
+
+.disconnected-popup{
+	position: fixed;
+	top: 0.5em;
+	right: 0.5em;
+	border: solid 0.2em #c23b3b;
+	background-color: #d76e6e;
+	opacity: 0.85;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	pointer-events: none;
+  z-index: 10;
+}
+
+h1, p {
+	margin: 1em;
+}

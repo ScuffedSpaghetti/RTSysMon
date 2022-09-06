@@ -49,7 +49,7 @@ import DonutChart from './DonutChart.vue'
 import HorizontalBar from './HorizontalBar.vue'
 import Value from './Value.vue'
 export default {
-  components: { DonutChart, HorizontalBar, Value },
+ 	components: { DonutChart, HorizontalBar, Value },
 	props:{
 		info:{
 			type:Object,
@@ -148,6 +148,6 @@ export default {
 	align-self: center;
 }
 .flex-child{
-    align-self: center;
+	align-self: center;
 }
 </style>

@@ -36,7 +36,7 @@ export default {
 				var r = 13 * (1 - usage) + 255 * Math.min(usage * 2,1);
 				var g = 236 * (1 - Math.max(usage * 2 - 1,0));
 				var b = 43 * (1 - usage);
-                this.innerStyle.backgroundColor = "rgba(" + r + "," + g + "," + b +",1)"
+				this.innerStyle.backgroundColor = "rgba(" + r + "," + g + "," + b +",1)"
 				//var h = 128 * (1 - usage);
 				//var s = 90 * (1 - usage) + 100 * usage;
 				//this.innerStyle.backgroundColor = "hsl(" + h + ", " + s + "%, 50%, 1)"
@@ -45,14 +45,14 @@ export default {
 				//this.innerStyle.backgroundColor = "hsl(128, 90%, 50%," + usage/100 + ")"
 			}
 		},
-        addAlpha(color, opacity) {
-            opacity = opacity / 100
-            var alpha = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255).toString(16).toUpperCase();
-            while(alpha.length < 2){
-                alpha = "0" + alpha
-            }
-            return color + alpha;
-        },
+		addAlpha(color, opacity) {
+			opacity = opacity / 100
+			var alpha = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255).toString(16).toUpperCase();
+			while(alpha.length < 2){
+				alpha = "0" + alpha
+			}
+			return color + alpha;
+		},
 	},
 	watch: {
 		usage: {

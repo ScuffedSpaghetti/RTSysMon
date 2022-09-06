@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="container box-background">
+	<div class="container box-background">
 		<div class="title">{{compTitle}}</div>
 		<div class="component">
 			<div class="item" v-if="averageData.cpu">
@@ -37,15 +37,15 @@
 				<div class="title">Power</div>
 				<div class="info-text" style="min-width:6em;">{{averageData.power.watts.toFixed(1)}} Watts</div>
 			</div>
-        </div>
+		</div>
 		<div class="component" v-if="info.extra != undefined">
 			<template v-for="(extra, i) in info.extra">
 				<template v-for="(value, i2) in extra.average.values_overview">
 					<Value class="item" :key="i+' '+i2" :value="value" :height="compHeight" :width="compWidth"/>
 				</template>
 			</template>
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 </template>
 
@@ -54,7 +54,7 @@ import DonutChart from './DonutChart.vue'
 import HorizontalBar from './HorizontalBar.vue'
 import Value from './Value.vue'
 export default {
-  components: { DonutChart, HorizontalBar, Value },
+	components: { DonutChart, HorizontalBar, Value },
 	props:{
 		info:{
 			type:Object,
@@ -127,10 +127,10 @@ export default {
 <style scoped>
 
 .component{
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 	flex-flow: row wrap;
-    justify-content: space-around;
+	justify-content: space-around;
 }
 
 .container{
@@ -142,7 +142,7 @@ export default {
 	padding: 0.5em;
 }
 .item{
-    align-content: center;
+	align-content: center;
 	text-align: center;
 	padding: 0.5em;
 	display: flex;
@@ -164,6 +164,6 @@ export default {
 	align-self: center;
 }
 .flex-child{
-    align-self: center;
+	align-self: center;
 }
 </style>

@@ -91,8 +91,6 @@ function averageObjects(arr,settings){
 
 
 
-
-
 function alphanumSort(a, b) {
 	function chunkify(t) {
 	  var tz = new Array();
@@ -139,9 +137,6 @@ module.exports = class System{
 			System.clusterInfoCacheTime = now
 			var individual = []
 			for(var x in System.activeSystems){
-				if(System.activeSystems[x].uid == "Minecraft-Modded" || System.activeSystems[x].uid == "server" || System.activeSystems[x].uid == "ScooterMediaPc"){
-					continue
-				}
 				individual.push(System.activeSystems[x].info)
 			}
 			individual.sort((a, b) => {
@@ -177,8 +172,6 @@ module.exports = class System{
 		}
 		
 	}
-	
-	
 	
 	
 	

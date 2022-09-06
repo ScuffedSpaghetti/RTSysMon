@@ -29,11 +29,11 @@ import NutChart from './DonutChart.vue'
 
 export default {
 	 props:{
-        info:{
+		info:{
 			type:Object,
 			default:{}
 		},
-    },
+	},
 	data(){ 
 		return{
 			totalDataString:0,
@@ -44,16 +44,16 @@ export default {
 		
 	},
 	computed:{
-       averageData(){
-		   return this.info.average
-	   },
-	   cpuUsage(){
-		   return this.info.average.cpu.average.usage
-	   },
-	   text(){
-		   return JSON.stringify(this.info,null,2)
-	   }
-    },
+		averageData(){
+			return this.info.average
+		},
+		cpuUsage(){
+			return this.info.average.cpu.average.usage
+		},
+		text(){
+			return JSON.stringify(this.info,null,2)
+		}
+	},
 	components:{
 		DonutChart,
 		HorizontalBar,

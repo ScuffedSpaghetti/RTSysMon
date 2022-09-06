@@ -25,11 +25,11 @@ import OpacityBox from './OpacityBox.vue'
 export default {
 	components: { DonutChart, OpacityBox, HorizontalBar },
 	props:{
-        value:{
+		value:{
 			type:Object,
 			default:()=>{}
 		},
-        height:{
+		height:{
 			type: Number,
 			default: 5,
 		},
@@ -37,7 +37,7 @@ export default {
 			type: Number,
 			default: 10,
 		},
-    },
+	},
 	methods:{
 		addUnit(value,unit,obj){
 			obj = obj || {}
@@ -59,7 +59,7 @@ export default {
 				var seconds = pad(Math.floor(value % 60), 2)
 				return (hours > 0 ? hours + ":" : "") + minutes + ":" + seconds
 			}else{
-				return value.toFixed(obj.decimals) +  (unit ? " " + unit : "")
+				return value.toFixed(obj.decimals) + (unit ? " " + unit : "")
 			}
 		}
 	}
@@ -68,16 +68,16 @@ export default {
 
 <style>
 .title{
-    align-self: center;
+	align-self: center;
 	text-align: center;
 	font-size: 2em;
 }
 .info-text{
-    align-self: center;
-    text-align: center;
+	align-self: center;
+	text-align: center;
 	font-size: 1em;
 }
 .flex-child{
-    align-self: center;
+	align-self: center;
 }
 </style>

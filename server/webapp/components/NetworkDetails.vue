@@ -1,23 +1,23 @@
 <template>
-    <div>
-        <div class="component box-background">
-			<div  class="item" v-for="(x, i) in individualData" :key="i">
+	<div>
+		<div class="component box-background">
+			<div class="item" v-for="(x, i) in individualData" :key="i">
 				<div class="title">Interface {{x.name}}</div>
 				<div class="component" >
-					<div  class="item" v-if="x.rx_bytes != undefined">
+					<div class="item" v-if="x.rx_bytes != undefined">
 						<div class="info-text">Receive</div>
 						<HorizontalBar class="flex-child" v-if="x.rx_usage != undefined" :usage="x.rx_usage" :width="compWidth" :height="compHeight"/>
 						<div class="info-text">{{autoBits(x.rx_bytes)}}ps {{(x.rx_bytes_limit)?"/" + autoBits(x.rx_bytes_limit) + "ps":""}}</div>
 					</div>
-					<div  class="item" v-if="x.tx_bytes != undefined">
+					<div class="item" v-if="x.tx_bytes != undefined">
 						<div class="info-text">Transmit</div>
 						<HorizontalBar class="flex-child" v-if="x.tx_usage != undefined" :usage="x.tx_usage" :width="compWidth" :height="compHeight"/>
 						<div class="info-text">{{autoBits(x.tx_bytes)}}ps {{(x.tx_bytes_limit)?"/" + autoBits(x.tx_bytes_limit) + "ps":""}}</div>
 					</div>
 				</div>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -25,12 +25,12 @@ import DonutChart from './DonutChart.vue'
 import HorizontalBar from './HorizontalBar.vue'
 
 export default{
-    props:{
-        info:{
+	props:{
+		info:{
 			type:Object,
 			default:()=>{}
 		},
-        compHeight:{
+		compHeight:{
 			type: Number,
 			default: 5,
 		},
@@ -38,20 +38,20 @@ export default{
 			type: Number,
 			default: 10,
 		},
-    },
-    data() {
-        return {
+	},
+	data() {
+		return {
 
-        }
-    },
-    mounted() {
-        
-    },
-    methods: {
-        toGB(bytes){
+		}
+	},
+	mounted() {
+		
+	},
+	methods: {
+		toGB(bytes){
 			return (bytes / 1024 / 1024 / 1024).toFixed(1)
 		},
-        toMb(bytes){
+		toMb(bytes){
 			return (bytes / 1000 / 1000 * 8).toFixed(1)
 		},
 		autoBits(bytes){
@@ -75,22 +75,22 @@ export default{
 			}
 			return bits.toFixed(1) + " " + suffix
 		}
-    },
-    computed:{
-       individualData(){
-           if(!this.info){
-               return
-           }
-		   if(this.info.individual){
-			   return this.info.individual
-		   }
-		   return [this.info.average]
-	   }
-    },
-    components:{
-        DonutChart,
-        HorizontalBar,
-    },
+	},
+	computed:{
+		individualData(){
+			if(!this.info){
+				return
+			}
+			if(this.info.individual){
+				return this.info.individual
+			}
+			return [this.info.average]
+		}
+	},
+	components:{
+		DonutChart,
+		HorizontalBar,
+	},
 }
 </script>
 
@@ -121,16 +121,16 @@ export default{
 	border-radius: 1em;
 }
 .title{
-    align-self: center;
+	align-self: center;
 	text-align: center;
 	font-size: 1.5em;
 }
 .info-text{
-    align-self: center;
-    text-align: center;
+	align-self: center;
+	text-align: center;
 	font-size: 1em;
 }
 .flex-child{
-    align-self: center;
+	align-self: center;
 }
 </style>

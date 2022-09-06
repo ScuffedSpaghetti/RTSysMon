@@ -1,12 +1,12 @@
 <template>
-    <div class="top-nav">
+	<div class="top-nav">
 		<router-link class="active" :to="'/'">Home</router-link>
 		<router-link :to="'/settings'">Settings</router-link>
 		<router-link v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
 		<div class="search-bar-container">
 			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>
-    </div>
+	</div>
 </template>
 
 <script>
@@ -19,12 +19,12 @@ export default{
 			default:{}
 		}, 
 	},
-    data() {
-        return {
+	data() {
+		return {
 			
 		};
-    },
-    components: { 
+	},
+	components: { 
 		SearchAutocomplete,
 	},
 	computed:{
@@ -32,10 +32,10 @@ export default{
 			var hosts = []
 			for(var x in this.info.individual){
 				// console.log("host: " + this.info.individual[x].hostname)
-				hosts[x] = this.info.individual[x].uid  
-            }
+				hosts[x] = this.info.individual[x].uid
+			}
 			return hosts
-        },
+		},
 	}
 }
 </script>
@@ -51,7 +51,7 @@ export default{
 	margin: 0.6em;
 }
 .top-nav {
-  	overflow: hidden;
+	overflow: hidden;
 	position: static;
 	
 }
@@ -68,6 +68,6 @@ export default{
 }
 .search-bar {
 	position: relative;
-  	/* float: right; */
+	/* float: right; */
 }
 </style>

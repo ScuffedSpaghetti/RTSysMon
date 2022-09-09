@@ -1,8 +1,8 @@
 <template>
-	<div class="top-nav">
-		<router-link class="active" :to="'/'">Home</router-link>
-		<router-link :to="'/settings'">Settings</router-link>
-		<router-link v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
+	<div class="top-nav" ref="nav">
+		<router-link ref="home" class="active" :to="'/'">Home</router-link>
+		<router-link ref="settings" :to="'/settings'">Settings</router-link>
+		<router-link ref="about" v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
 		<div class="search-bar-container">
 			<SearchAutocomplete class="search-bar" :items="hostnames"/>
 		</div>
@@ -36,17 +36,15 @@ export default{
 			}
 			return hosts
 		},
-	}
+	},
 }
 </script>
 
 
 <style scoped>
 .search-bar-container {
-	/* display: inline-block; */
-	/* position: absolute; */
-	/* top: 0.7em; */
-	/* right: 1em; */
+	position: absolute;
+	right: 0em;
 	float: right;
 	margin: 0.6em;
 }
@@ -63,11 +61,9 @@ export default{
 	font-size: 1em;
 }
 .top-nav a.active {
-	/* background-color: #35d6ec; */
-	/* background-color: #C5050C; */
+	
 }
 .search-bar {
-	position: relative;
-	/* float: right; */
+
 }
 </style>

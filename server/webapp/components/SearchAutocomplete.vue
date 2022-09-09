@@ -1,6 +1,6 @@
 <template>
-	<div class="autocomplete">
-		<input class="search-box" v-model="search" @input="onChange" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter" type="text"/>
+	<div>
+		<input class="search-box" :style="{width:searchbarWidth+'px'}" v-model="search" @input="onChange" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter" type="text"/>
 		<ul v-show="isOpen" class="autocomplete-results">
 			<li v-for="(result, i) in results" :key="i" @click="setResult(result)" class="autocomplete-result" :class="{ 'is-active': i === arrowCounter }">
 				{{ result }}
@@ -25,15 +25,43 @@ export default {
 			results: [],
 			isOpen: false,
 			arrowCounter: -1,
+			searchbarWidth: 200,
 		}
 	},
 	mounted() {
 		document.addEventListener('click', this.handleClickOutside)
+		window.addEventListener('resize', this.searchWidth)
 	},
+	unmounted() {
+    	window.removeEventListener('resize', this.searchWidth)
+ 	 },
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside)
 	},
 	methods: {
+		searchWidth(){
+			//searchbar width
+			var navWidth = this.$parent.$refs.nav.getBoundingClientRect().width
+			var homeWidth = this.$parent.$refs.home.$el.getBoundingClientRect().width
+			var settingsWidth = this.$parent.$refs.settings.$el.getBoundingClientRect().width
+			var aboutWidth = 0
+			if(this.$parent.$root.showAboutPage){
+				aboutWidth = this.$parent.$refs.about.$el.getBoundingClientRect().width
+			}
+			var remainingWidth = navWidth - (homeWidth + settingsWidth + aboutWidth)
+			const pad = 30
+			const defaultSize = 200
+			if(remainingWidth < (defaultSize + pad)){
+				this.searchbarWidth = remainingWidth - pad
+			}
+			// console.log('showABoutPage: ' + this.$parent.$root.showAboutPage)
+			// console.log('navWidth: ' + navWidth)
+			// console.log('homeWidth: ' + homeWidth)
+			// console.log('settingsWidth: ' + settingsWidth)
+			// console.log('aboutWidth: ' + aboutWidth)
+			// console.log('remainingWidth: ' + remainingWidth)
+			// console.log('searchbarWidth: ' + this.searchbarWidth)
+		},
 		filterResults() {
 			this.results = this.items.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
 		},
@@ -79,13 +107,9 @@ export default {
 </script>
 
 <style scoped>
-	.autocomplete{
-		position: relative;
-	}
-
+	
 	.search-box {
 		height: 1.5em;
-		width: 15em;
 	}
 
 	.autocomplete-results {

@@ -32,6 +32,22 @@ body{
   border: 1px solid #000000; */
 }
 
+.hamburger-menu div {
+	/* background: linear-gradient(
+		to bottom, 
+		#000000, #000000 20%, 
+		#bbbbbb 20%, #bbbbbb 40%, 
+		#000000 40%, #000000 60%, 
+		#bbbbbb 60%, #bbbbbb 80%, 
+		#000000 80%, #000000 100%
+    );
+	border: 1px solid #bbbbbb; */
+	background-color: #000000;
+}
+
+.menu-buttons {
+	background-color: #bbbbbb;
+}
 
 .disconnected-popup{
 	position: fixed;

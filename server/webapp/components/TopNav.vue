@@ -36,9 +36,11 @@ export default{
 		};
 	},
 	mounted() {
+		document.addEventListener('click', this.handleClickOutside)
 		window.matchMedia('(min-width: 35rem)').addEventListener('change', this.windowResizeMenuReset)
 	},
 	destroyed() {
+		document.removeEventListener('click', this.handleClickOutside)
 		window.matchMedia('(min-width: 35rem)').removeEventListener('change', this.windowResizeMenuReset)
 	},
 	components: { 
@@ -69,6 +71,14 @@ export default{
 			var largeWindow = window.matchMedia('(min-width: 35rem)').matches
 			// console.log('checkbox: ' + menuCheckbox.checked)
 			if(largeWindow && menuCheckbox.checked){
+				menuButtons.style.display = ""
+				menuCheckbox.checked = false
+			}
+		},
+		handleClickOutside(event) {
+			var menuButtons = document.getElementsByClassName("menu-buttons").item(0)
+			var menuCheckbox = document.getElementById("hamburger-toggle")
+			if (!document.getElementsByClassName("menu").item(0).contains(event.target)) {
 				menuButtons.style.display = ""
 				menuCheckbox.checked = false
 			}
@@ -144,6 +154,7 @@ export default{
 .menu {
 	display: grid;
 	position: absolute;
+	z-index: 1;
 }
 
 .menu-buttons {

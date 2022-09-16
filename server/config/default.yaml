@@ -8,7 +8,7 @@ port: 3498
 password: ""
 
 # set to true if the web client should show the about page
-webShowAbout: false
+webShowAbout: true
 
 # 0 for automatic  1 for light  2 for dark
 webDefaultTheme: 0

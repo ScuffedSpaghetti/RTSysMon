@@ -143,7 +143,7 @@ function gpuData(){
 			}
 			//console.log(out)
 			try{
-				var dataRaw = csvParse.parse((out))
+				var dataRaw = csvParse.parse(out)
 				var header = dataRaw.shift()
 				for(var x in header){
 					header[x] = header[x].trim().split(" ")[0]
@@ -153,7 +153,7 @@ function gpuData(){
 					var item = dataRaw[x]
 					var itemData = {}
 					for(var y in item){
-						itemData[header[y]] = item[y]
+						itemData[header[y]] = item[y]?.trim()
 					}
 					data.push(itemData)
 				}
@@ -218,7 +218,7 @@ function gpuBusData(existingData){
 }
 
 function standardGpuData(gpu){
-	//console.log(gpu)
+	console.log(gpu)
 	var out = {}
 	
 	out.core = {}
@@ -231,6 +231,7 @@ function standardGpuData(gpu){
 	out.memory.bytes = parseUnit(gpu["memory.used"])
 	out.memory.bytes_total = parseUnit(gpu["memory.total"])
 	out.memory.usage = out.memory.bytes / out.memory.bytes_total * 100
+	console.log(out.memory)
 	if(!isFinite(out.memory.bytes)){
 		delete out.memory
 	}

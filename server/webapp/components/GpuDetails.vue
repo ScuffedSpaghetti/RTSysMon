@@ -25,9 +25,10 @@
 					<HorizontalBar class="flex-child" :usage="x.power.usage" :height="compHeight" :width="compWidth"/>
 					<div class="info-text">{{x.power.watts.toFixed(1)}}Watts / {{x.power.watts_limit.toFixed(1)}}Watts</div>
 				</div>
-				<div class="item" v-if="x.bus">
+				<div class="item item-compact" v-if="x.bus">
 					<div class="title">Bus</div>
 					<div class="info-text">{{x.bus.type}} gen{{Math.round(x.bus.generation)}} {{x.bus.width}}x</div>
+					<div class="info-text" v-if="x.bus.generation_max">max gen{{Math.round(x.bus.generation_max)}} {{x.bus.width_max}}x</div>
 					<div class="info-text">TX: {{toGB(x.bus.tx_bytes)}}GB</div>
 					<div class="info-text">RX: {{toGB(x.bus.rx_bytes)}}GB</div>
 				</div>
@@ -102,6 +103,9 @@ export default{
 	justify-content: space-around;
 	border-radius: 1em;
 	padding: 0.5em;
+}
+.item-compact{
+	justify-content: center;
 }
 .item{
 	text-align: center;

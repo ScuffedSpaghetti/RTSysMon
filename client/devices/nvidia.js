@@ -218,7 +218,7 @@ function gpuBusData(existingData){
 }
 
 function standardGpuData(gpu){
-	console.log(gpu)
+	//console.log(gpu)
 	var out = {}
 	
 	out.core = {}
@@ -231,7 +231,6 @@ function standardGpuData(gpu){
 	out.memory.bytes = parseUnit(gpu["memory.used"])
 	out.memory.bytes_total = parseUnit(gpu["memory.total"])
 	out.memory.usage = out.memory.bytes / out.memory.bytes_total * 100
-	console.log(out.memory)
 	if(!isFinite(out.memory.bytes)){
 		delete out.memory
 	}

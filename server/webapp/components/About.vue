@@ -10,7 +10,7 @@
 		<li>Clicking on any of the connected node overviews takes you to a more detailed breakdown of the node's performance (See Node Pages for more details).</li>
 		</ul>
 		<p><strong>Node Pages:</strong></p>
-		<p>Displays a larger version of the node overview that is on the home page as well as a breakdown of the CPU and GPU statistics. For each GPU connected to the node, a different breakdown box will appear. If a system does not have a GPU the GPU overview will not be displayed.</p>
+		<p>Displays a larger version of the node overview that is on the home page as well as a breakdown of the CPU, GPU, and Network statistics. For each GPU connected to the node, a different breakdown box will appear. If a system does not have a GPU or a Network card, the respective overview will not be displayed.</p>
 		<ul>
 		<li>The CPU:</li>
 		<ul>
@@ -22,6 +22,9 @@
 		<li>Displays the overall GPU utilization, memory (VRAM), and power draw.</li>
 		<li>If the system supports it, the temperature, fan speed, and bus statistics will be displayed.</li>
 		</ul>
+		<li>The Network Card:</li>
+		<li>Displays any network card connected to the system as well as the send and receive data rates.</li>
+		<li>Note: If a virtual Network Card is attached to the system it will also be displayed</li>
 		</ul>
 		<p><strong>Network Average Page:</strong></p>
 		<p>Displays the network average overview that is on the home page as well as a breakdown of the average CPU and GPU statistics. For each GPU connected to the node, a different breakdown box will appear. If no system on the network has a GPU the GPU overview will not be displayed.</p>

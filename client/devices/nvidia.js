@@ -273,9 +273,14 @@ module.exports = class NvidiaGPU{
 			// 	devices.push(standardGpuDataFromAll(rawData.gpu[x]))
 			// }
 			var rawData = await gpuData()
+			// filter out bad data
+			rawData = rawData.filter(rawItem => !!rawItem.name)
 			await gpuBusData(rawData)
 			for(var x in rawData){
 				devices.push(standardGpuData(rawData[x]))
+			}
+			if(devices.length == 0){
+				throw new Error("nvidia-smi returned no gpus")
 			}
 			return devices
 		}catch(err){

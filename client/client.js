@@ -1,7 +1,10 @@
 //@ts-check
 var os = require("os")
 var WebSocket = require("ws")
-process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+if(!process.env["NODE_CONFIG_DIR"]){
+	process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+}
+
 //@ts-ignore
 //require("module")._cache["js-yaml"] =  require("js-yaml")
 var config = require("config")

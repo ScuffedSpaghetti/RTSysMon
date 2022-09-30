@@ -4,6 +4,8 @@ dist
 tmp
 */config/*
 !*/config/default.yaml
+/client/multi/configs/*
+!/client/multi/configs/.gitkeep
 node
 node.exe
 node-test.exe

@@ -26,7 +26,7 @@ var subProcesses = []
 for(var x in configFiles){
 	var file = configFiles[x]
 	var configPath = path.join(tmpConfigDir,file)
-	fs.mkdirSync(file,{recursive:true})
+	fs.mkdirSync(configPath,{recursive:true})
 	fs.cpSync(path.join(__dirname,"../config/default.yaml"), path.join(configPath,"default.yaml"))
 	if(extraDefault){
 		var extraDefaultExt = path.parse(extraDefault).ext

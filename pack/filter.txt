@@ -1,5 +1,6 @@
 + /config/default.yaml
 - /config/*
+- /multi/configs/*
 + /webapp/dist
 - /webapp/*
 - .gitkeep

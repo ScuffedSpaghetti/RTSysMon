@@ -27,14 +27,14 @@ module.exports = {
 	plugins: [
         new CopyWebpackPlugin({
             patterns: [
-                { from: '../client/config/default.yaml',to:"config/default.yaml"}
+                { from: '../../client/config/default.yaml',to:"config/default.yaml"}
 				
             ]
         })
     ],
 	resolve: {
 		alias: {
-			[path.resolve(__dirname, "../client/node_modules/config/parser.js")]: path.resolve(__dirname, "parser.fixed.js"),
+			[path.resolve(__dirname, "../../client/node_modules/config/parser.js")]: path.resolve(__dirname, "parser.fixed.js"),
 		},
 	},
 	module: {

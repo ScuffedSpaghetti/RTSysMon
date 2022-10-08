@@ -120,7 +120,7 @@ Parser.yamlParser = function(filename, content) {
     // Lazy loading
     try {
       // Try to load the better js-yaml module
-      Yaml = require("../client/node_modules/js-yaml");
+      Yaml = require("../../client/node_modules/js-yaml");
     }
     catch (e) {
       try {

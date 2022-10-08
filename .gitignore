@@ -9,7 +9,7 @@ tmp
 node
 node.exe
 node-test.exe
-webpack-client/packed
+/pack/webpack-client/packed
 client/extra-local
 /pack/sysmon-client
 /pack/sysmon-server

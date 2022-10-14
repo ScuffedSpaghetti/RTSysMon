@@ -16,4 +16,4 @@ To automatically build the vue webapp in development mode whenever a change is m
 * once it is set up it is possible to make it portable by placing a node.js binary with it so that node and npm do not need to be installed on the target system
 
 
-To get cpu power and temperature on supported processors turbostat must be installed and the client must be run as root. In debian turbostat can be found in the linux-cpupower package, in ubuntu it is in linux-tools-generic.
+Optionally, to get cpu power and temperature on supported processors turbostat can be installed and the client needs be run as root. In debian turbostat can be found in the linux-cpupower package, in ubuntu it is in linux-tools-generic.

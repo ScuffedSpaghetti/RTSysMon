@@ -8,7 +8,7 @@ To automatically build the vue webapp in development mode whenever a change is m
 
 ## Deploying
 * first follow the setup instructions
-* to customize configs create a file named local.yaml in the config folders to allow overriding the default config options
+* to customize configs create a file named local.yaml in the config folders to allow overriding the default config options. Look in the default.yaml files for configurable settings.
 * the server can be executed by running `node server.js` in the server directory
 * the server address needs to be added to the config of the clients, it is the same as the web address
 * once the server address is set, the client can be executed with `node client.js` to get the stats of the machine it is running on

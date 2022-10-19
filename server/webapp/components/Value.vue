@@ -59,7 +59,7 @@ export default {
 				var seconds = pad(Math.floor(value % 60), 2)
 				return (hours > 0 ? hours + ":" : "") + minutes + ":" + seconds
 			}else{
-				return value.toFixed(obj.decimals) + (unit ? " " + unit : "")
+				return (typeof value == "number" ? value.toFixed(obj.decimals) : value) + (unit ? " " + unit : "")
 			}
 		}
 	}

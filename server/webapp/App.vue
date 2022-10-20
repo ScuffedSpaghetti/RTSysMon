@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="!connected" class="disconnected-popup">Disconnected</div>
+		<div v-if="!connected" v-on:click="connect()" class="disconnected-popup">Disconnected</div>
 		<TopNav :info="info"/>
 		<router-view :info="info"></router-view>
 	</div>
@@ -196,7 +196,13 @@ export default {
 				this.autoScrollPauseUntil = now + 4
 			}
 			
-		}
+		},
+		connect(){
+			lib.connect()
+		},
+		disconnect(){
+			lib.disconnect()
+		},
 	},
 	components:{
 		TopNav,

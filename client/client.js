@@ -17,6 +17,7 @@ var LinuxRAM = require("./devices/memory-linux")
 var LinuxNetwork = require("./devices/network-linux")
 var WindowsNetwork = require("./devices/network-windows")
 var ExtraDevice = require("./devices/extra-device")
+var LinuxGPU = require("./devices/gpu-linux")
 
 
 
@@ -113,6 +114,7 @@ async function getValidDevices(){
 				devices.cpu = new LinuxCPU()
 				devices.memory = new LinuxRAM()
 				devices.network = new LinuxNetwork(config.get("showVirtualNetworkInterfaces"))
+				devices.gpu = new LinuxGPU()
 			break
 			case "win32":
 				devices.cpu = new GenericCPU()

@@ -6136,6 +6136,14 @@ async function tryReadInt(filePath){
 	}
 }
 
+async function tryReadDir(filePath){
+	try{
+		return (await fs.promises.readdir(filePath))
+	}catch(e){
+		return []
+	}
+}
+
 module.exports = class LinuxGPU{
 	loggedError = false
 	lastData = {}
@@ -6146,28 +6154,31 @@ module.exports = class LinuxGPU{
 		try{
 			var devDir = "/sys/class/drm/"
 			var gpuNamesAll = await fs.promises.readdir(devDir)
-			var newLastData = {}
 			for(var x in gpuNamesAll){
 				var name = gpuNamesAll[x]
 				if(!/card\d$/.test(name)){
 					continue
 				}
+				// console.log("Name: " + name)
 				var fullPath = await fs.promises.realpath(path.join(devDir,name,'device'))
-				var enabled = await tryRead(path.join(fullPath,"enable"))
-				if(enabled?.match('1')){
+				var enabled = await tryReadInt(path.join(fullPath,"enable"))
+				// console.log(name + " enabled: " + enabled)
+				if(enabled == 1){
+					console.log("loop started")
 					var deviceID = await tryRead(path.join(fullPath,"device"))
-					var deviceName
-					if(deviceID != '' || deviceID != undefined){
-						deviceName = gpuIDTable[deviceID]["Graphics card"]
-					}
-					var deviceUEvent = await tryRead(path.join(fullPath,"uevent"))
-					var driverName = deviceUEvent?.split('\n').at(0)?.split('=').at(1)
-					if(deviceName != undefined || deviceName != ''){
-						name = deviceName
-					} else if(driverName != '' && driverName != undefined) {
-						name = driverName
+					var deviceName = undefined
+					if(deviceID){
+						deviceName = gpuIDTable["0xp" + deviceID.substring(2).toUpperCase().trim()]?.["Graphics card"]
 					}
 					
+					var driverPath = await fs.promises.realpath(path.join(fullPath,'driver'))
+					var driverName = driverPath.substring(driverPath.lastIndexOf("/") + 1)
+					if(deviceName){
+						name = deviceName
+					} else if(driverName) {
+						name = driverName
+					}
+
 					var device = {}
 	
 					device.core = {}
@@ -6183,18 +6194,32 @@ module.exports = class LinuxGPU{
 						delete device.memory
 					}
 					
-					device.power = {}
-					var powerUsed = await tryReadInt(path.join(fullPath,"hwmon/hwmon2/power1_average"))
-					if(powerUsed != undefined){
-						device.power.watts = (powerUsed / 1000000)
-					}
-					var powerTotal = await tryReadInt(path.join(fullPath,"hwmon/hwmon2/power1_cap"))
-					if(powerTotal != undefined){
-						device.power.watts_limit = (powerTotal / 1000000)
-					}
-					device.power.usage = device.power.watts / device.power.watts_limit * 100
-					if(!isFinite(device.power.watts)){
-						delete device.power
+					var hwmonDir = (await tryReadDir(path.join(fullPath, "hwmon")))[0]
+					if(hwmonDir){
+						device.power = {}
+						var powerUsed = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "power1_average"))
+						if(powerUsed != undefined){
+							device.power.watts = (powerUsed / 1000000)
+						}
+						var powerTotal = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "power1_cap"))
+						if(powerTotal != undefined){
+							device.power.watts_limit = (powerTotal / 1000000)
+						}
+						device.power.usage = device.power.watts / device.power.watts_limit * 100
+						if(!isFinite(device.power.watts)){
+							delete device.power
+						}
+
+						var fanMax = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_max"))
+						var fanTarget = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_target"))
+						if(fanTarget != undefined && fanMax != undefined){
+							device.fan_speed = fanTarget / fanMax
+						}
+						
+						var gpuTemp = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "temp1_input"))
+						if(gpuTemp != undefined){
+							device.temperature = gpuTemp / 1000
+						}
 					}
 					
 					device.bus = {}
@@ -6215,17 +6240,6 @@ module.exports = class LinuxGPU{
 					
 					if(!device.bus.generation && device.bus.tx_bytes == undefined){
 						delete device.bus
-					}
-					
-					var fanMax = await tryReadInt(path.join(fullPath,"hwmon/hwmon2/fan1_max"))
-					var fanTarget = await tryReadInt(path.join(fullPath,"hwmon/hwmon2/fan1_target"))
-					if(fanTarget != undefined && fanMax != undefined){
-						device.fan_speed = fanTarget / fanMax
-					}
-					
-					var gpuTemp = await tryReadInt(path.join(fullPath,"hwmon/hwmon2/temp1_input"))
-					if(gpuTemp != undefined){
-						device.temperature = gpuTemp / 1000
 					}
 					
 					devices.push(device)

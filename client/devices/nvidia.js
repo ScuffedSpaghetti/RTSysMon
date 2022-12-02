@@ -119,10 +119,10 @@ var queries=[
 	"memory.total",
 	"temperature.gpu",
 	"fan.speed",
+	"pcie.link.gen.current",
+	"pcie.link.width.current",
 	"pcie.link.gen.max",
-	"pcie.link.gen.current",
 	"pcie.link.width.max",
-	"pcie.link.gen.current",
 ]
 queries = queries.filter((value) => !!value)
 var query = "--query-gpu="+queries.join(",")

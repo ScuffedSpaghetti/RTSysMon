@@ -208,10 +208,10 @@ module.exports = class LinuxGPU{
 					var pcieSpeedMax = await tryRead(path.join(fullPath,"max_link_speed"))
 					device.bus.width_max = await tryReadInt(path.join(fullPath,"max_link_width"))
 					if(pcieSpeedCurrent && device.bus.width){
-						device.bus.generation = pcieGenLookup[device.bus.width][pcieSpeedCurrent?.split(' ')?.at(0)]
+						device.bus.generation = pcieGenLookup[device.bus.width][pcieSpeedCurrent?.split(' ')[0]]
 					}
 					if(pcieSpeedMax && device.bus.width_max){
-						device.bus.generation_max = pcieGenLookup[device.bus.width_max][pcieSpeedMax?.split(' ')?.at(0)]
+						device.bus.generation_max = pcieGenLookup[device.bus.width_max][pcieSpeedMax?.split(' ')[0]]
 					}
 					
 					if(!device.bus.generation){

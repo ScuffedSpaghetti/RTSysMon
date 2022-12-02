@@ -178,7 +178,7 @@ module.exports = class LinuxGPU{
 							device.power.watts = (powerUsed / 1000000)
 						}
 						var powerTotal = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "power1_cap"))
-						if(powerTotal != undefined){
+						if(powerTotal){
 							device.power.watts_limit = (powerTotal / 1000000)
 						}
 						device.power.usage = device.power.watts / device.power.watts_limit * 100
@@ -188,12 +188,12 @@ module.exports = class LinuxGPU{
 
 						var fanMax = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_max"))
 						var fanTarget = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_target"))
-						if(fanTarget != undefined && fanMax != undefined){
+						if(fanTarget && fanMax){
 							device.fan_speed = fanTarget / fanMax
 						}
 						
 						var gpuTemp = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "temp1_input"))
-						if(gpuTemp != undefined){
+						if(gpuTemp){
 							device.temperature = gpuTemp / 1000
 						}
 					}
@@ -207,14 +207,14 @@ module.exports = class LinuxGPU{
 					device.bus.width = await tryReadInt(path.join(fullPath,"current_link_width"))
 					var pcieSpeedMax = await tryRead(path.join(fullPath,"max_link_speed"))
 					device.bus.width_max = await tryReadInt(path.join(fullPath,"max_link_width"))
-					if(pcieSpeedCurrent != undefined && device.bus.width != undefined){
-						device.bus.generation = pcieGenLookup[device.bus.width][pcieSpeedCurrent?.split(' ').at(0)]
+					if(pcieSpeedCurrent && device.bus.width){
+						device.bus.generation = pcieGenLookup[device.bus.width][pcieSpeedCurrent?.split(' ')?.at(0)]
 					}
-					if(pcieSpeedMax != undefined && device.bus.width_max != undefined){
-						device.bus.generation_max = pcieGenLookup[device.bus.width_max][pcieSpeedMax?.split(' ').at(0)]
+					if(pcieSpeedMax && device.bus.width_max){
+						device.bus.generation_max = pcieGenLookup[device.bus.width_max][pcieSpeedMax?.split(' ')?.at(0)]
 					}
 					
-					if(!device.bus.generation && device.bus.tx_bytes == undefined){
+					if(!device.bus.generation){
 						delete device.bus
 					}
 					

@@ -6168,7 +6168,7 @@ module.exports = class LinuxGPU{
 					var deviceID = await tryRead(path.join(fullPath,"device"))
 					var deviceName = undefined
 					if(deviceID){
-						deviceName = gpuIDTable["0xp" + deviceID.substring(2).toUpperCase().trim()]?.["Graphics card"]
+						deviceName = gpuIDTable["0x" + deviceID.substring(2).toUpperCase().trim()]?.["Graphics card"]
 					}
 					
 					var driverPath = await fs.promises.realpath(path.join(fullPath,'driver'))

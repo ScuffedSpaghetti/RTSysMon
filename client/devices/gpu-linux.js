@@ -23,7 +23,7 @@ var gpuIDTable = require("./data/gpu-ids")
 //driver: uevent (could use instead of name if one can't bb found ex. amdgpu)
 
 var pcieGenLookup = {
-	"2.4": 1,
+	"2.5": 1,
 	"5.0": 2,
 	"8.0": 3,
 	"16.0": 4,

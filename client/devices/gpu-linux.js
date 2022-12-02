@@ -126,6 +126,9 @@ module.exports = class LinuxGPU{
 	
 					device.core = {}
 					device.core.usage = await tryReadInt(path.join(fullPath,"gpu_busy_percent"))
+					if(!isFinite(device.core)){
+						delete device.core
+					}
 					
 					device.name = name
 					
@@ -156,7 +159,7 @@ module.exports = class LinuxGPU{
 						var fanMax = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_max"))
 						var fanTarget = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "fan1_target"))
 						if(fanTarget && fanMax){
-							device.fan_speed = fanTarget / fanMax
+							device.fan_speed = fanTarget / fanMax * 100
 						}
 						
 						var gpuTemp = await tryReadInt(path.join(fullPath,"hwmon",hwmonDir, "temp1_input"))

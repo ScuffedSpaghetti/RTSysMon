@@ -4,11 +4,11 @@ var path = require("path")
 var gpuIDTable = require("./data/gpu-ids")
 
 //linux drm
-//current power draw in watts if divided by 1,000,000: hwmon/hwmon2/power1_average
-//current max power draw in watts if divided by 1,000,000: hwmon/hwmon2/power1_cap
-//fan max speed: hwmon/hwmon2/fan1_max
-//fan target speed: hwmon/hwmon2/fan1_target
-//current temp in deg C if divided by 1,000: hwmon/hwmon2/temp1_input
+//current power draw in watts if divided by 1,000,000: hwmon/hwmon(0-9)/power1_average
+//current max power draw in watts if divided by 1,000,000: hwmon/hwmon(0-9)/power1_cap
+//fan max speed: hwmon/hwmon(0-9)/fan1_max
+//fan target speed: hwmon/hwmon(0-9)/fan1_target
+//current temp in deg C if divided by 1,000: hwmon/hwmon(0-9)/temp1_input
 //gpu utilization percent: gpu_busy_percent
 //vram used: mem_info_vram_used
 //vram total: mem_info_vram_total
@@ -141,7 +141,6 @@ module.exports = class LinuxGPU{
 				var enabled = await tryReadInt(path.join(fullPath,"enable"))
 				// console.log(name + " enabled: " + enabled)
 				if(enabled == 1){
-					console.log("loop started")
 					var deviceID = await tryRead(path.join(fullPath,"device"))
 					var deviceName = undefined
 					if(deviceID){

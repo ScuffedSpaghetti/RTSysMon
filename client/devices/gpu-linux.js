@@ -23,46 +23,13 @@ var gpuIDTable = require("./data/gpu-ids")
 //driver: uevent (could use instead of name if one can't bb found ex. amdgpu)
 
 var pcieGenLookup = {
-	1: {
-		"0.25" : 1,
-		"0.5" : 2,
-		"1.0" : 3,
-		"2.0" : 4,
-		"4.0" : 5,
-		"8.0" : 6
-	},
-	2: {
-		"0.5" : 1,
-		"1.0" : 2,
-		"2.0" : 3,
-		"4.0" : 4,
-		"8.0" : 5,
-		"16.0" : 6
-	},
-	4: {
-		"1.0" : 1,
-		"2.0" : 2,
-		"4.0" : 3,
-		"8.0" : 4,
-		"16.0" : 5,
-		"32.0" : 6
-	},
-	8: {
-		"2.0" : 1,
-		"4.0" : 2,
-		"8.0" : 3,
-		"16.0" : 4,
-		"32.0" : 5,
-		"64.0" : 6
-	},
-	16: {
-		"4.0" : 1,
-		"8.0" : 2,
-		"16.0" : 3,
-		"32.0" : 4,
-		"64.0" : 5,
-		"128.0" : 6
-	}
+	"2.4": 1,
+	"5.0": 2,
+	"8.0": 3,
+	"16.0": 4,
+	"32.0": 5,
+	"64.0": 6,
+	"128.0": 7
 }
 
 function parseUnit(val){
@@ -208,10 +175,10 @@ module.exports = class LinuxGPU{
 					var pcieSpeedMax = await tryRead(path.join(fullPath,"max_link_speed"))
 					device.bus.width_max = await tryReadInt(path.join(fullPath,"max_link_width"))
 					if(pcieSpeedCurrent && device.bus.width){
-						device.bus.generation = pcieGenLookup[device.bus.width][pcieSpeedCurrent?.split(' ')[0]]
+						device.bus.generation = pcieGenLookup[pcieSpeedCurrent?.split(' ')[0]]
 					}
 					if(pcieSpeedMax && device.bus.width_max){
-						device.bus.generation_max = pcieGenLookup[device.bus.width_max][pcieSpeedMax?.split(' ')[0]]
+						device.bus.generation_max = pcieGenLookup[pcieSpeedMax?.split(' ')[0]]
 					}
 					
 					if(!device.bus.generation){

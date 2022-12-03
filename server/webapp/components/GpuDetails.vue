@@ -22,8 +22,11 @@
 				</div>
 				<div class="item" v-if="x.power">
 					<div class="title">Power</div>
-					<HorizontalBar class="flex-child" :usage="x.power.usage" :height="compHeight" :width="compWidth"/>
-					<div class="info-text">{{x.power.watts.toFixed(1)}}Watts / {{x.power.watts_limit.toFixed(1)}}Watts</div>
+					<div class="text" style="min-width:6em;" v-if="x.power.watts_limit == undefined">{{x.power.watts.toFixed(1)}}Watts</div>
+					<div v-else>
+						<HorizontalBar class="flex-child" :usage="x.power.usage" :height="compHeight" :width="compWidth"/>
+						<div class="info-text">{{x.power.watts.toFixed(1)}}Watts / {{x.power.watts_limit.toFixed(1)}}Watts</div>
+					</div>
 				</div>
 				<div class="item item-compact" v-if="x.bus">
 					<div class="title">Bus</div>

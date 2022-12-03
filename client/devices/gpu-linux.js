@@ -126,7 +126,7 @@ module.exports = class LinuxGPU{
 	
 					device.core = {}
 					device.core.usage = await tryReadInt(path.join(fullPath,"gpu_busy_percent"))
-					if(!isFinite(device.core)){
+					if(!isFinite(device.core.usage)){
 						delete device.core
 					}
 					

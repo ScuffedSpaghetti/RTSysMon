@@ -54,7 +54,7 @@ function readFirstTimeInfo(){
 			data.memory.bytes_total = parseInt(fileText.substring(dedicatedMemoryIndex, fileText.indexOf("MB", dedicatedMemoryIndex)))
 			// console.log(`Card Name: ${gpuName}`)
 			// console.log(`Dedicated Memory: ${dedicatedMemoryTotal} MB`)
-			dedicatedMemoryTotal = dedicatedMemoryTotal * 1024 * 1024
+			data.memory.bytes_total = data.memory.bytes_total * 1024 * 1024
 			await removeFirstTimeInfo()
 			resolve(data)
 		}catch(err){
@@ -168,7 +168,7 @@ module.exports = class WindowsGPU{
 			var device = {}
 			device.core = {}
 			device.memory = {}
-			device.name = gpuName
+			device.name = this.gpuName
 			var sharedUsage = 0
 			var utilizationPercentage = 0.0
 			for(var [key, value] of devices){
@@ -183,7 +183,7 @@ module.exports = class WindowsGPU{
 			device.core.usage = utilizationPercentage
 			//vram
 			device.memory.bytes = sharedUsage
-			device.memory.bytes_total = dedicatedMemoryTotal
+			device.memory.bytes_total = this.dedicatedMemoryTotal
 			device.memory.usage = device.memory.bytes / device.memory.bytes_total * 100
 			
 			// console.log(gpu)

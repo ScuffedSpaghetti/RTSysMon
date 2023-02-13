@@ -11,7 +11,6 @@
 // "\GPU Process Memory(*)\Total Committed"
 // "\GPU Non Local Adapter Memory(*)\Non Local Usage"
 
-// dxdiag /dontskip /whql:on /t C:/Users/QuantumCodex/Desktop/testOut.txt
 
 //@ts-check
 
@@ -20,59 +19,76 @@ var fs = require("fs")
 var path = require("path")
 var csvParse = require("csv-parse/sync")
 
-var dedicatedMemoryTotal = 0
-var gpuName = ""
-
-// dxdiag /dontskip /whql:on /t TempInfo.txt
 
 function getFirstTimeInfo(){
-	return new Promise(async (resolve,reject)=>{
+	return (new Promise(async (resolve,reject)=>{
+		var loggedError = false
 		try{
+			// dxdiag /dontskip /whql:on /t TempInfo.txt
 			var prc = child_process.spawn("dxdiag", ["/dontskip", "/whql:on", "/t", "TempInfo.txt"])
 			prc.on("error", reject)
 			prc.stdout.on("end",async ()=>{
-				await readFirstTimeInfo()
-				resolve
+				resolve(await readFirstTimeInfo())
 			})
 		}catch(err){
-			reject(new Error("Oops, Something Went Wrong!"))
+			if(process.env.VERBOSE && !loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not read temp gpu file 'TempInfo.txt'.")
+			}
+			reject(err)
 		}
-	})
+	}))
 }
 
 function readFirstTimeInfo(){
-	return new Promise(async (resolve,reject)=>{
+	return (new Promise(async (resolve,reject)=>{
+		var loggedError = false
 		try{
 			var fileText = (await fs.promises.readFile(await fs.promises.realpath(path.resolve("TempInfo.txt")))).toString()
 			var cardNameIndex = fileText.indexOf("Card name: ") + "Card name: ".length
 			var dedicatedMemoryIndex = fileText.indexOf("Dedicated Memory: ", cardNameIndex) + "Dedicated Memory:".length
-			gpuName = fileText.substring(cardNameIndex, fileText.indexOf("\n", cardNameIndex))
-			dedicatedMemoryTotal = parseInt(fileText.substring(dedicatedMemoryIndex, fileText.indexOf("MB", dedicatedMemoryIndex)))
+			var data = {}
+			data.memory = {}
+			data.name = fileText.substring(cardNameIndex, fileText.indexOf("\n", cardNameIndex))
+			data.memory.bytes_total = parseInt(fileText.substring(dedicatedMemoryIndex, fileText.indexOf("MB", dedicatedMemoryIndex)))
 			// console.log(`Card Name: ${gpuName}`)
 			// console.log(`Dedicated Memory: ${dedicatedMemoryTotal} MB`)
 			dedicatedMemoryTotal = dedicatedMemoryTotal * 1024 * 1024
 			await removeFirstTimeInfo()
-			resolve
+			resolve(data)
 		}catch(err){
-			reject(new Error("Oops, Something Went Wrong!"))
+			if(process.env.VERBOSE && !loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not read temp gpu file 'TempInfo.txt'.")
+			}
+			reject(err)
 		}
-	})
+	}))
 }
 
 function removeFirstTimeInfo(){
-	return new Promise(async (resolve,reject)=>{
+	return /** @type {Promise<void>} */(new Promise(async (resolve,reject)=>{
+		var loggedError = false
 		try{
 			// console.log("Removing TempInfo.txt")
 			await fs.promises.rm(await fs.promises.realpath(path.resolve("TempInfo.txt")))
-			resolve
+			resolve()
 		}catch(err){
-			reject(new Error("Oops, Something Went Wrong!"))
+			if(process.env.VERBOSE && !loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not get remove temp gpu file 'TempInfo.txt'.")
+			}
+			reject(err)
 		}
-	})
+	}))
 }
 
 function gpuData(){
 	return new Promise(async (resolve,reject)=>{
+		var loggedError = false
 		try{
 			var prc = child_process.spawn("typeperf", ["-sc", "1", "\\GPU Adapter Memory(*)\\Dedicated Usage",  "\\GPU Engine(*)\\Utilization Percentage"])
 			prc.on("error", reject)
@@ -94,20 +110,30 @@ function gpuData(){
 					var data = csvParse.parse(out, {columns: true, skip_empty_lines: true})
 					// console.log("Data: ", data)
 					resolve(data[0])
-				} catch (error) {
-					reject(new Error("Oops, Something Went Wrong!"))
+				} catch (err) {
+					reject(err)
 				}
 				
 			})
 		}catch(err){
+			if(process.env.VERBOSE && !loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not get GPU information from typeperf.")
+			}
 			reject(err)
 		}
 	})
 }
 
 module.exports = class WindowsGPU{
+	loggedError = false
+	dedicatedMemoryTotal = 0
+	gpuName = ""
 	async init(){
-		await getFirstTimeInfo()
+		var tempData = await getFirstTimeInfo()
+		this.dedicatedMemoryTotal = tempData.memory.bytes_total
+		this.gpuName = tempData.name
 	}
 	data = []
 	async getDeviceInfo(){
@@ -165,7 +191,8 @@ module.exports = class WindowsGPU{
 			// var endTime = performance.now()
 			// console.log(`Process took ${endTime - startTime} milliseconds`)
 		}catch(err){
-			if(process.env.VERBOSE){
+			if(process.env.VERBOSE && !this.loggedError){
+				this.loggedError = true
 				console.error(err)
 				console.error("No GPUs found on system")
 			}

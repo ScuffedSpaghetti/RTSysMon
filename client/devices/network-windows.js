@@ -8,6 +8,7 @@ var csvParse = require("csv-parse/sync")
 
 function networkData(){
 	return new Promise(async (resolve,reject)=>{
+		var loggedError = false
 		try{
 			var prc = child_process.spawn("typeperf", ["-sc", "1", "\\Network Interface(*)\\Current Bandwidth", "\\Network Interface(*)\\Bytes Sent/sec", "\\Network Interface(*)\\Bytes Received/sec"])
 			prc.on("error", reject)
@@ -29,18 +30,24 @@ function networkData(){
 					var data = csvParse.parse(out, {columns: true, skip_empty_lines: true})
 					//console.log("Data: ", data)
 					resolve(data[0])
-				} catch (error) {
-					reject(new Error("Oops, Something Went Wrong!"))
+				} catch (err) {
+					reject(err)
 				}
 				
 			})
 		}catch(err){
+			if(process.env.VERBOSE && !loggedError){
+				this.loggedError = true
+				console.error(err)
+				console.error("Could not get network information from typeperf.")
+			}
 			reject(err)
 		}
 	})
 }
 
 module.exports = class WindowsNetwork{
+	loggedError = false
 	data = []
 	async getDeviceInfo(){
 		this.getNICs()
@@ -91,7 +98,8 @@ module.exports = class WindowsNetwork{
 			// console.log(NICs)
 			this.data = NICs
 		}catch(err){
-			if(process.env.VERBOSE){
+			if(process.env.VERBOSE && !this.loggedError){
+				this.loggedError = true
 				console.error(err)
 				console.error("No NICs found on system")
 			}

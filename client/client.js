@@ -18,6 +18,7 @@ var LinuxNetwork = require("./devices/network-linux")
 var WindowsNetwork = require("./devices/network-windows")
 var ExtraDevice = require("./devices/extra-device")
 var LinuxGPU = require("./devices/gpu-linux")
+var WindowsGPU = require("./devices/gpu-windows")
 
 
 
@@ -120,6 +121,8 @@ async function getValidDevices(){
 				devices.cpu = new GenericCPU()
 				devices.memory = new GenericRAM()
 				devices.network = new WindowsNetwork()
+				devices.gpu = new WindowsGPU()
+				devices.gpu.init()
 			break
 			default:
 				devices.cpu = new GenericCPU()

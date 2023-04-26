@@ -122,18 +122,18 @@ async function getValidDevices(){
 				devices.memory = new GenericRAM()
 				devices.network = new WindowsNetwork()
 				devices.gpu = new WindowsGPU()
-				devices.gpu.init()
 			break
 			default:
 				devices.cpu = new GenericCPU()
 				devices.memory = new GenericRAM()
 		}
+		var nvidia = new NvidiaGPU()
+		if((await nvidia.getDeviceInfo()).length > 0){
+			devices.gpu = nvidia
+		}
 	}
 	
-	var nvidia = new NvidiaGPU()
-	if((await nvidia.getDeviceInfo()).length > 0){
-		devices.gpu = nvidia
-	}
+	
 	
 	var extraDevices = config.get("extraDevices").filter((extraDevice) => {return extraDevice.type != "example"})
 	

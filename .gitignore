@@ -13,5 +13,9 @@ node-test.exe
 client/extra-local
 /pack/sysmon-client
 /pack/sysmon-server
+/pack/sysmon-client.zip
+/pack/sysmon-server.zip
+/pack/sysmon-client.7z
+/pack/sysmon-server.7z
 /pack/include-client/config
 /pack/include-server/config

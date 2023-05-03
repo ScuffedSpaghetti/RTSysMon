@@ -46,6 +46,12 @@ module.exports = class ExtraTestDevice{
 					watts: 15000,
 					watts_limit: 15000
 				},
+				outline:{
+					r: Math.floor(Math.random() * 256),
+					g: Math.floor(Math.random() * 256),
+					b: Math.floor(Math.random() * 256),
+					overview: 1
+				},
 				values:{
 					// values should have unique keys to prevent averaging unrelated values
 					value_donut: {

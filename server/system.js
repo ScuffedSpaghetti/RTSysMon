@@ -193,6 +193,11 @@ module.exports = class System{
 			this.info = (typeof obj.info == "object" ? obj.info || {} : {})
 			this.info.hostname = this.hostname
 			this.info.os = this.os
+			if(this.info.cpu && this.info.cpu.individualUsage){
+				// fix for old inconsistent naming
+				this.info.cpu.individual_usage = this.info.cpu.individualUsage
+				this.info.cpu.individualUsage = undefined
+			}
 			if(!this.initialized){
 				var uid = this.hostname
 				var counter = 1

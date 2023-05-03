@@ -27,6 +27,7 @@ const router = new VueRouter({
 	base: "",
 	routes:[
 		{ path: '/node/:id', component: Node },
+		{ path: '/node/', component: Node },
 		{ path: '/', component: Home },
 		{ path: '/about', component: About },
 		{ path: '/settings', component: Settings },

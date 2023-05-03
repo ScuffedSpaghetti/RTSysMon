@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div v-if="Object.keys(this.info).length > 0">
-			<span class="pad link" v-on:click='gotoNode("undefined")'>
+			<div class="pad link" v-on:click='gotoNode("")'>
 				<LargeComputerOverview :info="this.info.average" :compTitle="'Whole Network Overview'"/>
-			</span>
+			</div>
 			<h1 style="text-align:center" v-if="Object.keys(this.info.individual).length == 0">No System Nodes Connected</h1>
 		</div>
 		<div style="text-align:center" v-else>

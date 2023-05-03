@@ -195,7 +195,7 @@ async function queryDevices(devices,options){
 		var devInfo = await queryDevice(devices[x], info)
 		if(devInfo){
 			if(x == "cpu"){
-				devInfo.individualUsage = devInfo.individual.map((a) => a.usage)
+				devInfo.individual_usage = devInfo.individual.map((a) => a.usage)
 				devInfo.individual=undefined
 			}
 			info[x] = devInfo
@@ -207,7 +207,12 @@ async function queryDevices(devices,options){
 		for(var x in devices.extra){
 			var extraDevice = devices.extra[x]
 			var devInfo = await queryDevice(extraDevice, info, info.extra[extraDevice.type]?.individual)
+			
 			if(devInfo){
+				if(devInfo.average.outline && devInfo.average.outline.overview){
+					// this will not correctly average if multiple types of devices have outlines
+					info.outline = {average: devInfo.average.outline}
+				}
 				info.extra[extraDevice.type] = devInfo
 			}
 		}

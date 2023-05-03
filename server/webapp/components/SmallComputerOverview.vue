@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="container box-background">
+	<div class="container box-background" :style="averageData.style">
 		<div class="title">{{compTitle}}</div>
 		<div class="component">
 			<div class="item" v-if="averageData.cpu">
@@ -116,6 +116,10 @@ export default {
 						out.error = extraItem.error
 					}
 				}
+			}
+			out.style = {}
+			if(out.outline){
+				out.style.outline = "solid 0.3em rgb(" + out.outline.r + "," + out.outline.g + "," + out.outline.b + ")"
 			}
 			//console.log(out)
 			return out

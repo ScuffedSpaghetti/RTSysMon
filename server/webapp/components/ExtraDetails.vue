@@ -7,7 +7,7 @@
 			 <div v-if="info.usage != undefined">
 				
 			 </div>
-			<div class="container box-background" v-for="(x, i) in individualData" :key="i" style="margin-bottom:0.25em">
+			<div class="container box-background" v-for="(x, i) in individualData" :key="i" style="margin-bottom:0.25em" :style="x.style">
 				<div class="title" v-if="x.title">{{x.title}}</div>
 				<div class="info-text" v-if="x.description">{{x.description}}</div>
 				<div class="component">
@@ -86,11 +86,21 @@ export default {
 			if(!this.info){
 				return
 			}
+			var outArray = []
 			if(this.info.individual){
-				return this.info.individual
+				outArray = this.info.individual
+			}else{
+				outArray = [this.info.average]
 			}
-			return [this.info.average]
-		}
+			for(var x in outArray){
+				var item = outArray[x]
+				item.style = {}
+				if(item.outline){
+					item.style.outline = "solid 0.3em rgb(" + item.outline.r + "," + item.outline.g + "," + item.outline.b + ")"
+				}
+			}
+			return outArray
+		},
 	},
 }
 </script>

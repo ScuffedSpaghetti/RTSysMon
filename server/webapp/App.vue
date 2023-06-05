@@ -73,6 +73,7 @@ export default {
 			showAboutPage: false,
 			dev: false,
 			connected: false,
+			showOverview: true,
 			
 			animationInterval: undefined,
 			animationLastTime: 0,
@@ -242,6 +243,7 @@ export default {
 		$route:{
 			immediate: true,
 			handler(route){
+				console.log(route)
 				this.dev = route.query.dev !== undefined
 				if(route.query.dark_mode !== undefined){
 					this.themeOverride = true
@@ -267,6 +269,11 @@ export default {
 					this.autoCycle = true
 				}else{
 					this.autoCycle = false
+				}
+				if(route.query.no_overview !== undefined){
+					this.showOverview = false
+				}else{
+					this.showOverview = true
 				}
 				this.animationFrame()
 			}

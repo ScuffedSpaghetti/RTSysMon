@@ -96,7 +96,7 @@ export default {
 				var item = outArray[x]
 				item.style = {}
 				if(item.outline){
-					item.style.outline = "solid " + (out.outline.width || 0.3) + "em rgb(" + item.outline.r + "," + item.outline.g + "," + item.outline.b + ")"
+					item.style.outline = "solid " + (item.outline.width || 0.3) + "em rgb(" + item.outline.r + "," + item.outline.g + "," + item.outline.b + ")"
 				}
 			}
 			return outArray

@@ -107,7 +107,7 @@ export default {
 			}
 			out.style = {}
 			if(out.outline){
-				out.style.outline = "solid 0.3em rgb(" + out.outline.r + "," + out.outline.g + "," + out.outline.b + ")"
+				out.style.outline = "solid " + (out.outline.width || 0.3) + "em rgb(" + out.outline.r + "," + out.outline.g + "," + out.outline.b + ")"
 			}
 			//console.log(out)
 			return out

@@ -4,6 +4,7 @@
 		<div v-if="averageData.cpu">
 			<OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/>
 			<NutChart :usage="cpuUsage * 4"/>
+			<DonutChartDual :usageInner="cpuUsage * 40 % 100" :usageOuter="cpuUsage * 238.47 % 100"/>
 		</div>
 		<div>
 			<LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/>
@@ -21,6 +22,7 @@
 
 <script>
 import DonutChart from "./DonutChart.vue"
+import DonutChartDual from "./DonutChartDual.vue"
 import HorizontalBar from './HorizontalBar.vue'
 import OpacityBox from "./OpacityBox.vue"
 import LargeComputerOverview from './LargeComputerOverview.vue'
@@ -56,6 +58,7 @@ export default {
 	},
 	components:{
 		DonutChart,
+		DonutChartDual,
 		HorizontalBar,
 		LargeComputerOverview,
 		OpacityBox,

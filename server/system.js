@@ -9,6 +9,10 @@ const zlib = require("zlib")
 
 function recursiveRecordTotal(totalObj, obj){
 	for(var x in obj){
+		if(x.endsWith("_ignore") || obj[x+"_ignore"]){
+			// ignore if ends with ignore or if the same key with the addition of _ignore exists
+			return
+		}
 		var val = obj[x]
 		if((totalObj[x] == undefined || totalObj[x].type == "string") && typeof val == "string"){
 			totalObj[x] = totalObj[x] || {type:"string", strings:new Set()}
@@ -46,12 +50,44 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 		if(val.type == "number"){
 			var numbers = val.numbers.filter((num) => isFinite(num))
 			if(numbers.length > 0){
-				total[x] = 0
-				for(var y in numbers){
-					total[x] += numbers[y]
+				var method = "ave"
+				if(totalRecordObj[x+"_reduce_min"]){
+					method = "min"
 				}
-				if(!settings.addKeys || !settings.addKeys.includes(x)){
-					total[x] /= numbers.length
+				if(totalRecordObj[x+"_reduce_max"]){
+					method = "max"
+				}
+				if(totalRecordObj[x+"_reduce_add"]){
+					method = "add"
+				}
+				
+				
+				switch(method){
+					case "min":
+						var outMin = numbers[0]
+						for(var y in numbers){
+							outMin = Math.min(outMin, numbers[y])
+						}
+						total[x] = outMin
+						break
+					case "max":
+						var outMax = numbers[0]
+						for(var y in numbers){
+							outMax = Math.max(outMax, numbers[y])
+						}
+						total[x] = outMax
+						break
+					case "ave":
+					case "add":
+					default:
+						var outTotal = 0
+						for(var y in numbers){
+							outTotal += numbers[y]
+						}
+						if(!(settings.addKeys && settings.addKeys.includes(x) || method == "add")){
+							outTotal /= numbers.length
+						}
+						total[x] = outTotal
 				}
 			}else{
 				total[x] = val.numbers[0]

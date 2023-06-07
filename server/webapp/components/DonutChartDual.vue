@@ -3,18 +3,22 @@
 		<svg ref="svg" viewBox="0 0 100 100" style="transform: rotate(-90deg)">
 			<g>
 				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorBackground" :stroke-width="50 - innerRadius/2 - 0.25"/>
-				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorMain" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie1" :style="animationStyle"/>
-				<circle cx="50" cy="50" :r="25 + innerRadius/4" fill="none" :stroke="colorSecondary" :stroke-width="50 - innerRadius/2" pathLength="1" stroke-dasharray="0 1" ref="pie2" :style="animationStyle"/>
+				<circle cx="50" cy="50" :r="25 - (100 - innerRadius) / 8 + innerRadius/4" fill="none" :stroke="colorInner" :stroke-width="(50 - innerRadius/2) / 2" pathLength="1" stroke-dasharray="0 1" ref="pie1" :style="animationStyle"/>
+				<circle cx="50" cy="50" :r="25 + (100 - innerRadius) / 8 + innerRadius/4" fill="none" :stroke="colorOuter" :stroke-width="(50 - innerRadius/2) / 2" pathLength="1" stroke-dasharray="0 1" ref="pie2" :style="animationStyle"/>
 			</g> 
 		</svg>
-		<div class="label" :style="{fontSize:size/8+'em'}">{{text == "" ? usage.toFixed(1) + "%" : text}}</div>
+		<div class="label" :style="{fontSize:size/9+'em'}">{{text == "" ? usageOuter.toFixed(1) + "%\n" + usageInner.toFixed(1) + "%": text}}</div>
 	</div>
 </template>
 
 <script>
 export default {
 	props:{
-		usage: {
+		usageInner: {
+			type: Number,
+			default: 0,
+		},
+		usageOuter: {
 			type: Number,
 			default: 0,
 		},
@@ -34,13 +38,15 @@ export default {
 	data() {
 		return {
 			colorBackground: "#555555",
-			colorMain: "#0dec2b",
-			colorSecondary: "#ff0000",
+			colorInner: "#0dec2b",
+			colorOuter: "#0dec2b",
 			pxSize:1,
 		};
 	},
 	methods: {
-		updateChart(usage) {
+		updateChart() {
+			var usage = this.usageInner
+			var usage2 = this.usageOuter
 			if(this.$refs.pie1){
 				var dasharray = "0 1"
 				var dasharray2 = "0 1"
@@ -50,10 +56,10 @@ export default {
 				if(usage>=100){
 					dasharray = "1 0"
 				}
-				if(usage>100){
-					dasharray2 = (usage-100)/100 + " 1"
+				if(usage2 >= 0.01){
+					dasharray2 = usage2/100 + " 1"
 				}
-				if(usage>=200){
+				if(usage2>=100){
 					dasharray2 = "1 0"
 				}
 				this.$refs.pie1.setAttribute("stroke-dasharray", dasharray)
@@ -71,13 +77,19 @@ export default {
 		}
 	},
 	mounted(){
-		this.updateChart(this.usage)
+		this.updateChart()
 	},
 	watch: {
-		usage: {
+		usageInner: {
 			immediate: false,
 			handler(usage){
-				this.updateChart(usage)
+				this.updateChart()
+			}
+		},
+		usageOuter: {
+			immediate: false,
+			handler(usage){
+				this.updateChart()
 			}
 		}
 	},
@@ -92,6 +104,7 @@ export default {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	white-space: pre-wrap;
+	text-align: center;
 }
 .container-donut-chart{
 	display: inline-block; 

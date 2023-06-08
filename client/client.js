@@ -37,6 +37,9 @@ function recursiveRecordTotal(totalObj, obj){
 		}
 		if((totalObj[x] == undefined || totalObj[x].type == "number") && typeof val == "number"){
 			totalObj[x] = totalObj[x] || {type:"number", numbers:[]}
+			if(obj[x + "_reduce_overwrite"]){
+				totalObj[x].numbers = []
+			}
 			totalObj[x].numbers.push(val)
 		}
 		if((totalObj[x] == undefined || totalObj[x].type == "object" ||  totalObj[x].type == "array") && typeof val == "object"){
@@ -77,6 +80,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 				if(totalRecordObj[x+"_reduce_add"]){
 					method = "add"
 				}
+				if(totalRecordObj[x+"_reduce_overwrite"]){
+					method = "over"
+				}
 				
 				
 				switch(method){
@@ -93,6 +99,9 @@ function recursiveFinalTotal(totalRecordObj, total, settings){
 							outMax = Math.max(outMax, numbers[y])
 						}
 						total[x] = outMax
+						break
+					case "over":
+						total[x] = numbers[0]
 						break
 					case "ave":
 					case "add":

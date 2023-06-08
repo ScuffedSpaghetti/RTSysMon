@@ -234,6 +234,14 @@ module.exports = class System{
 				this.info.cpu.individual_usage = this.info.cpu.individualUsage
 				this.info.cpu.individualUsage = undefined
 			}
+			if(this.info.os && !this.info.system){
+				// move old os info into system
+				this.info.system = {
+					average:{
+						os: this.info.os
+					}
+				}
+			}
 			if(!this.initialized){
 				var uid = this.hostname
 				var counter = 1

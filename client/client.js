@@ -1,5 +1,6 @@
 //@ts-check
 var os = require("os")
+var fs = require("fs")
 var WebSocket = require("ws")
 if(!process.env["NODE_CONFIG_DIR"]){
 	process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
@@ -19,6 +20,7 @@ var WindowsNetwork = require("./devices/network-windows")
 var ExtraDevice = require("./devices/extra-device")
 var LinuxGPU = require("./devices/gpu-linux")
 var WindowsGPU = require("./devices/gpu-windows")
+var GenericSystem = require("./devices/system-info")
 
 
 
@@ -146,6 +148,9 @@ function averageObjects(arr,settings){
 async function getValidDevices(){
 	var devices = {}
 	if(!config.get("hideDefaultDevices")){
+		devices.cpu = new GenericCPU()
+		devices.memory = new GenericRAM()
+		devices.system = new GenericSystem()
 		switch(process.platform){
 			case "linux":
 				devices.cpu = new LinuxCPU()
@@ -154,14 +159,9 @@ async function getValidDevices(){
 				devices.gpu = new LinuxGPU()
 			break
 			case "win32":
-				devices.cpu = new GenericCPU()
-				devices.memory = new GenericRAM()
 				devices.network = new WindowsNetwork()
 				devices.gpu = new WindowsGPU()
 			break
-			default:
-				devices.cpu = new GenericCPU()
-				devices.memory = new GenericRAM()
 		}
 		var nvidia = new NvidiaGPU()
 		if((await nvidia.getDeviceInfo()).length > 0){
@@ -327,7 +327,6 @@ void (async function(){
 				sendJSON({
 					type:"init_system",
 					hostname:config.get("customName") || os.hostname(),
-					os:os.version?os.version():undefined,
 					password:password,
 				})
 				interval = setInterval(async ()=>{

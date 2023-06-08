@@ -6,6 +6,9 @@
 		<div style="text-align:center" v-else>
 			<img style="margin:auto" src="../public/images/loadingDots.svg" alt="Three Loading Dots">
 		</div>
+		<div class="pad" v-if="individualData.system">
+			<SystemDetails :info="individualData.system" :compHeight="4" :compWidth="4"/>
+		</div>
 		<div class="pad" v-if="individualData.cpu">
 			<CpuDetails :info="individualData.cpu" :compHeight="4" :compWidth="4"/>
 		</div>
@@ -24,6 +27,7 @@
 <script>
 
 import LargeComputerOverview from './LargeComputerOverview.vue'
+import SystemDetails from './SystemDetails.vue'
 import CpuDetails from './CpuDetails.vue'
 import GpuDetails from './GpuDetails.vue'
 import NetworkDetails from './NetworkDetails.vue'
@@ -46,6 +50,7 @@ export default {
 	},
 	components:{
 		LargeComputerOverview,
+		SystemDetails,
 		CpuDetails,
 		GpuDetails,
 		NetworkDetails,

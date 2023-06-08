@@ -1,3 +1,15 @@
+
+let dayMap = {
+	0: "Sun",
+	1: "Mon",
+	2: "Tue",
+	3: "Wed",
+	4: "Thu",
+	5: "Fri",
+	6: "Sat",
+}
+
+
 export function addUnit(value,unit,obj){
 	obj = obj || {}
 	obj.decimals = (obj.decimals != undefined ? obj.decimals : 1)

@@ -11,7 +11,7 @@ function recursiveRecordTotal(totalObj, obj){
 	for(var x in obj){
 		if(x.endsWith("_ignore") || obj[x+"_ignore"]){
 			// ignore if ends with ignore or if the same key with the addition of _ignore exists
-			return
+			continue
 		}
 		var val = obj[x]
 		if((totalObj[x] == undefined || totalObj[x].type == "string") && typeof val == "string"){

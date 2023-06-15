@@ -328,7 +328,9 @@ void (async function(){
 			intervalAlive = setInterval(async ()=>{
 				var now = Date.now() / 1000
 				if(now - lastSeen > 200){
-					console.log('socket ping timeout, reconnecting')
+					if(process.env.VERBOSE){
+						console.log('socket ping timeout, reconnecting')
+					}
 					close()
 				}
 			},10000)

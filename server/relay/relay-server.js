@@ -42,12 +42,16 @@ async function launchRelay(options){
 			}
 			websocketFrom.onerror = close
 			websocketFrom.onclose = () => {
-				console.log("from close")
+				if(process.env.VERBOSE){
+					console.log("from close")
+				}
 				close()
 			}
 			websocketTo.onerror = close
 			websocketTo.onclose = () => {
-				console.log("to close")
+				if(process.env.VERBOSE){
+					console.log("to close")
+				}
 				close()
 			}
 			websocketFrom.on("pong",()=>{
@@ -59,9 +63,13 @@ async function launchRelay(options){
 			intervalAlive = setInterval(async ()=>{
 				let now = Date.now() / 1000
 				if(now - lastSeenFrom > 200 || now - lastSeenTo > 200){
-					console.log('socket ping timeout, reconnecting')
+					if(process.env.VERBOSE){
+						console.log('socket ping timeout, reconnecting')
+					}
 					close()
 				}
+				websocketFrom.ping()
+				websocketTo.ping()
 			},10000)
 			/**
 			 * 

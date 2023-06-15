@@ -33,7 +33,7 @@
 					<HorizontalBar class="flex-child" :height="compHeight" :width="compWidth" :usage="averageData.gpu.memory.usage"/>
 				<div class="info-text">{{toGB(averageData.gpu.memory.bytes)}}GB / {{toGB(averageData.gpu.memory.bytes_total)}}GB</div>
 			</div>
-			<div class="item" v-if="averageData.power && averageData.power.watts">
+			<div class="item" v-if="averageData.power && averageData.power.watts != undefined">
 				<div class="title">Power</div>
 				<div class="info-text" style="min-width:6em;">{{averageData.power.watts.toFixed(1)}} Watts</div>
 			</div>

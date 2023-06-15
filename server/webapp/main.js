@@ -5,5 +5,7 @@ import Vue from "vue"
 import App from "./App.vue"
 
 var app = new Vue(App)
+//@ts-ignore
+window.app = app
 
 app.$mount("#app")

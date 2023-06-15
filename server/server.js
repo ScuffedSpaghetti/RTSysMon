@@ -2,11 +2,15 @@
 
 var WebSocket = require("ws")
 var http = require("http")
+var path = require("path")
 
-process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+if(!process.env["NODE_CONFIG_DIR"]){
+	process.env["NODE_CONFIG_DIR"] = __dirname + "/config/"
+}
 var config = require("config")
 
 var System = require("./system")
+var SystemRelay = require("./system-relay")
 var Listener = require("./listener")
 var lightHttp = require("./lighthttp")
 
@@ -19,7 +23,7 @@ var wsServer = new WebSocket.Server({
 
 var webServer = lightHttp()
 webServer.add_server(httpServer)
-webServer.web_directory = "webapp/dist"
+webServer.web_directory = path.join(__dirname, "webapp/dist")
 
 httpServer.listen(config.get("port"))
 
@@ -28,7 +32,7 @@ var password = config.get("password")
 wsServer.on("connection",(socket,req)=>{
 	req.socket.setKeepAlive(true, 10000)
 	req.socket.setTimeout(30000)
-	/**@type {System | Listener | undefined} */
+	/**@type {System | Listener | SystemRelay | undefined} */
 	var endpoint = undefined
 	req.socket.on('timeout', () => {
 		console.log('socket timeout')
@@ -56,7 +60,12 @@ wsServer.on("connection",(socket,req)=>{
 				break
 				
 				case "init_client":
+				case "init_listener":
 					endpoint = new Listener(socket, obj)
+				break
+				
+				case "init_relay":
+					endpoint = new SystemRelay(socket, obj)
 				break
 				
 				default:

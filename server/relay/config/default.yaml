@@ -1,0 +1,10 @@
+# the addresses use the full websocket address 
+# wss is for secure while ws is for unsecure
+
+relays:
+  - from: "wss://system-monitor.example.com"
+    to: "ws://system-monitor2.example.com"
+    password: "toSeverPassword"
+  - from: "ws://system-monitor2.example.com"
+    to: "wss://system-monitor3.example.com"
+    hostnamePattern: ".*-PC"

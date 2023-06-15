@@ -44,7 +44,7 @@ function createConnection(){
 	}
 
 	var initMessage = {
-		type: "init_client"
+		type: "init_listener"
 	}
 
 	// with the old function syntax 'this' is overwritten and can not be accessed

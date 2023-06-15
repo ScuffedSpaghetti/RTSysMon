@@ -2,10 +2,12 @@ node_modules
 package-lock.json
 dist
 tmp
-*/config/*
-!*/config/default.yaml
+**/config/*
+!**/config/default.yaml
 /client/multi/configs/*
 !/client/multi/configs/.gitkeep
+/server/multi/configs/*
+!/server/multi/configs/.gitkeep
 node
 node.exe
 node-test.exe

@@ -44,6 +44,7 @@
 					<div class="item" v-if="x.status">
 						<div class="title">Status</div>
 						<div class="info-text" style="min-width:6em;">{{x.status}}</div>
+						<div class="info-text" style="min-width:6em;margin-top:0.5em;" v-if="x.status_extra">{{x.status_extra}}</div>
 					</div>
 					<Value class="item" v-for="(value, i2) in x.values" :key="i2" :value="value" :height="compHeight" :width="compWidth"/>
 					<div class="item" v-if="x.warning" style="color:#FF7601;">

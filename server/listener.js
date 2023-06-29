@@ -1,7 +1,7 @@
 //@ts-check
 const System = require("./system")
 const msgPack = require("@msgpack/msgpack")
-const compressJson = require("compressed-json")
+const compressJson = require("./compressed-json")
 const zlib = require("zlib")
 const config = require("config")
 
@@ -21,9 +21,12 @@ module.exports = class Listener{
 	}
 	
 	sendInfo(){
-		var info = System.getClusterInfo()
-		info.type = "info"
-		this.sendJSON(info)
+		// var info = System.getClusterInfo()
+		// info.type = "info"
+		// this.sendJSON(info)
+		if(this.socket.readyState == this.socket.OPEN){
+			this.socket.send(System.getClusterInfo(true))
+		}
 	}
 	
 	sendSettings(){
@@ -48,9 +51,12 @@ module.exports = class Listener{
 			// 	}
 			// }))
 			
-			var type = obj.type
-			obj = compressJson.compress(obj)
-			obj.type = type
+			
+			// var type = obj.type
+			obj = compressJson.compress(obj, {preserveOrder: true})
+			// obj.type = type
+			// this.socket.send(JSON.stringify(obj))
+			// return
 			var binary = msgPack.encode(obj, {
 				forceFloat32: true,
 				ignoreUndefined: true

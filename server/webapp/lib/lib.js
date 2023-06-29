@@ -33,11 +33,16 @@ function createConnection(){
 		totalBytes += length
 		if(typeof event.data == "string"){
 			var obj = JSON.parse(event.data)
+			if(obj.K && obj._){
+				obj = decompressJson(obj)
+			}
 			messageHandler(obj)
 		}else{
 			var binary = ungzip(event.data)
 			var obj = msgPackDecode(binary)
-			obj = decompressJson(obj)
+			if(obj.K && obj._){
+				obj = decompressJson(obj)
+			}
 			messageHandler(obj)
 		}
 		

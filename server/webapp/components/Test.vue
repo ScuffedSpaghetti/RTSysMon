@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<OpacityBox :height="5" :width="5" style="padding:0.5em"/>
-		<div v-if="averageData.cpu">
+		<div v-if="averageData && averageData.cpu">
 			<OpacityBox :usage="cpuUsage" :height="5" :width="5" style="padding:0.5em"/>
 			<NutChart :usage="cpuUsage * 4"/>
 			<DonutChartDual :usageInner="cpuUsage * 40 % 100" :usageOuter="cpuUsage * 238.47 % 100"/>
 		</div>
-		<div>
+		<div v-if="averageData && averageData.cpu">
 			<LargeComputerOverview :info="averageData" :compTitle="'Whole System Network Overview'" style="padding:0.5em"/>
 		</div>
 		

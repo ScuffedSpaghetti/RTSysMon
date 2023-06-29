@@ -2,7 +2,7 @@
 
 
 const msgPack = require("@msgpack/msgpack")
-const compressJson = require("compressed-json")
+const compressJson = require("./compressed-json")
 const zlib = require("zlib")
 
 
@@ -193,20 +193,21 @@ module.exports = class System{
 			})
 			var totalAverage = averageObjects(individual,{
 				addKeys:["bytes","bytes_total", "watts","watts_limit","rx_bytes","rx_bytes_limit","tx_bytes","tx_bytes_limit"],
-				ignoreKeys:["individual"],
+				ignoreKeys:["individual", "description_node_only"],
 			})
 			System.clusterInfoCache = {
 				average: totalAverage,
-				individual: individual
+				individual: individual,
+				type: "info"
 			}
-			var obj = compressJson.compress(obj)
-			obj.type = "info"
+			var obj = compressJson.compress(System.clusterInfoCache, {preserveOrder: true})
+			// @ts-ignore
+			//obj.type = "info"
 			var binary = msgPack.encode(obj, {
 				forceFloat32: true,
 				ignoreUndefined: true
 			})
 			//may cause memory fragmentation if async
-			//more testing would be necessary to determine if gzip shows the same behavior as deflate
 			binary = zlib.gzipSync(binary)
 			System.clusterInfoCacheCompressed = binary
 		}

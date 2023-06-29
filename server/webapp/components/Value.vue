@@ -10,7 +10,6 @@
 		<template v-else-if="value.type == 'bar'">
 			<HorizontalBar class="flex-child" :usage="value.usage" :height="height" :width="width"/>
 			<div class="info-text">{{addUnit(value.value, value.unit, value)}} / {{addUnit(value.value_limit, value.unit, value)}}</div>
-			<div class="info-text" v-if="value.extra_info">{{addUnit(value.extra_info, value.extra_info_unit)}}</div>
 		</template>
 		<template v-else-if="value.type == 'donut_dual'">
 			<DonutChartDual class="flex-child" :usageInner="value.usage_inner" :usageOuter="value.usage_outer" :size="height*1.5"/>
@@ -18,7 +17,9 @@
 		<template v-else>
 			<div class="info-text" style="min-width:6em; white-space: pre-wrap;">{{addUnit(value.value, value.unit, value)}}</div>
 		</template>
+		<div class="info-text" v-if="value.extra_info">{{addUnit(value.extra_info, value.extra_info_unit)}}</div>
 		<div class="info-text" v-if="value.description" style="white-space: pre-wrap;">{{value.description}}</div>
+		<div class="info-text" v-if="value.description_node_only" style="white-space: pre-wrap;">{{value.description_node_only}}</div>
 	</div>
 </template>
 

@@ -12,13 +12,14 @@
 					<HorizontalBar class="flex-child" :height="compHeight" :width="compWidth" :usage="averageData.memory.usage"/>
 				<div class="info-text">{{toGB(averageData.memory.bytes)}}GB / {{toGB(averageData.memory.bytes_total)}}GB</div>
 			</div>
-			<div class="item" v-if="averageData.warning" style="color:#FF7601;">
-				<div class="title">Warning</div>
-				<div class="info-text" style="min-width:4em;">{{averageData.warning}}</div>
+			<div class="item" v-if="averageData.warning != undefined" style="color:#FF7601;">
+				<!-- Allow a blank string to make a placeholder space -->
+				<div class="title">{{averageData.warning != "" ? "Warning" : "\xa0"}}</div>
+				<div class="info-text" style="min-width:4em;">{{averageData.warning || "\xa0"}}</div>
 			</div>
 			<div class="item" v-if="averageData.error" style="color:red;">
-				<div class="title">Warning</div>
-				<div class="info-text" style="min-width:4em;">{{averageData.error}}</div>
+				<div class="title">{{averageData.error != "" ? "Error" : "\xa0"}}</div>
+				<div class="info-text" style="min-width:4em;">{{averageData.error || "\xa0"}}</div>
 			</div>
 		</div>
 		<div class="component">
@@ -85,14 +86,14 @@ export default {
 			for(var x in data){
 				var item = data[x]
 				out[x] = item.average
-				if(item.warning){
+				if(item.warning || (out.warning == undefined && item.warning == "")){
 					if(out.warning){
 						out.warning += " | " + item.warning
 					}else{
 						out.warning = item.warning
 					}
 				}
-				if(item.error){
+				if(item.error || (out.error == undefined && item.error == "")){
 					if(out.error){
 						out.error += " | " + item.error
 					}else{
@@ -102,14 +103,14 @@ export default {
 			}
 			for(var x in data.extra){
 				var extraItem = data.extra[x].average
-				if(extraItem.warning){
+				if(extraItem.warning || (out.warning == undefined && extraItem.warning == "")){
 					if(out.warning){
 						out.warning += " | " + extraItem.warning
 					}else{
 						out.warning = extraItem.warning
 					}
 				}
-				if(extraItem.error){
+				if(extraItem.error || (out.error == undefined && extraItem.error == "")){
 					if(out.error){
 						out.error += " | " + extraItem.error
 					}else{

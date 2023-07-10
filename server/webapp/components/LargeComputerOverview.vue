@@ -80,7 +80,14 @@ export default {
 			for(var x in data){
 				var item = data[x]
 				out[x] = item.average
-				if(item.error){
+				if(item.warning || (out.warning == undefined && item.warning == "")){
+					if(out.warning){
+						out.warning += " | " + item.warning
+					}else{
+						out.warning = item.warning
+					}
+				}
+				if(item.error || (out.error == undefined && item.error == "")){
 					if(out.error){
 						out.error += " | " + item.error
 					}else{
@@ -90,14 +97,14 @@ export default {
 			}
 			for(var x in data.extra){
 				var extraItem = data.extra[x].average
-				if(extraItem.warning){
+				if(extraItem.warning || (out.warning == undefined && extraItem.warning == "")){
 					if(out.warning){
 						out.warning += " | " + extraItem.warning
 					}else{
 						out.warning = extraItem.warning
 					}
 				}
-				if(extraItem.error){
+				if(extraItem.error || (out.error == undefined && extraItem.error == "")){
 					if(out.error){
 						out.error += " | " + extraItem.error
 					}else{

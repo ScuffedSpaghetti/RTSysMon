@@ -21,7 +21,7 @@ async function getOSName(){
 			data[key] = value
 		}
 		osName = data.pretty_name || (data.name + " " + data.version) || osName
-	}catch(e){console.log(e)}
+	}catch(e){}
 	return osName
 }
 

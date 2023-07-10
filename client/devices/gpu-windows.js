@@ -20,7 +20,7 @@ var child_process = require("child_process")
 var fs = require("fs")
 var path = require("path")
 var csvParse = require("csv-parse/sync")
-
+var TypePerf = require("./helpers/typeperf.js")
 
 /*
 Get-WmiObject Win32_PnPSignedDriver -Filter "DeviceClass = 'DISPLAY'"
@@ -169,7 +169,12 @@ module.exports = class WindowsGPU{
 		if(!this.hasInitialized){
 			this.hasInitialized = true
 			this.getFirstInfo()
-			this.startPollingGPUs()
+			this.typePerf = new TypePerf(async (data) => {
+				this.parseGPUData(data)
+			}, {
+				restartTime: 15,
+				performanceCounters: ["\\GPU Adapter Memory(*)\\Dedicated Usage",  "\\GPU Engine(*)\\Utilization Percentage"]
+			})
 		}
 		return this.data
 	}
@@ -204,62 +209,10 @@ module.exports = class WindowsGPU{
 				console.error("Could not get GPU information from poweshell.")
 			}
 		}
-		console.log(this.luidToName, this.nameToVRAM)
+		//console.log(this.luidToName, this.nameToVRAM)
 	}
 	
-	async startPollingGPUs(){
-		try{
-			// typeperf -sc 2 "\GPU Adapter Memory(*)\Dedicated Usage"  "\GPU Engine(*)\Utilization Percentage"
-			var prc = child_process.spawn("typeperf", ["\\GPU Adapter Memory(*)\\Dedicated Usage",  "\\GPU Engine(*)\\Utilization Percentage"])
-			//var prc = child_process.spawn("typeperf", ["\\Network Interface(*)\\Bytes Sent/sec"])
-			prc.on("error", (err)=>{
-				if(process.env.VERBOSE){
-					console.error(err)
-					console.error("Could not get GPU information from typeperf.")
-				}
-			})
-			var header = ""
-			var partialData = ""
-			prc.stdout.on("data",async (data)=>{
-				// TODO: wrap in try statement
-				// console.log("data",data.toString())
-				data = partialData + data.toString().replace(/\r/g, "")
-				data = data.split("\n")
-				// console.log("data",data)
-				partialData = data.pop()
-				if(data.length == 0){
-					return
-				}
-				if(!header.length){
-					header = data.shift()
-				}
-				if(data.length == 0){
-					return
-				}
-				if(!header.length){
-					header = data.shift()
-				}
-				for(var x in data){
-					// TODO: this is one second behind because the \n is placed by the next line
-					var dataWithHeader = header + "\n" + data[x] + "\n"
-					// console.log("dataWithHeader",dataWithHeader)
-					// console.log("header",header)
-					// console.log("data",data)
-					// console.log("partialData",partialData)
-					var parsed = csvParse.parse(dataWithHeader, {columns: true, skip_empty_lines: true})[0]
-					await this.parseGPUData(parsed)
-				}
-			})
-			prc.stdout.on("end",()=>{
-				
-			})
-		}catch(err){
-			if(process.env.VERBOSE){
-				console.error(err)
-				console.error("Could not get GPU information from typeperf.")
-			}
-		}
-	}
+	
 	/**
 	 * 
 	 * @param {{[key: string]:string}} data 
@@ -397,7 +350,7 @@ module.exports = class WindowsGPU{
 			if(device.memory.bytes_total){
 				device.memory.usage = device.memory.bytes / device.memory.bytes_total * 100
 			}
-			console.log(device.name, outDataAdapter)
+			// console.log(device.name, outDataAdapter)
 			this.data.push(device)
 			id++
 		}

@@ -3,6 +3,7 @@
 var child_process = require("child_process")
 var fs = require("fs")
 var csvParse = require("csv-parse/sync")
+var TypePerf = require("./helpers/typeperf.js")
 
 //typeperf -sc 1 "\Network Interface(*)\Current Bandwidth" "\Network Interface(*)\Bytes Sent/sec" "\Network Interface(*)\Bytes Received/sec"
 
@@ -49,14 +50,25 @@ function networkData(){
 module.exports = class WindowsNetwork{
 	loggedError = false
 	data = []
+	hasInitialized = false
 	async getDeviceInfo(){
-		this.getNICs()
+		//this.getNICs()
+		
+		if(!this.hasInitialized){
+			this.hasInitialized = true
+			this.typePerf = new TypePerf(async (data) => {
+				this.parseNICs(data)
+			}, {
+				restartTime: 60,
+				performanceCounters: ["\\Network Interface(*)\\Current Bandwidth", "\\Network Interface(*)\\Bytes Sent/sec", "\\Network Interface(*)\\Bytes Received/sec"]
+			})
+		}
 		return this.data
 	}
 
-	async getNICs(){
+	async parseNICs(rawData){
 		try{
-			var rawData = await networkData()
+			// var rawData = await networkData()
 			var devices = new Map()
 			var NICs = []
 			for(var x in rawData){

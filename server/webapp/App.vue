@@ -150,10 +150,10 @@ export default {
 					this.autoScrollLocation = window.scrollY
 				}
 				
-				if (window.scrollY + window.innerHeight >= document.body.parentElement.scrollHeight) {
+				if (window.scrollY + window.innerHeight >= document.body.parentElement.scrollHeight - 1.5) {
 					this.autoScrollDirection = -1
 				}
-				if(this.autoScrollLocation <= 0){
+				if(this.autoScrollLocation <= 1.5){
 					this.autoScrollDirection = 1
 				}
 				if(this.autoCycle && this.autoScrollAutoSpeed){

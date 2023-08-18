@@ -15,3 +15,11 @@ webDefaultTheme: 0
 
 # set to true if web clients should not animate charts
 webDisableAnimation: false
+
+# extra links to display in the nav bar
+# when internal is true it can be used to link to a specific node with a link like /node/computer-id
+# to remove all links put   extraNavLinks: []  into local.yaml
+extraNavLinks:
+  - name: "Github"
+    link: "https://github.com/ScuffedSpaghetti/RTSysMon"
+    internal: false

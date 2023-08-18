@@ -35,6 +35,7 @@ module.exports = class Listener{
 				show_about: config.get("webShowAbout"),
 				default_theme: config.get("webDefaultTheme"),
 				disable_animation: config.get("webDisableAnimation"),
+				extra_nav_links: config.get("extraNavLinks"),
 			},
 			type: "settings"
 		})

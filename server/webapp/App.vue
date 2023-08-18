@@ -74,6 +74,7 @@ export default {
 			dev: false,
 			connected: false,
 			showOverview: true,
+			extraNavLinks: [],
 			
 			animationInterval: undefined,
 			animationLastTime: 0,
@@ -119,6 +120,8 @@ export default {
 			
 			if(message.type == "settings"){
 				this.showAboutPage = message.settings.show_about
+				console.log(message.settings)
+				this.extraNavLinks = message.settings.extra_nav_links || []
 				if(message.settings.default_theme && !this.themeOverride){
 					this.themeOverride = true
 					if(message.settings.default_theme == 2){

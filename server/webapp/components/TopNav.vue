@@ -12,6 +12,10 @@
 				<router-link ref="home" class="active" :to="'/'">Home</router-link>
 				<router-link ref="settings" :to="'/settings'">Settings</router-link>
 				<router-link ref="about" v-if="this.$root.showAboutPage" :to="'/about'">About</router-link>
+				<template v-for="(item, index) in this.$root.extraNavLinks">
+					<router-link v-if="item.internal" v-bind:key="index"  :to="item.link">{{item.name}}</router-link>
+					<a v-if="!item.internal" v-bind:key="index" :href="item.link">{{item.name}}</a>
+				</template>
 			</div>
 		</div>
 		<div class="search-bar-container">
